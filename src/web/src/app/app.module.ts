@@ -8,12 +8,15 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 
 import { HomeComponent, DashboardComponent } from './pages';
+import { CircularBarChartComponent, HousingCostsMatrixComponent } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    CircularBarChartComponent,
+    HousingCostsMatrixComponent
   ],
   imports: [
     BrowserModule,

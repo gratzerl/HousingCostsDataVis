@@ -1,0 +1,14 @@
+.bar-chart-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  app-circular-bar-chart {
+    width: 360px;
+    max-width: 360px;
+    height: 360px;
+    max-height: 360px;
+    &:not(:last-of-type) {
+      margin-right: 16px;
+    }
+  }
+}
