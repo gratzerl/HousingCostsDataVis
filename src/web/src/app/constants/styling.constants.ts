@@ -1,2 +1,2 @@
-export const chartLabelFontSize = 28;
+export const chartLabelFontSize = 64;
 export const chartAxisFontSize = 12;

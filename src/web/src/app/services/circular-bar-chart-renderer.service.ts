@@ -1,19 +1,24 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { Bar } from "../models";
-import { Arc, ScaleBand, ScaleRadial } from "d3";
+import { Bar } from '../models';
+import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import * as d3 from 'd3';
 
 import { chartLabelFontSize } from '../constants/styling.constants';
+import { Observable, Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CircularBarChartRendererService {
 
   constructor() { }
 
-  appendChart(chartElement: ElementRef<any>, data: Bar[], width: number, height: number, yMaxValue: number, innerRadiusPercentage: number = 0.2, outerRadiusPadding: number = 24): d3.Selection<SVGSVGElement, unknown, null, undefined> {
-    const [innerRadius, outerRadius] = this.getRadii(width, height, innerRadiusPercentage, outerRadiusPadding);
+  private hoveredBar = new Subject<[MouseEvent, Bar]>();
+
+  get hoveredBar$(): Observable<[MouseEvent, Bar]> {
+    return this.hoveredBar.asObservable();
+  }
+
+  appendChart(chartElement: ElementRef<any>, data: Bar[], centerLabel: string, width: number, height: number, yMaxValue: number, innerRadiusPercentage: number = 0.25, paddingPercentage: number = 0.015): d3.Selection<SVGSVGElement, unknown, null, undefined> {
+    const [innerRadius, outerRadius] = this.getRadii(width, height, innerRadiusPercentage, paddingPercentage);
     const xScale = this.getXScale(data);
     const yScale = this.getYScale(yMaxValue, innerRadius, outerRadius);
 
@@ -21,13 +26,25 @@ export class CircularBarChartRendererService {
 
     const svg = this.getSvg(data, chartElement, arc, width, height);
 
+    this.appendTextElement(svg, 'centerLabel')
+      .text(centerLabel);
+
     // const xAxisFn = this.getXAxisFn(data, xScale, yScale);
     // svg.append('g').call(xAxisFn);
 
     // const yAxisFn = this.getYAxisFn(yScale);
     // svg.append('g').call(yAxisFn);
-
     return svg;
+  }
+
+  private appendTextElement(svg: d3.Selection<SVGSVGElement, unknown, null, undefined>, id: string, defaultDisplay: string = 'inline'): d3.Selection<SVGTextElement, unknown, null, undefined> {
+    return svg.append('g')
+      .style('font', `${chartLabelFontSize}px sans-serif`)
+      .attr('pointer-events', 'none')
+      .attr('text-anchor', 'middle')
+      .append('text')
+      .style('display', defaultDisplay)
+      .attr('id', id);
   }
 
   private getSvg(data: Bar[], chartElement: ElementRef<any>, arc: Arc<any, Bar>, width: number, height: number): d3.Selection<SVGSVGElement, unknown, null, undefined> {
@@ -39,6 +56,19 @@ export class CircularBarChartRendererService {
       .style('height', 'auto')
       .style('font', `${chartLabelFontSize}px sans-serif`);
 
+    const hoverLabel = this.appendTextElement(svg, 'hoverLabel', 'none');
+
+    hoverLabel
+      .append('tspan')
+      .attr('x', 0)
+      .attr('id', 'topLabel');
+
+    hoverLabel
+      .append('tspan')
+      .attr('dy', '1em')
+      .attr('x', 0)
+      .attr('id', 'bottomLabel');
+
     svg
       .append('g')
       .selectAll('path')
@@ -46,10 +76,35 @@ export class CircularBarChartRendererService {
       .enter()
       .append('path')
       .attr('fill', '#89338f')
+      .attr('id', 'barPath')
       .attr('d', d => arc(d))
-      .on('mousemove', (event, d) => {
-        console.log('mouseover', event);
-        console.log('data', d);
+      .on('mouseenter', (event: MouseEvent, bar: Bar) => {
+        this.hoveredBar.next([event, bar]);
+        d3.select(event.target as any)
+          .transition()
+          .duration(50)
+          .attr('opacity', '0.85');
+
+        d3.select(chartElement.nativeElement)
+          .select('#topLabel')
+          .text(() => `${Math.ceil(bar.percent * 100)}%`);
+
+        d3.select(chartElement.nativeElement)
+          .select('#bottomLabel')
+          .text(() => `${bar.year}`);
+
+        this.toggleElementVisibility(chartElement, 'hoverLabel', true);
+        this.toggleElementVisibility(chartElement, 'centerLabel', false);
+      })
+      .on('mouseleave', (event: MouseEvent) => {
+        this.hoveredBar.next([event, null]);
+        d3.select(event.target as any)
+          .transition()
+          .duration(50)
+          .attr('opacity', '1');
+
+        this.toggleElementVisibility(chartElement, 'hoverLabel', false);
+        this.toggleElementVisibility(chartElement, 'centerLabel', true);
       });
 
     return svg;
@@ -64,6 +119,12 @@ export class CircularBarChartRendererService {
       .endAngle((d: Bar) => xScale(d.year) + xScale.bandwidth())
       .padAngle(0.01)
       .padRadius(innerRadius);
+  }
+
+  private toggleElementVisibility(rootElement: ElementRef<any>, elementId: string, isVisible: boolean): void {
+    d3.select(rootElement.nativeElement)
+      .select(`#${elementId}`)
+      .style('display', isVisible ? 'inline' : 'none');
   }
 
   // private getYAxisFn(yScale: ScaleRadial<number, number, never>) {
@@ -94,23 +155,23 @@ export class CircularBarChartRendererService {
   //   return yAxis;
   // }
 
-  private getXAxisFn(data: Bar[], xScale: ScaleBand<string>, yScale: ScaleRadial<number, number, never>) {
-    const xAxis = g => g
-      .attr('text-anchor', 'middle')
-      .call(g => g
-        .selectAll('g')
-        .data(data)
-        .join('g')
-        .attr('transform', d => `rotate(${((xScale(d.year) + xScale.bandwidth() / 2) * 180) / Math.PI - 90}) translate(${yScale(d.percent) + chartLabelFontSize}, 0)`)
-        .call(g => g
-          .append('text')
-          .attr('transform', d =>
-            (xScale(d.year) + xScale.bandwidth() / 2 + Math.PI / 2) %
-              (2 * Math.PI) < Math.PI ? 'rotate(90)translate(0,16)' : 'rotate(-90)translate(0,-9)')
-          .text((d: Bar) => d.year)));
+  // private getXAxisFn(data: Bar[], xScale: ScaleBand<string>, yScale: ScaleRadial<number, number, never>) {
+  //   const xAxis = g => g
+  //     .attr('text-anchor', 'middle')
+  //     .call(g => g
+  //       .selectAll('g')
+  //       .data(data)
+  //       .join('g')
+  //       .attr('transform', d => `rotate(${((xScale(d.year) + xScale.bandwidth() / 2) * 180) / Math.PI - 90}) translate(${yScale(d.percent) + chartLabelFontSize}, 0)`)
+  //       .call(g => g
+  //         .append('text')
+  //         .attr('transform', d =>
+  //           (xScale(d.year) + xScale.bandwidth() / 2 + Math.PI / 2) %
+  //             (2 * Math.PI) < Math.PI ? 'rotate(90)translate(0,16)' : 'rotate(-90)translate(0,-9)')
+  //         .text((d: Bar) => d.year)));
 
-    return xAxis;
-  }
+  //   return xAxis;
+  // }
 
   private getYScale(maxY: number, rangeBegin: number, rangeEnd: number): ScaleRadial<number, number, never> {
     return d3
@@ -127,9 +188,10 @@ export class CircularBarChartRendererService {
       .align(0);
   }
 
-  private getRadii(width: number, height: number, innerRadiusPercentage: number, outerRadiusPadding: number): [innerRadius: number, outerRadius: number] {
-    const innerRadius = width * innerRadiusPercentage;
-    const outerRadius = (Math.min(width, height) / 2) - outerRadiusPadding;
+  private getRadii(width: number, height: number, innerRadiusPercentage: number, paddingPercentage: number): [innerRadius: number, outerRadius: number] {
+    const chartRadius = (Math.min(width, height) / 2);
+    const innerRadius = chartRadius * innerRadiusPercentage;
+    const outerRadius = chartRadius - (paddingPercentage * chartRadius);
     return [innerRadius, outerRadius];
   }
 
