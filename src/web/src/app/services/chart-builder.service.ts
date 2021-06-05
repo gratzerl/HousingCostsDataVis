@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 
 export type SvgSelection = d3.Selection<SVGSVGElement, unknown, null, undefined>;
 export type TextSelection = d3.Selection<SVGTextElement, unknown, null, undefined>;
+export type GSelection = d3.Selection<SVGGElement, unknown, null, undefined>;
 
 @Injectable({
   providedIn: 'root'

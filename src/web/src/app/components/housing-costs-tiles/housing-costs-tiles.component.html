@@ -1,4 +1,8 @@
 <div class="bar-chart-container">
-  <app-housing-costs-tile *ngFor="let data of housingCosts" [housingCosts]="data" [maxY]="maxCostsPercentage">
-  </app-housing-costs-tile>
+  <ng-container *ngFor="let data of housingCosts; let idx = index">
+    <app-housing-costs-tile *ngIf="selectedTileIdx === idx || selectedTileIdx === undefined"
+      [ngClass]="{'expanded': selectedTileIdx === idx}" [housingCosts]="data" [maxY]="maxCostsPercentage"
+      (zoom)="tileClicked(idx, $event)">
+    </app-housing-costs-tile>
+  </ng-container>
 </div>

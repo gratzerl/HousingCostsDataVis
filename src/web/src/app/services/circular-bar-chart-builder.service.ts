@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Bar } from '../models';
-import { SvgSelection } from '.';
+import { GSelection } from './chart-builder.service';
 
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import * as d3 from 'd3';
 
-
 export type BarSelection = d3.Selection<SVGPathElement, Bar, SVGGElement, unknown>;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CircularBarChartBuilderService {
 
   constructor() { }
 
-  appendBarChart(svg: SvgSelection, data: Bar[], width: number, height: number, yMaxValue: number, innerRadiusPercentage: number = 0.25, paddingPercentage: number = 0.015): BarSelection {
+  appendChart(selection: GSelection, data: Bar[], width: number, height: number, yMaxValue: number, innerRadiusPercentage: number = 0.25, paddingPercentage: number = 0.015): BarSelection {
     const [innerRadius, outerRadius] = this.getRadii(width, height, innerRadiusPercentage, paddingPercentage);
     const xScale = this.getXScale(data);
     const yScale = this.getYScale(yMaxValue, innerRadius, outerRadius);
 
     const arc = this.getArc(innerRadius, yScale, xScale);
 
-    return this.drawBars(svg, data, arc);
+    return this.drawBars(selection, data, arc);
   }
 
-  private drawBars(svg: SvgSelection, data: Bar[], arc: Arc<any, Bar>): BarSelection {
-    return svg.append('g')
+  private drawBars(selection: GSelection, data: Bar[], arc: Arc<any, Bar>): BarSelection {
+    return selection.append('g')
       .selectAll('path')
       .data(data)
       .enter()

@@ -11,6 +11,8 @@ export class HousingCostsTilesComponent implements OnInit {
   housingCosts = hosingCostsMock;
   maxCostsPercentage: number;
 
+  selectedTileIdx?: number = undefined;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -20,6 +22,15 @@ export class HousingCostsTilesComponent implements OnInit {
       .map(bars => bars.percent);
 
     this.maxCostsPercentage = Math.max(...costs);
+  }
+
+  tileClicked(tileIndex: number, isZoomed: boolean): void {
+    isZoomed ?
+      this.selectedTileIdx = tileIndex :
+      this.selectedTileIdx = undefined;
+
+    // TODO: remove hacky way to force rendering of tiles
+    this.housingCosts = [...this.housingCosts];
   }
 
 }

@@ -1,15 +1,22 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Bar, HousingCosts } from 'src/app/models';
 
-import { CircularBarChartBuilderService, ChartBuilderService, SvgSelection, TextSelection, BarSelection } from 'src/app/services';
+import {
+  CircularBarChartBuilderService,
+  ChartBuilderService,
+  SvgSelection,
+  BarSelection,
+  VoronoiChartBuilderService,
+  GSelection,
+  VoronoiSelection
+} from 'src/app/services';
 
 import * as d3 from 'd3';
 
 @Component({
   selector: 'app-housing-costs-tile',
   templateUrl: './housing-costs-tile.component.html',
-  styleUrls: ['./housing-costs-tile.component.scss'],
-  providers: [CircularBarChartBuilderService]
+  styleUrls: ['./housing-costs-tile.component.scss']
 })
 export class HousingCostsTileComponent implements AfterViewInit {
 
@@ -19,23 +26,37 @@ export class HousingCostsTileComponent implements AfterViewInit {
   @Input()
   maxY!: number;
 
+  @Output()
+  zoom = new EventEmitter<boolean>();
+
   @ViewChild('chart')
   chartContainerRef: ElementRef;
 
+  private isZoomed = false;
+
+  private svgRoot: SvgSelection;
+
+  private barsRoot: GSelection;
+  private bars: BarSelection;
+
+  private voronoiRoot: GSelection;
+  private voronoi: VoronoiSelection;
+
   private innerRadiusRatio = 0.25;
-  private svgElement: SvgSelection;
   private width = 1440;
   private height = 1440;
 
-  private bars: BarSelection;
 
   private defaultCenterLabelId = 'defaultCenterLabel';
   private hoverCenterLabelId = 'hoverCenterLabel';
   private hoverCenterTopLineId = 'hoverTopLabel';
   private hoverCenterBottomLineId = 'hoverBottomLabel';
+  private barChartRootId = 'barChartRoot';
+  private voronoiChartRootId = 'voronoiChartRoot';
 
   constructor(
     private circularBarChartBuilder: CircularBarChartBuilderService,
+    private voronoiChartBuilder: VoronoiChartBuilderService,
     private chartBuilder: ChartBuilderService) { }
 
   ngAfterViewInit(): void {
@@ -43,18 +64,64 @@ export class HousingCostsTileComponent implements AfterViewInit {
   }
 
   createChart(): void {
-    this.svgElement = this.chartBuilder.appendSvg(this.chartContainerRef, this.width, this.height);
-    this.bars = this.circularBarChartBuilder.appendBarChart(this.svgElement, this.housingCosts.costs, this.width, this.height, this.maxY, this.innerRadiusRatio);
-    this.createDefaultCenterLabel(this.housingCosts.country);
-
-    this.createHoverInteraction();
+    this.svgRoot = this.chartBuilder.appendSvg(this.chartContainerRef, this.width, this.height);
+    this.createSvgClickInteraction();
+    this.barsRoot = this.createBarChart();
+    this.voronoiRoot = this.createVoronoiChart();
   }
 
-  private createHoverInteraction(): void {
-    this.createHoverLabels();
+  private createVoronoiChart(): GSelection {
+    const root = this.svgRoot
+      .append('g')
+      .attr('id', this.voronoiChartRootId)
+      .style('display', 'none')
+      .attr('pointer-events', 'none');
+
+    this.voronoi = this.voronoiChartBuilder.appendChart(root, this.width * this.innerRadiusRatio);
+
+    return root;
+  }
+
+  private createBarChart(): GSelection {
+    const root = this.svgRoot
+      .append('g')
+      .attr('id', this.barChartRootId);
+
+    this.bars = this.circularBarChartBuilder.appendChart(root, this.housingCosts.costs, this.width, this.height, this.maxY, this.innerRadiusRatio);
+
+    this.createBarDefaultCenterLabel(this.housingCosts.country);
+    this.createBarInteraction();
+
+    return root;
+  }
+
+  private createBarInteraction(): void {
+    this.createBarHoverInteraction();
+    this.createBarClickInteraction();
+  }
+
+  private createBarClickInteraction(): void {
+    this.bars
+      .on('click', (event: MouseEvent, bar: Bar) => {
+        event.stopPropagation();
+        this.setIsZoomed(true);
+
+        d3.select(event.target as any)
+          .attr('opacity', '1');
+
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, this.isZoomed);
+      });
+  }
+
+  private createBarHoverInteraction(): void {
+    this.createBarHoverLabels();
 
     this.bars
       .on('mouseenter', (event: MouseEvent, bar: Bar) => {
+        if (this.isZoomed) {
+          return;
+        }
+
         d3.select(event.target as any)
           .transition()
           .duration(50)
@@ -72,6 +139,10 @@ export class HousingCostsTileComponent implements AfterViewInit {
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, false);
       })
       .on('mouseleave', (event: MouseEvent) => {
+        if (this.isZoomed) {
+          return;
+        }
+
         d3.select(event.target as any)
           .transition()
           .duration(50)
@@ -82,13 +153,35 @@ export class HousingCostsTileComponent implements AfterViewInit {
       });
   }
 
-  private createDefaultCenterLabel(label: string): void {
-    this.chartBuilder.appendTextElement(this.svgElement, this.defaultCenterLabelId)
+  private createBarDefaultCenterLabel(label: string): void {
+    this.chartBuilder.appendTextElement(this.svgRoot, this.defaultCenterLabelId)
       .text(label);
   }
 
-  private createHoverLabels(): void {
-    const hoverLabel = this.chartBuilder.appendTextElement(this.svgElement, this.hoverCenterLabelId);
+  private createBarHoverLabels(): void {
+    const hoverLabel = this.chartBuilder.appendTextElement(this.svgRoot, this.hoverCenterLabelId);
     this.chartBuilder.appendTextLines(hoverLabel, [this.hoverCenterTopLineId, this.hoverCenterBottomLineId]);
+  }
+
+  private createSvgClickInteraction(): void {
+    this.svgRoot
+      .on('click', (event: MouseEvent, _) => {
+        event.stopPropagation();
+
+        if (!this.isZoomed) {
+          return;
+        }
+
+        this.setIsZoomed(false);
+
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, this.isZoomed);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, true);
+      });
+  }
+
+  private setIsZoomed(zoomed: boolean) {
+    this.isZoomed = zoomed;
+    this.zoom.emit(this.isZoomed);
   }
 }

@@ -8,14 +8,13 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 
 import { HomeComponent, DashboardComponent } from './pages';
-import { CircularBarChartComponent, HousingCostsTilesComponent, HousingCostsTileComponent } from './components';
+import { HousingCostsTilesComponent, HousingCostsTileComponent } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DashboardComponent,
-    CircularBarChartComponent,
     HousingCostsTilesComponent,
     HousingCostsTileComponent
   ],
