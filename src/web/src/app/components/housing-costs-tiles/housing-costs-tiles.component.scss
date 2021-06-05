@@ -2,11 +2,13 @@
   display: flex;
   flex-wrap: wrap;
 
+  app-housing-costs-tile,
   app-circular-bar-chart {
     width: 220px;
     max-width: 220px;
     height: 220px;
     max-height: 220px;
+
     &:not(:last-of-type) {
       margin-right: 16px;
     }

@@ -1,2 +1,3 @@
 export { CircularBarChartComponent } from './circular-bar-chart/circular-bar-chart.component';
-export { HousingCostsMatrixComponent } from './housing-costs-matrix/housing-costs-matrix.component';
+export { HousingCostsTilesComponent } from './housing-costs-tiles/housing-costs-tiles.component';
+export { HousingCostsTileComponent } from './housing-costs-tile/housing-costs-tile.component';

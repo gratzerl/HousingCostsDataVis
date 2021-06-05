@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { hosingCostsMock } from 'src/app/mock';
 
 @Component({
-  selector: 'app-housing-costs-matrix',
-  templateUrl: './housing-costs-matrix.component.html',
-  styleUrls: ['./housing-costs-matrix.component.scss']
+  selector: 'app-housing-costs-tiles',
+  templateUrl: './housing-costs-tiles.component.html',
+  styleUrls: ['./housing-costs-tiles.component.scss']
 })
-export class HousingCostsMatrixComponent implements OnInit {
+export class HousingCostsTilesComponent implements OnInit {
 
   housingCosts = hosingCostsMock;
   maxCostsPercentage: number;

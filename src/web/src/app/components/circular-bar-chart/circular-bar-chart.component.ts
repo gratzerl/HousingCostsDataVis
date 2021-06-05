@@ -3,13 +3,13 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 import { Subject } from 'rxjs';
 
 import { Bar } from 'src/app/models';
-import { CircularBarChartRendererService } from 'src/app/services/circular-bar-chart-renderer.service';
+import { CircularBarChartBuilderService } from 'src/app/services/circular-bar-chart-builder.service';
 
 @Component({
   selector: 'app-circular-bar-chart',
   templateUrl: './circular-bar-chart.component.html',
   styleUrls: ['./circular-bar-chart.component.scss'],
-  providers: [CircularBarChartRendererService]
+  providers: [CircularBarChartBuilderService]
 })
 export class CircularBarChartComponent implements AfterViewInit, OnDestroy {
   @Input()
@@ -30,7 +30,7 @@ export class CircularBarChartComponent implements AfterViewInit, OnDestroy {
   width = 1440;
   height = 1440;
 
-  constructor(private circularBarChartRenderer: CircularBarChartRendererService) { }
+  constructor(private circularBarChartRenderer: CircularBarChartBuilderService) { }
 
   ngAfterViewInit(): void {
     this.render();
@@ -42,6 +42,6 @@ export class CircularBarChartComponent implements AfterViewInit, OnDestroy {
   }
 
   render(): void {
-    const svg = this.circularBarChartRenderer.appendChart(this.chart, this.data, this.centerLabel, this.width, this.height, this.maxY, this.innerRadiusRatio);
+    // const svg = this.circularBarChartRenderer.appendChart(this.chart, this.data, this.centerLabel, this.width, this.height, this.maxY, this.innerRadiusRatio);
   }
 }
