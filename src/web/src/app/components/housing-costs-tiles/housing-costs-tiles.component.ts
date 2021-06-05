@@ -17,7 +17,7 @@ export class HousingCostsTilesComponent implements OnInit {
 
   ngOnInit(): void {
     const costs = this.housingCosts
-      .map(c => c.costs)
+      .map(c => c.totalShareOnIncome)
       .reduce((acc, bars) => acc.concat(bars), [])
       .map(bars => bars.percent);
 

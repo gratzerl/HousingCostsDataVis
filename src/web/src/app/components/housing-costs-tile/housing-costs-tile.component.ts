@@ -12,11 +12,13 @@ import {
 } from 'src/app/services';
 
 import * as d3 from 'd3';
+import { compositionCategoryColors } from 'src/app/constants/styling.constants';
 
 @Component({
   selector: 'app-housing-costs-tile',
   templateUrl: './housing-costs-tile.component.html',
-  styleUrls: ['./housing-costs-tile.component.scss']
+  styleUrls: ['./housing-costs-tile.component.scss'],
+  providers: [VoronoiChartBuilderService]
 })
 export class HousingCostsTileComponent implements AfterViewInit {
 
@@ -77,8 +79,6 @@ export class HousingCostsTileComponent implements AfterViewInit {
       .style('display', 'none')
       .attr('pointer-events', 'none');
 
-    this.voronoi = this.voronoiChartBuilder.appendChart(root, this.width * this.innerRadiusRatio);
-
     return root;
   }
 
@@ -87,7 +87,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
       .append('g')
       .attr('id', this.barChartRootId);
 
-    this.bars = this.circularBarChartBuilder.appendChart(root, this.housingCosts.costs, this.width, this.height, this.maxY, this.innerRadiusRatio);
+    this.bars = this.circularBarChartBuilder.appendChart(root, this.housingCosts.totalShareOnIncome, this.width, this.height, this.maxY, this.innerRadiusRatio);
 
     this.createBarDefaultCenterLabel(this.housingCosts.country);
     this.createBarInteraction();
@@ -106,8 +106,13 @@ export class HousingCostsTileComponent implements AfterViewInit {
         event.stopPropagation();
         this.setIsZoomed(true);
 
-        d3.select(event.target as any)
-          .attr('opacity', '1');
+        // d3.select(event.target as any)
+        //   .attr('opacity', '1');
+
+        const data = this.housingCosts.composition[bar.year];
+        const radius = this.width * this.innerRadiusRatio;
+
+        this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, radius, (data) => data.percentage, (id) => compositionCategoryColors[id]);
 
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, this.isZoomed);
       });
@@ -118,14 +123,14 @@ export class HousingCostsTileComponent implements AfterViewInit {
 
     this.bars
       .on('mouseenter', (event: MouseEvent, bar: Bar) => {
-        if (this.isZoomed) {
-          return;
-        }
-
         d3.select(event.target as any)
           .transition()
           .duration(50)
           .attr('opacity', '0.85');
+
+        if (this.isZoomed) {
+          return;
+        }
 
         d3.select(this.chartContainerRef.nativeElement)
           .select(`#${this.hoverCenterTopLineId}`)
@@ -139,14 +144,14 @@ export class HousingCostsTileComponent implements AfterViewInit {
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, false);
       })
       .on('mouseleave', (event: MouseEvent) => {
-        if (this.isZoomed) {
-          return;
-        }
-
         d3.select(event.target as any)
           .transition()
           .duration(50)
           .attr('opacity', '1');
+
+        if (this.isZoomed) {
+          return;
+        }
 
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, true);

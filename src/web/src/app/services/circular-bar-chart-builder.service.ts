@@ -4,6 +4,7 @@ import { GSelection } from './chart-builder.service';
 
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import * as d3 from 'd3';
+import { barColor } from '../constants/styling.constants';
 
 export type BarSelection = d3.Selection<SVGPathElement, Bar, SVGGElement, unknown>;
 
@@ -30,7 +31,7 @@ export class CircularBarChartBuilderService {
       .data(data)
       .enter()
       .append('path')
-      .attr('fill', '#89338f')
+      .attr('fill', barColor)
       .attr('id', 'barPath')
       .attr('d', d => arc(d));
   }
