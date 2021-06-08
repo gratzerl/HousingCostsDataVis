@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { chartLabelFontSize } from '../constants/styling.constants';
+import { chartLabelFontSizePx } from '../constants/styling.constants';
 
 import * as d3 from 'd3';
 
@@ -18,15 +18,16 @@ export class ChartBuilderService {
     return d3
       .select(element.nativeElement)
       .append('svg')
+      // .attr('viewBox', `0 0 ${width} ${height} `)
       .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height} `)
       .style('width', '100%')
       .style('height', 'auto')
-      .style('font', `${chartLabelFontSize}px sans-serif`);
+      .style('font', `${chartLabelFontSizePx}px sans-serif`);
   }
 
   appendTextElement(svg: SvgSelection, id: string, defaultDisplay: string = 'inline'): TextSelection {
     return svg.append('g')
-      .style('font', `${chartLabelFontSize}px sans-serif`)
+      .style('font', `${chartLabelFontSizePx}px sans-serif`)
       .attr('pointer-events', 'none')
       .attr('text-anchor', 'middle')
       .append('text')

@@ -1,62 +1,93 @@
 import { Injectable } from '@angular/core';
 
-import * as d3 from 'd3';
 import { CostComposition } from '../models';
 import { GSelection } from './chart-builder.service';
-import { voronoiTreemap } from 'd3-voronoi-treemap';
 import { segmentStrokeColor } from '../constants/styling.constants';
+
+import { voronoiTreemap } from 'd3-voronoi-treemap';
+import { randomUniform } from 'd3';
+import * as d3 from 'd3';
 
 export type VoronoiSelection = d3.Selection<SVGGElement, unknown, SVGGElement, unknown>;
 
 @Injectable()
 export class VoronoiChartBuilderService {
 
-  constructor() { }
+  private readonly chartId = 'voronoiChart';
+  private readonly labelsId = 'voronoiChartLabels';
+  private readonly randomSeed = randomUniform();
+  private hierarchyDataCache: { [id: string]: any } = {};
 
-  appendChart(root: GSelection, data: CostComposition, radius: number, weightFn: (data: CostComposition) => number, colorFn: (id: string) => string, replaceChart: boolean = true): VoronoiSelection {
-    if (replaceChart) {
-      root.selectAll('#voronoiChart')
-        .remove();
+  private voronoiChartMapper: any;
 
-      root.selectAll('#voronoiChartLabels')
+  constructor() {
+    this.voronoiChartMapper = voronoiTreemap();
+    this.voronoiChartMapper.prng(this.randomSeed);
+  }
+
+  appendChart(root: GSelection, data: CostComposition, radius: number, weightFn: (data: CostComposition) => number, colorFn: (id: string) => string, createNewChart: boolean = false): VoronoiSelection {
+    if (createNewChart) {
+      root.selectAll(`#${this.chartId}`)
         .remove();
     }
 
-    const hierarchy = d3.hierarchy(data);
-    hierarchy.sum(weightFn);
+    root.selectAll(`#${this.labelsId}`)
+      .remove();
 
-    const circlePolygonClippings = this.computeCirclingPolygon(radius);
+    const circlePolygonClippings = this.computeCircleClipping(radius);
+    this.voronoiChartMapper.clip(circlePolygonClippings);
 
-    const map = voronoiTreemap();
-    map.clip(circlePolygonClippings);
-    map(hierarchy);
+    let hierarchy: any;
+    if (this.hierarchyDataCache[data.id] !== undefined) {
+      hierarchy = this.hierarchyDataCache[data.id];
+    } else {
+      hierarchy = d3.hierarchy(data);
+      hierarchy.sum(weightFn);
+      this.voronoiChartMapper(hierarchy);
+      this.hierarchyDataCache[data.id] = hierarchy;
+    }
 
-    this.drawDiagram(hierarchy, root, radius, colorFn);
+    this.drawDiagram(hierarchy, root, radius, colorFn, createNewChart);
 
     return root;
   }
 
-  drawDiagram(hierarchy: any, root: GSelection, radius: number, colorFn: (id: string) => string): void {
+  drawDiagram(hierarchy: any, root: GSelection, radius: number, colorFn: (id: string) => string, createNewChart: boolean): void {
     const leaves = hierarchy.leaves();
 
-    root.append('g')
-      .attr('id', 'voronoiChart')
-      .attr('transform', 'translate(' + [-radius, -radius] + ')')
-      .selectAll('.segment')
-      .data(leaves)
+    let chart: GSelection;
+    if (createNewChart) {
+      chart = root.append('g')
+        .attr('id', this.chartId)
+        .style('fill', '#FFFFFF')
+        .attr('transform', 'translate(' + [-radius, -radius] + ')');
+    } else {
+      chart = root.select(`#${this.chartId}`);
+    }
+
+    let segments = chart
+      .selectAll(`.segment`)
+      .data(leaves);
+
+    segments = segments
       .enter()
       .append('path')
-      .attr('id', 'vonroiSegment')
-      .classed('segment', true)
-      .attr('d', (d: any) => `M${d.polygon.join(',')}z`)
+      .classed('segment', true);
+
+    chart.selectAll('.segment')
+      .data(leaves)
       .style('stroke', segmentStrokeColor)
       .style('fill', (d: any) => {
         const data = d.data as CostComposition;
-        return colorFn(data.id);
-      });
+        return colorFn(data.coicop);
+      })
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr('d', (d: any) => `M${d.polygon.join(',')}z`);
 
     root.append('g')
-      .attr('id', 'voronoiChartLabels')
+      .attr('id', this.labelsId)
       .attr('transform', 'translate(' + [-radius, -radius] + ')')
       .selectAll('.label')
       .data(leaves)
@@ -70,23 +101,22 @@ export class VoronoiChartBuilderService {
       .append('text')
       .style('font', `18px sans-serif`)
       .text((d: any) => {
-        console.log(d);
         return `${d.data.name} (${Math.ceil(d.data.percentage * 100)}%)`;
       });
   }
 
-  computeCirclingPolygon(radius: number): [number, number][] {
-    const points = 180,
-      increment = (2 * Math.PI) / points,
-      circlingPolygon = [];
+  private computeCircleClipping(radius: number): [number, number][] {
+    const numberOfPoints = 180,
+      increment = (2 * Math.PI) / numberOfPoints,
+      clippingPoints = [];
 
-    for (let a = 0, i = 0; i < points; i++, a += increment) {
-      circlingPolygon.push(
+    for (let a = 0, i = 0; i < numberOfPoints; i++, a += increment) {
+      clippingPoints.push(
         [radius + radius * Math.cos(a), radius + radius * Math.sin(a)]
       )
     }
 
-    return circlingPolygon;
+    return clippingPoints;
   };
 
 }

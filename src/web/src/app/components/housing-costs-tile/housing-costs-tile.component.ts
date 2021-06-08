@@ -37,18 +37,18 @@ export class HousingCostsTileComponent implements AfterViewInit {
   private isZoomed = false;
 
   private svgRoot: SvgSelection;
+  private _zoom;
 
   private barsRoot: GSelection;
   private bars: BarSelection;
 
   private voronoiRoot: GSelection;
-  private voronoi: VoronoiSelection;
+  private voronoi?: VoronoiSelection = undefined;
 
   private innerRadiusRatio = 0.25;
   private voronoiRadiusRatio = 0.20;
   private width = 1440;
   private height = 1440;
-
 
   private defaultCenterLabelId = 'defaultCenterLabel';
   private hoverCenterLabelId = 'hoverCenterLabel';
@@ -64,12 +64,19 @@ export class HousingCostsTileComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.createChart();
+    this._zoom = d3.zoom()
+      .on("zoom", this.zoomed);
   }
 
-  createChart(): void {
+  private createChart(): void {
     this.svgRoot = this.chartBuilder.appendSvg(this.chartContainerRef, this.width, this.height);
+    this.svgRoot.attr('transform', `translate(0, 0) scale(1)`);
+
     this.createSvgClickInteraction();
     this.barsRoot = this.createBarChart();
+    // this.barsRoot.attr('transform', `translate(${this.width / 2}, ${this.height / 2})`);
+
+    this.chartBuilder.toggleElementVisibility(this.chartContainerRef, 'barLabels', false);
     this.voronoiRoot = this.createVoronoiChart();
   }
 
@@ -101,21 +108,40 @@ export class HousingCostsTileComponent implements AfterViewInit {
     this.createBarClickInteraction();
   }
 
+  private zoomed({ transform }) {
+    this.svgRoot.attr("transform", transform);
+  }
+
   private createBarClickInteraction(): void {
     this.bars
       .on('click', (event: MouseEvent, bar: Bar) => {
         event.stopPropagation();
         this.setIsZoomed(true);
 
-        // d3.select(event.target as any)
-        //   .attr('opacity', '1');
+        d3.selectAll(this.bars)
+          .attr('opacity', '1');
+
+        d3.select(event.target as any)
+          .attr('opacity', '0.85');
+
+        const tSvg = d3.zoomTransform(this.svgRoot.node());
+        console.log('t svg', tSvg);
+
+        const tVoro = d3.zoomTransform(this.voronoiRoot.node());
+        console.log('t voro', tVoro);
+
+        const tBar = d3.zoomTransform(this.barsRoot.node());
+        console.log('t bars', tBar);
 
         const data = this.housingCosts.composition[bar.year];
         const radius = this.width * this.voronoiRadiusRatio;
 
-        this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, radius, (data) => data.percentage, (id) => compositionCategoryColors[id]);
+        this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, radius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoi === undefined);
 
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, this.isZoomed);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, true);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, 'barLabels', true);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, false);
       });
   }
 
@@ -124,14 +150,15 @@ export class HousingCostsTileComponent implements AfterViewInit {
 
     this.bars
       .on('mouseenter', (event: MouseEvent, bar: Bar) => {
+        if (this.isZoomed) {
+          return;
+        }
+
         d3.select(event.target as any)
           .transition()
           .duration(50)
           .attr('opacity', '0.85');
 
-        if (this.isZoomed) {
-          return;
-        }
 
         d3.select(this.chartContainerRef.nativeElement)
           .select(`#${this.hoverCenterTopLineId}`)
@@ -145,14 +172,14 @@ export class HousingCostsTileComponent implements AfterViewInit {
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, false);
       })
       .on('mouseleave', (event: MouseEvent) => {
+        if (this.isZoomed) {
+          return;
+        }
+
         d3.select(event.target as any)
           .transition()
           .duration(50)
           .attr('opacity', '1');
-
-        if (this.isZoomed) {
-          return;
-        }
 
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, true);
@@ -177,10 +204,12 @@ export class HousingCostsTileComponent implements AfterViewInit {
         if (!this.isZoomed) {
           return;
         }
-
         this.setIsZoomed(false);
 
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, this.isZoomed);
+        this._zoom.scaleBy(this.svgRoot, 1.3);
+
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, false);
+        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, 'barLabels', false);
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
         this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, true);
       });
