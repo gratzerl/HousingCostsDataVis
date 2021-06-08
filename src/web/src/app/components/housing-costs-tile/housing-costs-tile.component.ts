@@ -45,6 +45,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
   private voronoi: VoronoiSelection;
 
   private innerRadiusRatio = 0.25;
+  private voronoiRadiusRatio = 0.20;
   private width = 1440;
   private height = 1440;
 
@@ -110,7 +111,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
         //   .attr('opacity', '1');
 
         const data = this.housingCosts.composition[bar.year];
-        const radius = this.width * this.innerRadiusRatio;
+        const radius = this.width * this.voronoiRadiusRatio;
 
         this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, radius, (data) => data.percentage, (id) => compositionCategoryColors[id]);
 
