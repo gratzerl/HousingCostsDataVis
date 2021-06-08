@@ -8,12 +8,15 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 
 import { HomeComponent, DashboardComponent } from './pages';
+import { HousingCostsTilesComponent, HousingCostsTileComponent } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    HousingCostsTilesComponent,
+    HousingCostsTileComponent
   ],
   imports: [
     BrowserModule,
