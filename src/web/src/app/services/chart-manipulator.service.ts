@@ -54,12 +54,12 @@ export class ChartManipulatorService {
 
   highlight(selector: any): void {
     this.getAnimated(selector)
-      .style('opacity', '0.85');
+      .attr('opacity', '0.85');
   }
 
   unhighlight(selector: any): void {
     this.getAnimated(selector)
-      .style('opacity', '1');
+      .attr('opacity', '1');
   }
 
   setVisible(selection: d3.Selection<d3.BaseType, unknown, null, unknown>, ids: string[], isVisible: boolean): void {
