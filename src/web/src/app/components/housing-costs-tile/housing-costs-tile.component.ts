@@ -3,12 +3,13 @@ import { Bar, HousingCosts } from 'src/app/models';
 
 import {
   CircularBarChartBuilderService,
-  ChartBuilderService,
+  ChartManipulatorService,
   SvgSelection,
   BarSelection,
   VoronoiChartBuilderService,
   GSelection,
-  VoronoiSelection
+  VoronoiSelection,
+  CIRCULAR_BAR_CHART
 } from 'src/app/services';
 
 import * as d3 from 'd3';
@@ -18,7 +19,7 @@ import { compositionCategoryColors } from 'src/app/constants/styling.constants';
   selector: 'app-housing-costs-tile',
   templateUrl: './housing-costs-tile.component.html',
   styleUrls: ['./housing-costs-tile.component.scss'],
-  providers: [VoronoiChartBuilderService]
+  providers: [VoronoiChartBuilderService, CircularBarChartBuilderService]
 })
 export class HousingCostsTileComponent implements AfterViewInit {
 
@@ -34,49 +35,41 @@ export class HousingCostsTileComponent implements AfterViewInit {
   @ViewChild('chart')
   chartContainerRef: ElementRef;
 
+  private readonly voronoiChartRootId = 'voronoiChartRoot';
+  private readonly barChartRootId = 'barChartRoot';
+
   private isZoomed = false;
 
   private svgRoot: SvgSelection;
-  private _zoom;
-
   private barsRoot: GSelection;
   private bars: BarSelection;
-
   private voronoiRoot: GSelection;
   private voronoi?: VoronoiSelection = undefined;
 
-  private innerRadiusRatio = 0.25;
-  private voronoiRadiusRatio = 0.20;
-  private width = 1440;
+  private innerRadiusPercentage = 0.25;
+  private chartPaddingPercentage = 0.015;
   private height = 1440;
+  private width = 1440;
+  private chartRadius = (Math.min(this.width, this.height) / 2);
 
-  private defaultCenterLabelId = 'defaultCenterLabel';
-  private hoverCenterLabelId = 'hoverCenterLabel';
-  private hoverCenterTopLineId = 'hoverTopLabel';
-  private hoverCenterBottomLineId = 'hoverBottomLabel';
-  private barChartRootId = 'barChartRoot';
-  private voronoiChartRootId = 'voronoiChartRoot';
+  private innerRadius = this.chartRadius * this.innerRadiusPercentage;
+  private outerRadius = this.chartRadius - (this.chartPaddingPercentage * this.chartRadius);
+
 
   constructor(
     private circularBarChartBuilder: CircularBarChartBuilderService,
     private voronoiChartBuilder: VoronoiChartBuilderService,
-    private chartBuilder: ChartBuilderService) { }
+    private chartManipulator: ChartManipulatorService) { }
 
   ngAfterViewInit(): void {
     this.createChart();
-    this._zoom = d3.zoom()
-      .on("zoom", this.zoomed);
   }
 
   private createChart(): void {
-    this.svgRoot = this.chartBuilder.appendSvg(this.chartContainerRef, this.width, this.height);
-    this.svgRoot.attr('transform', `translate(0, 0) scale(1)`);
-
+    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, this.width, this.height);
     this.createSvgClickInteraction();
-    this.barsRoot = this.createBarChart();
-    // this.barsRoot.attr('transform', `translate(${this.width / 2}, ${this.height / 2})`);
 
-    this.chartBuilder.toggleElementVisibility(this.chartContainerRef, 'barLabels', false);
+    this.barsRoot = this.createBarChart();
     this.voronoiRoot = this.createVoronoiChart();
   }
 
@@ -85,7 +78,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
       .append('g')
       .attr('id', this.voronoiChartRootId)
       .style('display', 'none')
-      .attr('pointer-events', 'none');
+      .style('pointer-events', 'none');
 
     return root;
   }
@@ -95,123 +88,89 @@ export class HousingCostsTileComponent implements AfterViewInit {
       .append('g')
       .attr('id', this.barChartRootId);
 
-    this.bars = this.circularBarChartBuilder.appendChart(root, this.housingCosts.totalShareOnIncome, this.width, this.height, this.maxY, this.innerRadiusRatio);
+    this.bars = this.circularBarChartBuilder.appendChart(
+      root,
+      this.housingCosts.totalShareOnIncome,
+      this.maxY,
+      this.innerRadius,
+      this.outerRadius,
+      () => this.housingCosts.country);
 
-    this.createBarDefaultCenterLabel(this.housingCosts.country);
-    this.createBarInteraction();
+    this.createBarsInteraction();
 
     return root;
   }
 
-  private createBarInteraction(): void {
-    this.createBarHoverInteraction();
-    this.createBarClickInteraction();
-  }
-
-  private zoomed({ transform }) {
-    this.svgRoot.attr("transform", transform);
-  }
-
-  private createBarClickInteraction(): void {
-    this.bars
-      .on('click', (event: MouseEvent, bar: Bar) => {
-        event.stopPropagation();
-        this.setIsZoomed(true);
-
-        d3.selectAll(this.bars)
-          .attr('opacity', '1');
-
-        d3.select(event.target as any)
-          .attr('opacity', '0.85');
-
-        const tSvg = d3.zoomTransform(this.svgRoot.node());
-        console.log('t svg', tSvg);
-
-        const tVoro = d3.zoomTransform(this.voronoiRoot.node());
-        console.log('t voro', tVoro);
-
-        const tBar = d3.zoomTransform(this.barsRoot.node());
-        console.log('t bars', tBar);
-
-        const data = this.housingCosts.composition[bar.year];
-        const radius = this.width * this.voronoiRadiusRatio;
-
-        this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, radius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoi === undefined);
-
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, true);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, 'barLabels', true);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, false);
-      });
-  }
-
-  private createBarHoverInteraction(): void {
-    this.createBarHoverLabels();
-
+  private createBarsInteraction(): void {
     this.bars
       .on('mouseenter', (event: MouseEvent, bar: Bar) => {
+        const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
+
+        this.chartManipulator.setVisible(this.barsRoot, [hoverLabelsId, defaultLabelId], false);
+
         if (this.isZoomed) {
           return;
         }
 
-        d3.select(event.target as any)
-          .transition()
-          .duration(50)
-          .attr('opacity', '0.85');
+        this.chartManipulator.setVisible(this.barsRoot, [hoverLabelsId], true);
 
+        this.chartManipulator.highlight(event.target as any);
 
-        d3.select(this.chartContainerRef.nativeElement)
-          .select(`#${this.hoverCenterTopLineId}`)
-          .text(() => `${Math.ceil(bar.percent * 100)}%`);
-
-        d3.select(this.chartContainerRef.nativeElement)
-          .select(`#${this.hoverCenterBottomLineId}`)
-          .text(() => `${bar.year}`);
-
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, true);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, false);
-      })
-      .on('mouseleave', (event: MouseEvent) => {
-        if (this.isZoomed) {
-          return;
-        }
-
-        d3.select(event.target as any)
-          .transition()
-          .duration(50)
-          .attr('opacity', '1');
-
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, true);
+        const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
+        this.chartManipulator.setText(this.barsRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
+        this.chartManipulator.setText(this.barsRoot, hoverBottomLabelId, `${bar.year}`);
       });
-  }
 
-  private createBarDefaultCenterLabel(label: string): void {
-    this.chartBuilder.appendTextElement(this.svgRoot, this.defaultCenterLabelId)
-      .text(label);
-  }
+    this.bars.on('mouseleave', (event: MouseEvent, _) => {
+      if (this.isZoomed) {
+        return;
+      }
 
-  private createBarHoverLabels(): void {
-    const hoverLabel = this.chartBuilder.appendTextElement(this.svgRoot, this.hoverCenterLabelId);
-    this.chartBuilder.appendTextLines(hoverLabel, [this.hoverCenterTopLineId, this.hoverCenterBottomLineId]);
+      this.chartManipulator.unhighlight(event.target as any);
+
+      const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
+      this.chartManipulator.setVisible(this.barsRoot, [defaultLabelId], true);
+      this.chartManipulator.setVisible(this.barsRoot, [hoverLabelsId], false);
+    });
+
+    this.bars.on('click', (event: MouseEvent, bar: Bar) => {
+      event.stopPropagation();
+
+      if (!this.isZoomed) {
+        this.setIsZoomed(true);
+
+        const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
+        this.chartManipulator.setVisible(this.barsRoot, [defaultLabelId, hoverLabelsId], false);
+        this.chartManipulator.setVisible(this.barsRoot, [xAxisLabelsId], true);
+      }
+
+      this.chartManipulator.unhighlight(this.bars);
+      this.chartManipulator.highlight(event.target as any);
+
+      const data = this.housingCosts.composition[bar.year];
+      this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, this.innerRadius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoi === undefined);
+
+      this.chartManipulator.setVisible(this.svgRoot, [this.voronoiChartRootId], true);
+    });
   }
 
   private createSvgClickInteraction(): void {
     this.svgRoot
       .on('click', (event: MouseEvent, _) => {
         event.stopPropagation();
-
         if (!this.isZoomed) {
           return;
         }
+
         this.setIsZoomed(false);
 
-        this._zoom.scaleBy(this.svgRoot, 1.3);
+        const { defaultLabelId, hoverLabelsId, xAxisLabelsId, barPathId } = CIRCULAR_BAR_CHART;
 
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.voronoiChartRootId, false);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, 'barLabels', false);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.hoverCenterLabelId, false);
-        this.chartBuilder.toggleElementVisibility(this.chartContainerRef, this.defaultCenterLabelId, true);
+        const bars = this.barsRoot.select(barPathId);
+        this.chartManipulator.unhighlight(bars);
+
+        this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId, hoverLabelsId, this.voronoiChartRootId], false);
+        this.chartManipulator.setVisible(this.barsRoot, [defaultLabelId], true);
       });
   }
 

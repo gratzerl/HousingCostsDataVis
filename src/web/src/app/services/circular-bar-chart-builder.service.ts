@@ -1,40 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Bar } from '../models';
-import { GSelection } from './chart-builder.service';
-import { barColor, chartAxisFontSizePx } from '../constants/styling.constants';
+import { ChartManipulatorService, GSelection } from '.';
+import { barColor, barChartAxisFontSizePx } from '../constants/styling.constants';
 
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import * as d3 from 'd3';
 
 export type BarSelection = d3.Selection<SVGPathElement, Bar, SVGGElement, unknown>;
 
-@Injectable({
-  providedIn: 'root'
-})
+export const CIRCULAR_BAR_CHART = {
+  barPathId: 'barPath',
+  defaultLabelId: 'defaultLabel',
+  hoverLabelsId: 'hoverLabel',
+  hoverTopLabelId: 'hoverTopLabel',
+  hoverBottomLabelId: 'hoverBottomLabel',
+  xAxisLabelsId: 'xAxisLabel'
+};
+
+
+@Injectable()
 export class CircularBarChartBuilderService {
 
-  constructor() { }
+  constructor(private chartManipulator: ChartManipulatorService) { }
 
-  appendChart(selection: GSelection, data: Bar[], width: number, height: number, yMaxValue: number, innerRadiusPercentage: number = 0.25, paddingPercentage: number = 0.015): BarSelection {
-    const [innerRadius, outerRadius] = this.getRadii(width, height, innerRadiusPercentage, paddingPercentage);
+  appendChart(root: GSelection, data: Bar[], yMaxValue: number, innerRadius: number, outerRadius: number, defaultLabelFn: () => string): BarSelection {
     const xScale = this.getXScale(data);
     const yScale = this.getYScale(yMaxValue, innerRadius, outerRadius);
 
     const arc = this.getArc(innerRadius, yScale, xScale);
-    const bars = this.drawBars(selection, data, arc);
-    this.drawXLabels(selection, data, innerRadius, xScale);
+    const bars = this.drawBars(root, data, arc);
+
+    this.addDefaultLabel(root, defaultLabelFn);
+
+    this.addHoverLabel(root);
+
+    this.drawXLabels(root, data, innerRadius, xScale);
+    this.chartManipulator.setVisible(root, [CIRCULAR_BAR_CHART.xAxisLabelsId], false);
 
     return bars;
   }
 
   private drawBars(selection: GSelection, data: Bar[], arc: Arc<any, Bar>): BarSelection {
+    const { barPathId } = CIRCULAR_BAR_CHART;
+
     return selection.append('g')
       .selectAll('path')
       .data(data)
       .enter()
       .append('path')
       .attr('fill', barColor)
-      .attr('id', 'barPath')
+      .attr('id', barPathId)
       .attr('d', d => arc(d));
   }
 
@@ -64,21 +79,25 @@ export class CircularBarChartBuilderService {
       .align(0);
   }
 
-  private getRadii(width: number, height: number, innerRadiusPercentage: number, paddingPercentage: number): [innerRadius: number, outerRadius: number] {
-    const chartRadius = (Math.min(width, height) / 2);
+  private addDefaultLabel(selection: GSelection, defaultLabelFn: () => string): void {
+    const { defaultLabelId } = CIRCULAR_BAR_CHART;
+    this.chartManipulator.appendText(selection, defaultLabelId)
+      .text(() => defaultLabelFn());
+  }
 
-    const innerRadius = chartRadius * innerRadiusPercentage;
-    const outerRadius = chartRadius - (paddingPercentage * chartRadius);
-
-    return [innerRadius, outerRadius];
+  private addHoverLabel(selection: GSelection): void {
+    const { hoverLabelsId, hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
+    const labels = this.chartManipulator.appendText(selection, hoverLabelsId, 'none');
+    this.chartManipulator.appendTextLines(labels, [hoverTopLabelId, hoverBottomLabelId]);
   }
 
   private drawXLabels(selection: GSelection, data: Bar[], innerRadius: number, xScale: ScaleBand<string>): void {
+    const { xAxisLabelsId } = CIRCULAR_BAR_CHART;
     selection.append('g')
-      .attr('id', 'barLabels')
-      .attr('font-size', `${chartAxisFontSizePx}px`)
-      .attr('line-height', `${chartAxisFontSizePx}px`)
-      .attr('text-anchor', 'middle')
+      .attr('id', xAxisLabelsId)
+      .style('font-size', `${barChartAxisFontSizePx}px`)
+      .style('line-height', `${barChartAxisFontSizePx}px`)
+      .style('text-anchor', 'middle')
       .call(g => g.selectAll('g')
         .data(data)
         .join('g')

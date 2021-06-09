@@ -1,5 +1,6 @@
-export const chartLabelFontSizePx = 64;
-export const chartAxisFontSizePx = 24;
+export const barChartLabelFontSizePx = 64;
+export const barChartAxisFontSizePx = 24;
+export const voronoiChartLabelsFontSizePx = 18;
 
 export const compositionCategoryColors: { [id: string]: string } = {
   'CP04': '#FFFFF',
