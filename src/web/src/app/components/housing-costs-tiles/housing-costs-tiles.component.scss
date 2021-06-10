@@ -16,8 +16,9 @@
     &.expanded {
       width: 100%;
       max-width: 880px;
+
       height: 100%;
-      max-height: inherit;
+      max-height: 880px;
     }
   }
 }

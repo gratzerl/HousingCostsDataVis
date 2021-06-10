@@ -1,39 +1,87 @@
 import { Injectable } from '@angular/core';
 import { Bar } from '../models';
-import { GSelection } from './chart-builder.service';
+import { ChartManipulatorService, GSelection } from '.';
+import { barColor, barChartAxisFontSizePx } from '../constants/styling.constants';
 
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import * as d3 from 'd3';
-import { barColor } from '../constants/styling.constants';
+import { SvgSelection } from './chart-manipulator.service';
 
-export type BarSelection = d3.Selection<SVGPathElement, Bar, SVGGElement, unknown>;
+export type BarSelection = d3.Selection<d3.BaseType, Bar, SVGGElement, unknown>;
 
-@Injectable({
-  providedIn: 'root'
-})
+export const CIRCULAR_BAR_CHART = {
+  chartRootId: 'circularBarChart',
+  barPathId: 'barPath',
+  defaultLabelId: 'defaultLabel',
+  hoverLabelsId: 'hoverLabel',
+  hoverTopLabelId: 'hoverTopLabel',
+  hoverBottomLabelId: 'hoverBottomLabel',
+  xAxisLabelsId: 'xAxisLabel'
+};
+
+
+@Injectable()
 export class CircularBarChartBuilderService {
 
-  constructor() { }
+  constructor(private chartManipulator: ChartManipulatorService) { }
 
-  appendChart(selection: GSelection, data: Bar[], width: number, height: number, yMaxValue: number, innerRadiusPercentage: number = 0.25, paddingPercentage: number = 0.015): BarSelection {
-    const [innerRadius, outerRadius] = this.getRadii(width, height, innerRadiusPercentage, paddingPercentage);
+  appendChart(root: SvgSelection, data: Bar[], yMaxValue: number, innerRadius: number, outerRadius: number, createNewChart: boolean = false): BarSelection {
+    if (createNewChart) {
+      root.select(`#${CIRCULAR_BAR_CHART.chartRootId}`)
+        .remove();
+
+      root.append('g')
+        .attr('id', CIRCULAR_BAR_CHART.chartRootId);
+    }
+
+    const chart = root.select(`#${CIRCULAR_BAR_CHART.chartRootId}`) as GSelection;
+
+
+    // chart.selectAll(`#${CIRCULAR_BAR_CHART.xAxisLabelsId}`).remove();
+
+
     const xScale = this.getXScale(data);
     const yScale = this.getYScale(yMaxValue, innerRadius, outerRadius);
 
     const arc = this.getArc(innerRadius, yScale, xScale);
 
-    return this.drawBars(selection, data, arc);
+    const bars = this.drawBars(chart, data, arc, createNewChart);
+
+    if (createNewChart) {
+      this.addDefaultLabel(chart);
+      this.addHoverLabel(chart);
+    }
+
+    this.addXAxisLabels(chart, data, innerRadius, xScale, createNewChart);
+
+    this.chartManipulator.setVisible(chart, [CIRCULAR_BAR_CHART.xAxisLabelsId], false);
+
+    return bars;
   }
 
-  private drawBars(selection: GSelection, data: Bar[], arc: Arc<any, Bar>): BarSelection {
-    return selection.append('g')
+  private drawBars(chart: GSelection, data: Bar[], arc: Arc<any, Bar>, createNewChart: boolean): BarSelection {
+    const { barPathId } = CIRCULAR_BAR_CHART;
+
+    if (createNewChart) {
+      chart.append('g')
+        .attr('id', 'bars');
+    }
+
+    chart
+      .select('#bars')
       .selectAll('path')
       .data(data)
       .enter()
       .append('path')
-      .attr('fill', barColor)
-      .attr('id', 'barPath')
+      .attr('id', barPathId);
+
+    chart
+      .selectAll(`#${barPathId}`)
+      .data(data)
+      .style('fill', barColor)
       .attr('d', d => arc(d));
+
+    return chart.selectAll(`#${barPathId}`);
   }
 
   private getArc(innerRadius: number, yScale: ScaleRadial<number, number, never>, xScale: ScaleBand<string>): Arc<any, Bar> {
@@ -62,13 +110,41 @@ export class CircularBarChartBuilderService {
       .align(0);
   }
 
-  private getRadii(width: number, height: number, innerRadiusPercentage: number, paddingPercentage: number): [innerRadius: number, outerRadius: number] {
-    const chartRadius = (Math.min(width, height) / 2);
-
-    const innerRadius = chartRadius * innerRadiusPercentage;
-    const outerRadius = chartRadius - (paddingPercentage * chartRadius);
-
-    return [innerRadius, outerRadius];
+  private addDefaultLabel(selection: GSelection): void {
+    const { defaultLabelId } = CIRCULAR_BAR_CHART;
+    this.chartManipulator.appendText(selection, defaultLabelId);
   }
 
+  private addHoverLabel(selection: GSelection): void {
+    const { hoverLabelsId, hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
+    const labels = this.chartManipulator.appendText(selection, hoverLabelsId, 'none');
+    this.chartManipulator.appendTextLines(labels, [hoverTopLabelId, hoverBottomLabelId]);
+  }
+
+  private addXAxisLabels(selection: GSelection, data: Bar[], innerRadius: number, xScale: ScaleBand<string>, createNewChart: boolean): void {
+    const { xAxisLabelsId } = CIRCULAR_BAR_CHART;
+
+    if (createNewChart) {
+      selection.append('g')
+        .attr('id', xAxisLabelsId);
+    }
+
+    selection.select(`#${xAxisLabelsId}`)
+      .style('font-size', `${barChartAxisFontSizePx}px`)
+      .style('line-height', `${barChartAxisFontSizePx}px`)
+      .style('text-anchor', 'middle')
+      .call(g => g.selectAll('g')
+        .data(data)
+        .join('g')
+        .attr('transform', (d: Bar) => `
+          rotate(${((xScale(d.year) + xScale.bandwidth() / 2) * 180 / Math.PI - 90)})
+          translate(${innerRadius + ((xScale(d.year) + xScale.bandwidth() / 2 + Math.PI / 2) % (2 * Math.PI) < Math.PI ? 30 : 45)} ,0)
+        `)
+        .call(g => g.append('text')
+          .attr('transform', d => (xScale(d.year) + xScale.bandwidth() / 2 + Math.PI / 2) % (2 * Math.PI) < Math.PI
+            ? 'rotate(90)translate(0,16)'
+            : 'rotate(-90)translate(0,-9)')
+          .text(d => `${d.year}`))
+      );
+  }
 }
