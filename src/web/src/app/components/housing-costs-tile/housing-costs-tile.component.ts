@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Bar, HousingCosts } from 'src/app/models';
+import * as d3 from 'd3';
 
 import {
   CircularBarChartBuilderService,
@@ -7,13 +8,13 @@ import {
   SvgSelection,
   BarSelection,
   VoronoiChartBuilderService,
-  GSelection,
   VoronoiSelection,
-  CIRCULAR_BAR_CHART
+  CIRCULAR_BAR_CHART,
+  VORONOI_CHART
 } from 'src/app/services';
 
-import * as d3 from 'd3';
 import { compositionCategoryColors } from 'src/app/constants/styling.constants';
+
 
 @Component({
   selector: 'app-housing-costs-tile',
@@ -35,26 +36,25 @@ export class HousingCostsTileComponent implements AfterViewInit {
   @ViewChild('chart')
   chartContainerRef: ElementRef;
 
-  private readonly voronoiChartRootId = 'voronoiChartRoot';
-  private readonly barChartRootId = 'barChartRoot';
+  private readonly defaultRadiusPercentage = 0.25;
+  private readonly zoomedRadiusPercentage = 0.55;
+  private readonly chartPaddingPercentage = 0.015;
+
+  private readonly height = 1440;
+  private readonly width = 1440;
+
+  private readonly maxRadius = (Math.min(this.width, this.height) / 2);
+  private readonly outerRadius = this.maxRadius - (this.chartPaddingPercentage * this.maxRadius);
+  private readonly defaultRadius = this.maxRadius * this.defaultRadiusPercentage;
+  private readonly zoomedRadius = this.maxRadius * this.zoomedRadiusPercentage;
 
   private isZoomed = false;
 
   private svgRoot: SvgSelection;
-  private barsRoot: GSelection;
   private bars: BarSelection;
-  private voronoiRoot: GSelection;
-  private voronoi?: VoronoiSelection = undefined;
+  private voronoiChart?: VoronoiSelection = undefined;
 
-  private innerRadiusPercentage = 0.25;
-  private chartPaddingPercentage = 0.015;
-  private height = 1440;
-  private width = 1440;
-  private chartRadius = (Math.min(this.width, this.height) / 2);
-
-  private innerRadius = this.chartRadius * this.innerRadiusPercentage;
-  private outerRadius = this.chartRadius - (this.chartPaddingPercentage * this.chartRadius);
-
+  private selectedBar: Bar;
 
   constructor(
     private circularBarChartBuilder: CircularBarChartBuilderService,
@@ -69,88 +69,87 @@ export class HousingCostsTileComponent implements AfterViewInit {
     this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, this.width, this.height);
     this.createSvgClickInteraction();
 
-    this.barsRoot = this.createBarChart();
-    this.voronoiRoot = this.createVoronoiChart();
+    this.createBarChart();
   }
 
-  private createVoronoiChart(): GSelection {
-    const root = this.svgRoot
-      .append('g')
-      .attr('id', this.voronoiChartRootId)
-      .style('display', 'none')
-      .style('pointer-events', 'none');
-
-    return root;
-  }
-
-  private createBarChart(): GSelection {
-    const root = this.svgRoot
-      .append('g')
-      .attr('id', this.barChartRootId);
-
+  private createBarChart() {
     this.bars = this.circularBarChartBuilder.appendChart(
-      root,
+      this.svgRoot,
       this.housingCosts.totalShareOnIncome,
       this.maxY,
-      this.innerRadius,
+      this.defaultRadius,
       this.outerRadius,
-      () => this.housingCosts.country);
+      true);
 
+
+    const { defaultLabelId } = CIRCULAR_BAR_CHART;
+    this.chartManipulator.setText(this.svgRoot, defaultLabelId, this.housingCosts.country);
     this.createBarsInteraction();
-
-    return root;
   }
 
   private createBarsInteraction(): void {
     this.bars
       .on('mouseenter', (event: MouseEvent, bar: Bar) => {
-        const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
+        this.chartManipulator.highlight(event.target as any);
 
-        this.chartManipulator.setVisible(this.barsRoot, [hoverLabelsId, defaultLabelId], false);
+        const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
+        this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId, defaultLabelId], false);
 
         if (this.isZoomed) {
           return;
         }
 
-        this.chartManipulator.setVisible(this.barsRoot, [hoverLabelsId], true);
-
-        this.chartManipulator.highlight(event.target as any);
+        this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], true);
 
         const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
-        this.chartManipulator.setText(this.barsRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
-        this.chartManipulator.setText(this.barsRoot, hoverBottomLabelId, `${bar.year}`);
+        this.chartManipulator.setText(this.svgRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
+        this.chartManipulator.setText(this.svgRoot, hoverBottomLabelId, `${bar.year}`);
       });
 
-    this.bars.on('mouseleave', (event: MouseEvent, _) => {
+    this.bars.on('mouseleave', (event: MouseEvent, bar: Bar) => {
+      if (bar !== this.selectedBar) {
+        this.chartManipulator.unhighlight(event.target as any, true);
+      }
+
       if (this.isZoomed) {
         return;
       }
 
-      this.chartManipulator.unhighlight(event.target as any);
-
       const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
-      this.chartManipulator.setVisible(this.barsRoot, [defaultLabelId], true);
-      this.chartManipulator.setVisible(this.barsRoot, [hoverLabelsId], false);
+      this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
+      this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], false);
     });
 
     this.bars.on('click', (event: MouseEvent, bar: Bar) => {
       event.stopPropagation();
 
+      this.selectedBar = bar;
+      this.chartManipulator.unhighlight(this.bars, false);
+
       if (!this.isZoomed) {
         this.setIsZoomed(true);
 
+        this.bars = this.circularBarChartBuilder.appendChart(
+          this.svgRoot,
+          this.housingCosts.totalShareOnIncome,
+          this.maxY,
+          this.zoomedRadius,
+          this.outerRadius,
+          false);
+
         const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
-        this.chartManipulator.setVisible(this.barsRoot, [defaultLabelId, hoverLabelsId], false);
-        this.chartManipulator.setVisible(this.barsRoot, [xAxisLabelsId], true);
+        this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId, hoverLabelsId], false);
+        this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId], true);
       }
 
-      this.chartManipulator.unhighlight(this.bars);
       this.chartManipulator.highlight(event.target as any);
 
       const data = this.housingCosts.composition[bar.year];
-      this.voronoi = this.voronoiChartBuilder.appendChart(this.voronoiRoot, data, this.innerRadius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoi === undefined);
 
-      this.chartManipulator.setVisible(this.svgRoot, [this.voronoiChartRootId], true);
+      this.voronoiChart = this.voronoiChartBuilder.appendChart(this.svgRoot, data, this.zoomedRadius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoiChart === undefined);
+      this.voronoiChart.on('click', (e: MouseEvent, _) => e.stopPropagation());
+
+      this.chartManipulator.setVisible(this.svgRoot, [VORONOI_CHART.chartId], true);
     });
   }
 
@@ -158,19 +157,27 @@ export class HousingCostsTileComponent implements AfterViewInit {
     this.svgRoot
       .on('click', (event: MouseEvent, _) => {
         event.stopPropagation();
+
         if (!this.isZoomed) {
           return;
         }
 
         this.setIsZoomed(false);
 
-        const { defaultLabelId, hoverLabelsId, xAxisLabelsId, barPathId } = CIRCULAR_BAR_CHART;
+        this.bars = this.circularBarChartBuilder.appendChart(
+          this.svgRoot,
+          this.housingCosts.totalShareOnIncome,
+          this.maxY,
+          this.defaultRadius,
+          this.outerRadius,
+          false);
 
-        const bars = this.barsRoot.select(barPathId);
-        this.chartManipulator.unhighlight(bars);
+        const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
+        this.chartManipulator.unhighlight(this.bars, false);
 
-        this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId, hoverLabelsId, this.voronoiChartRootId], false);
-        this.chartManipulator.setVisible(this.barsRoot, [defaultLabelId], true);
+        this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId, hoverLabelsId, VORONOI_CHART.chartId], false);
+        this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
+
       });
   }
 

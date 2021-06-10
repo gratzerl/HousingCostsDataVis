@@ -6,6 +6,9 @@ import { GSelection } from '.';
 
 import { voronoiTreemap } from 'd3-voronoi-treemap';
 import { randomUniform } from 'd3';
+import { interpolatePath } from 'd3-interpolate-path';
+import { SvgSelection } from './chart-manipulator.service';
+
 import * as d3 from 'd3';
 
 export type VoronoiSelection = d3.Selection<SVGGElement, unknown, SVGGElement, unknown>;
@@ -29,7 +32,7 @@ export class VoronoiChartBuilderService {
     this.voronoiChartMapper.prng(this.randomSeed);
   }
 
-  appendChart(root: GSelection, data: CostComposition, radius: number, weightFn: (data: CostComposition) => number, colorFn: (id: string) => string, createNewChart: boolean = false): VoronoiSelection {
+  appendChart(root: SvgSelection, data: CostComposition, radius: number, weightFn: (data: CostComposition) => number, colorFn: (id: string) => string, createNewChart: boolean = false): VoronoiSelection {
     const { chartId, labelsId } = VORONOI_CHART;
 
     if (createNewChart) {
@@ -53,12 +56,10 @@ export class VoronoiChartBuilderService {
       this.hierarchyDataCache[data.id] = hierarchy;
     }
 
-    this.drawDiagram(hierarchy, root, radius, colorFn, createNewChart);
-
-    return root;
+    return this.drawDiagram(hierarchy, root, radius, colorFn, createNewChart);
   }
 
-  drawDiagram(hierarchy: any, root: GSelection, radius: number, colorFn: (id: string) => string, createNewChart: boolean): void {
+  drawDiagram(hierarchy: any, root: SvgSelection, radius: number, colorFn: (id: string) => string, createNewChart: boolean): GSelection {
     const leaves = hierarchy.leaves();
     const { chartId, labelsId } = VORONOI_CHART;
 
@@ -88,13 +89,18 @@ export class VoronoiChartBuilderService {
         return colorFn(data.coicop);
       })
       .transition()
-      .duration(500)
-      .ease(d3.easeLinear)
-      .attr('d', (d: any) => `M${d.polygon.join(',')}z`);
+      .duration(800)
+      .ease(d3.easeQuad)
+      .attrTween('d', function (d: any) {
+        const currentPath = d3.select(this).attr('d');
+        const newPath = `M${d.polygon.join('L')}z`;
+        return interpolatePath(currentPath, newPath);
+      });
 
-    root.append('g')
+
+
+    chart.append('g')
       .attr('id', labelsId)
-      .attr('transform', 'translate(' + [-radius, -radius] + ')')
       .selectAll('.label')
       .data(leaves)
       .enter()
@@ -109,6 +115,8 @@ export class VoronoiChartBuilderService {
       .text((d: any) => {
         return `${d.data.name} (${Math.ceil(d.data.percentage * 100)}%)`;
       });
+
+    return chart;
   }
 
   private computeCircleClipping(radius: number): [number, number][] {

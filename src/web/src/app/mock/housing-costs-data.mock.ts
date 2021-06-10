@@ -172,7 +172,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2011-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.045 },
           { id: 'DE-2011-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.121 },
           { id: 'DE-2011-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.01 },
-          { id: 'DE-2011-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.019 },
+          { id: 'DE-2011-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.019 },
           { id: 'DE-2011-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.048 }
         ]
       },
@@ -185,7 +185,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2012-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.048 },
           { id: 'DE-2012-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.13 },
           { id: 'DE-2012-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.02 },
-          { id: 'DE-2012-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.023 },
+          { id: 'DE-2012-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.023 },
           { id: 'DE-2012-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.051 }
         ]
       },
@@ -198,7 +198,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2013-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.046 },
           { id: 'DE-2013-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.14 },
           { id: 'DE-2013-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.021 },
-          { id: 'DE-2013-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.025 },
+          { id: 'DE-2013-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.025 },
           { id: 'DE-2013-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.052 }
         ]
       },
@@ -211,7 +211,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2014-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.0462 },
           { id: 'DE-2014-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.15 },
           { id: 'DE-2014-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.023 },
-          { id: 'DE-2014-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.026 },
+          { id: 'DE-2014-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.026 },
           { id: 'DE-2014-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.048 }
         ]
       },
@@ -224,7 +224,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2015-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.045 },
           { id: 'DE-2015-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.10 },
           { id: 'DE-2015-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.020 },
-          { id: 'DE-2015-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.032 },
+          { id: 'DE-2015-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.032 },
           { id: 'DE-2015-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.044 }
         ]
       },
@@ -237,7 +237,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2016-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.042 },
           { id: 'DE-2016-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.13 },
           { id: 'DE-2016-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.022 },
-          { id: 'DE-2016-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.033 },
+          { id: 'DE-2016-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.033 },
           { id: 'DE-2016-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.041 }
         ]
       },
@@ -250,7 +250,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2017-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.0448 },
           { id: 'DE-2017-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.124 },
           { id: 'DE-2017-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.022 },
-          { id: 'DE-2017-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.028 },
+          { id: 'DE-2017-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.028 },
           { id: 'DE-2017-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.04 }
         ]
       },
@@ -263,7 +263,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2018-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.05 },
           { id: 'DE-2018-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.14 },
           { id: 'DE-2018-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.018 },
-          { id: 'DE-2018-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.026 },
+          { id: 'DE-2018-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.026 },
           { id: 'DE-2018-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.042 }
         ]
       },
@@ -276,7 +276,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2019-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.052 },
           { id: 'DE-2019-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.19 },
           { id: 'DE-2019-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.016 },
-          { id: 'DE-2019-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.024 },
+          { id: 'DE-2019-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.024 },
           { id: 'DE-2019-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.040 }
         ]
       },
@@ -289,7 +289,7 @@ export const hosingCostsMock: HousingCosts[] = [
           { id: 'DE-2020-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.054 },
           { id: 'DE-2020-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.2 },
           { id: 'DE-2020-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.013 },
-          { id: 'DE-2020-CP044', coicop: 'CP044', name: 'WDEer supply', percentage: 0.028 },
+          { id: 'DE-2020-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.028 },
           { id: 'DE-2020-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.045 }
         ]
       }

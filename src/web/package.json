@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~12.0.2",
     "@angular/router": "~12.0.2",
     "d3": "^6.7.0",
+    "d3-interpolate-path": "^2.2.3",
     "d3-random": "^3.0.1",
     "d3-voronoi-treemap": "^1.1.1",
     "rxjs": "~6.6.0",

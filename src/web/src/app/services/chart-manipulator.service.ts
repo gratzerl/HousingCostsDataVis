@@ -53,25 +53,32 @@ export class ChartManipulatorService {
   }
 
   highlight(selector: any): void {
-    this.getAnimated(selector)
+    d3.select(selector)
+      .transition()
+      .duration(50)
       .attr('opacity', '0.85');
   }
 
-  unhighlight(selector: any): void {
-    this.getAnimated(selector)
-      .attr('opacity', '1');
+  unhighlight(selector: any, withAnimation: boolean): void {
+    if (withAnimation) {
+      this.getAnimated(selector)
+        .attr('opacity', '1');
+    } else {
+      d3.selectAll(selector)
+        .attr('opacity', '1');
+    }
   }
 
   setVisible(selection: d3.Selection<d3.BaseType, unknown, null, unknown>, ids: string[], isVisible: boolean): void {
     ids.forEach(id => {
-      selection.select(`#${id}`)
+      const x = selection.select(`#${id}`)
         .style('display', isVisible ? 'inline' : 'none');
     });
   }
 
-  private getAnimated(selection: any): Transition<any, unknown, null, undefined> {
+  private getAnimated(selection: any, duration: number = 50): Transition<any, unknown, null, undefined> {
     return d3.select(selection)
       .transition()
-      .duration(50);
+      .duration(duration);
   }
 }
