@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 
 import { HomeComponent, DashboardComponent } from './pages';
-import { HousingCostsTilesComponent, HousingCostsTileComponent } from './components';
+import { HousingCostsTilesComponent, HousingCostsTileComponent, HousingOwnershipBubbleComponent } from './components';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { HousingCostsTilesComponent, HousingCostsTileComponent } from './compone
     HomeComponent,
     DashboardComponent,
     HousingCostsTilesComponent,
-    HousingCostsTileComponent
+    HousingCostsTileComponent,
+    HousingOwnershipBubbleComponent
   ],
   imports: [
     BrowserModule,
