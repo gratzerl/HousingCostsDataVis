@@ -43,8 +43,8 @@ const data = [
 })
 
 export class HousingOwnershipBubbleComponent implements AfterViewInit {
-  private readonly height = 1440;
-  private readonly width = 1440;
+  private readonly height = 1000;
+  private readonly width = 1000;
 
   private svgRoot: SvgSelection;
 
