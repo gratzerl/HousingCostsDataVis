@@ -13,11 +13,10 @@ import {
 } from 'src/app/services';
 
 const data = [
-  {"Framework": "Vue", "Stars": "166443", "Released": "2014"},
-  {"Framework": "React", "Stars": "150793", "Released": "2013"},
-  {"Framework": "Angular", "Stars": "62342", "Released": "2016"},
-  {"Framework": "Backbone", "Stars": "27647", "Released": "2010"},
-  {"Framework": "Ember", "Stars": "21471", "Released": "2011"},
+  { country: "Austria", ownership: 15, housing: 35, gdp: 3612 },
+  { country: "Germany", ownership: 10, housing: 40, gdp: 4000 },
+  { country: "Hungary", ownership: 20, housing: 30, gdp: 1250 },
+  { country: "Romania", ownership: 40, housing: 20, gdp: 800 },
 ];
 
 @Component({
@@ -77,7 +76,7 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
 private drawPlot(): void {
   // Add X axis
   const x = d3.scaleLinear()
-  .domain([2009, 2017])
+  .domain([0, 100])
   .range([ 0, this.width ]);
   this.svg.append("g")
   .attr("transform", "translate(0," + this.height + ")")
@@ -85,10 +84,14 @@ private drawPlot(): void {
 
   // Add Y axis
   const y = d3.scaleLinear()
-  .domain([0, 200000])
+  .domain([0, 100])
   .range([ this.height, 0]);
   this.svg.append("g")
   .call(d3.axisLeft(y));
+
+  const z = d3.scaleLinear()
+  .domain([0, 10000])
+  .range([0,40 ]);
 
   // Add dots
   const dots = this.svg.append('g');
@@ -96,9 +99,9 @@ private drawPlot(): void {
   .data(data)
   .enter()
   .append("circle")
-  .attr("cx", d => x(d.Released))
-  .attr("cy", d => y(d.Stars))
-  .attr("r", 7)
+  .attr("cx", d => x(d.ownership))
+  .attr("cy", d => y(d.housing))
+  .attr("r", d => z(d.gdp))
   .style("opacity", .5)
   .style("fill", "#69b3a2");
 }
