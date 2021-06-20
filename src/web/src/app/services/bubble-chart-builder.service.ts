@@ -19,9 +19,12 @@ export class BubbleChartBuilderService {
   appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number) {
     var root = svgRoot.append("g").attr("transform", "translate(" + margin + " " + margin + ")")
 
+    var maxX = this.getMax(data, d => d.ownership);
+    var maxY = this.getMax(data, d => d.housing);
+
     // Add X axis
     const x = d3.scaleLinear()
-    .domain([0, 100])
+    .domain([0, maxX + 10])
     .range([ 0, width ]);
     root.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -39,7 +42,7 @@ export class BubbleChartBuilderService {
 
     // Add Y axis
     const y = d3.scaleLinear()
-    .domain([0, 100])
+    .domain([0, maxY + 10])
     .range([ height, 0]);
     root.append("g")
     .call(d3.axisLeft(y).tickFormat(d => d + "%"))
@@ -73,5 +76,9 @@ export class BubbleChartBuilderService {
     .text(d => d.country)
     .attr("x", d => x(d.ownership)+20)
     .attr("y", d => y(d.housing)-20);
+  }
+
+  private getMax(data: Bubble[], fn:  (d: Bubble) => number) : number {
+    return data.map(fn).reduce((a,b) => Math.max(a,b));
   }
 }

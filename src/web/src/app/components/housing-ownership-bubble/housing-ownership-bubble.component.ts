@@ -11,7 +11,7 @@ const data : Bubble[] = [
   { country: "AUT", ownership: 15, housing: 35, gdp: 3612 },
   { country: "GER", ownership: 10, housing: 40, gdp: 4000 },
   { country: "HU", ownership: 20, housing: 30, gdp: 1250 },
-  { country: "RO", ownership: 40, housing: 20, gdp: 800 },
+  { country: "RO", ownership: 43.7, housing: 20, gdp: 800 },
 ];
 
 @Component({
