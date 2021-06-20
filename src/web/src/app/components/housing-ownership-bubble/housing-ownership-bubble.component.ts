@@ -21,10 +21,12 @@ const data = [
 })
 
 export class HousingOwnershipBubbleComponent implements AfterViewInit {
-  private svg;
+  private chartWidth = 1800;
+  private chartHeight = 1440;
+  
   private margin = 175;
-  private width = 1800 - (this.margin * 2);
-  private height = 1440 - (this.margin * 2);
+  private width = this.chartWidth - (this.margin * 2);
+  private height = this.chartHeight - (this.margin * 2);
 
   private fontSize = 50;
 
@@ -38,15 +40,16 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
     private chartManipulator: ChartManipulatorService) { }
 
   ngAfterViewInit(): void {
-    // this.createChart();
-    this.createSvg();
-    this.drawPlot();
+    this.createChart();
+
   }
 
   createChart() {
-    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, this.width, this.height);
 
-    this.drawBubbleChart()
+    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, 0, 0, this.chartWidth, this.chartHeight);
+    this.drawPlot();
+
+    // this.drawBubbleChart();
   }
 
   drawBubbleChart() {
@@ -57,21 +60,14 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
     );
   }
 
-  private createSvg(): void {
-    this.svg = d3
-    .select(this.chartContainerRef.nativeElement)
-    .append("svg")
-    .attr('viewBox', `0 0 ${this.width + (this.margin * 2)} ${this.height + (this.margin * 2)} `)
-    .append("g")
-    .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
-}
-
 private drawPlot(): void {
+  var root = this.svgRoot.append("g").attr("transform", "translate(" + this.margin + " " + this.margin + ")")
+
   // Add X axis
   const x = d3.scaleLinear()
   .domain([0, 100])
   .range([ 0, this.width ]);
-  this.svg.append("g")
+  root.append("g")
   .attr("transform", "translate(0," + this.height + ")")
   .call(d3.axisBottom(x).tickFormat(d => d + "%"))
   .style("font-size", `${this.fontSize}px`);
@@ -80,7 +76,7 @@ private drawPlot(): void {
   const y = d3.scaleLinear()
   .domain([0, 100])
   .range([ this.height, 0]);
-  this.svg.append("g")
+  root.append("g")
   .call(d3.axisLeft(y).tickFormat(d => d + "%"))
   .style("font-size", `${this.fontSize}px`);;
 
@@ -89,7 +85,7 @@ private drawPlot(): void {
   .range([0, 100]);
 
   // Add dots
-  const dots = this.svg.append('g');
+  const dots = root.append('g');
   dots.selectAll("dot")
   .data(data)
   .enter()

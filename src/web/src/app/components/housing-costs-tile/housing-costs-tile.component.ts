@@ -66,7 +66,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
   }
 
   private createChart(): void {
-    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, this.width, this.height);
+    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef,  -this.width / 2, -this.height / 2,this.width, this.height);
     this.createSvgClickInteraction();
 
     this.createBarChart();

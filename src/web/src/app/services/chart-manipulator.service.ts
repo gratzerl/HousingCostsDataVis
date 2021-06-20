@@ -15,11 +15,11 @@ export class ChartManipulatorService {
 
   constructor() { }
 
-  appendSvg(element: ElementRef, width: number, height: number): SvgSelection {
+  appendSvg(element: ElementRef, x: number, y: number, width: number, height: number): SvgSelection {
     return d3
       .select(element.nativeElement)
       .append('svg')
-      .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height} `)
+      .attr('viewBox', `${x} ${y} ${width} ${height} `)
       .style('transform', `translate(0, 0) scale(1)`)
       .style('font', `${barChartLabelFontSizePx}px sans-serif`);
   }
