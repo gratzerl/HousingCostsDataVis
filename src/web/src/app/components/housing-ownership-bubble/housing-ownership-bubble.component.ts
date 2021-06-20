@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ViewChild, ElementRef } from '@angular/core';
-import * as d3 from 'd3';
 
 import {
   BubbleChartBuilderService,
@@ -28,8 +27,6 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
   private width = this.chartWidth - (this.margin * 2);
   private height = this.chartHeight - (this.margin * 2);
 
-  private fontSize = 50;
-
   private svgRoot: SvgSelection;
 
   @ViewChild('chart')
@@ -45,55 +42,18 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
   }
 
   createChart() {
-
     this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, 0, 0, this.chartWidth, this.chartHeight);
-    this.drawPlot();
 
-    // this.drawBubbleChart();
+    this.drawBubbleChart();
   }
 
   drawBubbleChart() {
     this.bubbleChartBuilder.appendChart(
       this.svgRoot,
       data,
-      true
+      this.width,
+      this.height,
+      this.margin
     );
   }
-
-private drawPlot(): void {
-  var root = this.svgRoot.append("g").attr("transform", "translate(" + this.margin + " " + this.margin + ")")
-
-  // Add X axis
-  const x = d3.scaleLinear()
-  .domain([0, 100])
-  .range([ 0, this.width ]);
-  root.append("g")
-  .attr("transform", "translate(0," + this.height + ")")
-  .call(d3.axisBottom(x).tickFormat(d => d + "%"))
-  .style("font-size", `${this.fontSize}px`);
-
-  // Add Y axis
-  const y = d3.scaleLinear()
-  .domain([0, 100])
-  .range([ this.height, 0]);
-  root.append("g")
-  .call(d3.axisLeft(y).tickFormat(d => d + "%"))
-  .style("font-size", `${this.fontSize}px`);;
-
-  const z = d3.scaleLinear()
-  .domain([0, 10000])
-  .range([0, 100]);
-
-  // Add dots
-  const dots = root.append('g');
-  dots.selectAll("dot")
-  .data(data)
-  .enter()
-  .append("circle")
-  .attr("cx", d => x(d.ownership))
-  .attr("cy", d => y(d.housing))
-  .attr("r", d => z(d.gdp))
-  .style("opacity", .5)
-  .style("fill", "#69b3a2");
-}
 }
