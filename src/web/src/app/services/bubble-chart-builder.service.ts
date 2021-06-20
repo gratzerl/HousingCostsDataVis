@@ -59,15 +59,19 @@ export class BubbleChartBuilderService {
     .range([0, 100]);
 
     // Add dots
-    const dots = root.append('g');
-    dots.selectAll("dot")
+    const dots = root.append('g')
+    .selectAll("dot")
     .data(data)
-    .enter()
-    .append("circle")
+    .enter();
+    dots.append("circle")
     .attr("cx", d => x(d.ownership))
     .attr("cy", d => y(d.housing))
     .attr("r", d => z(d.gdp))
     .style("opacity", .5)
     .style("fill", "#69b3a2");
+    dots.append("text")
+    .text(d => d.country)
+    .attr("x", d => x(d.ownership)+20)
+    .attr("y", d => y(d.housing)-20);
   }
 }

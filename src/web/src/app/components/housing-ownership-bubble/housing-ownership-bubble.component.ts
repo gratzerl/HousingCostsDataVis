@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild, ElementRef } from '@angular/core';
+import { Bubble } from 'src/app/models';
 
 import {
   BubbleChartBuilderService,
@@ -6,11 +7,11 @@ import {
   SvgSelection,
 } from 'src/app/services';
 
-const data = [
-  { country: "Austria", ownership: 15, housing: 35, gdp: 3612 },
-  { country: "Germany", ownership: 10, housing: 40, gdp: 4000 },
-  { country: "Hungary", ownership: 20, housing: 30, gdp: 1250 },
-  { country: "Romania", ownership: 40, housing: 20, gdp: 800 },
+const data : Bubble[] = [
+  { country: "AUT", ownership: 15, housing: 35, gdp: 3612 },
+  { country: "GER", ownership: 10, housing: 40, gdp: 4000 },
+  { country: "HU", ownership: 20, housing: 30, gdp: 1250 },
+  { country: "RO", ownership: 40, housing: 20, gdp: 800 },
 ];
 
 @Component({
