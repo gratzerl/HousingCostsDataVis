@@ -28,6 +28,15 @@ export class BubbleChartBuilderService {
     .call(d3.axisBottom(x).tickFormat(d => d + "%"))
     .style("font-size", `${this.fontSize}px`);
 
+    // add x label
+    root.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height + margin) 
+    .text("Ownsership");
+
+
     // Add Y axis
     const y = d3.scaleLinear()
     .domain([0, 100])
@@ -35,6 +44,15 @@ export class BubbleChartBuilderService {
     root.append("g")
     .call(d3.axisLeft(y).tickFormat(d => d + "%"))
     .style("font-size", `${this.fontSize}px`);;
+
+    // add y label
+    root.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", -margin /2)
+    .attr("x", margin)
+    .attr("dy", `${this.fontSize}px`)
+    .text("Housing");
 
     const z = d3.scaleLinear()
     .domain([0, 10000])
