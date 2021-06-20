@@ -67,8 +67,7 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
     this.svg = d3
     .select(this.chartContainerRef.nativeElement)
     .append("svg")
-    .attr("width", this.width + (this.margin * 2))
-    .attr("height", this.height + (this.margin * 2))
+    .attr('viewBox', `0 0 ${this.width + (this.margin * 2)} ${this.height + (this.margin * 2)} `)
     .append("g")
     .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
 }
