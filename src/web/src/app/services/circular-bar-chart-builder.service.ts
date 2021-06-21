@@ -36,10 +36,6 @@ export class CircularBarChartBuilderService {
 
     const chart = root.select(`#${CIRCULAR_BAR_CHART.chartRootId}`) as GSelection;
 
-
-    // chart.selectAll(`#${CIRCULAR_BAR_CHART.xAxisLabelsId}`).remove();
-
-
     const xScale = this.getXScale(data);
     const yScale = this.getYScale(yMaxValue, innerRadius, outerRadius);
 

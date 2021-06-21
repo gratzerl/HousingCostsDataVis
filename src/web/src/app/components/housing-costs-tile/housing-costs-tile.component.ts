@@ -1,6 +1,17 @@
-import { AfterViewInit, Component, ElementRef, Input, Output, ViewChild, EventEmitter } from '@angular/core';
-import { Bar, HousingCosts } from 'src/app/models';
-import * as d3 from 'd3';
+import {
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  Output,
+  ViewChild,
+  EventEmitter
+} from '@angular/core';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import {
   CircularBarChartBuilderService,
@@ -10,10 +21,13 @@ import {
   VoronoiChartBuilderService,
   VoronoiSelection,
   CIRCULAR_BAR_CHART,
-  VORONOI_CHART
+  VORONOI_CHART,
+  ChartInteractionService
 } from 'src/app/services';
 
+import { Bar, HousingCosts } from 'src/app/models';
 import { voronoiChartStyling } from 'src/app/constants/bar-voronoi-chart.constants';
+
 
 
 @Component({
@@ -22,7 +36,7 @@ import { voronoiChartStyling } from 'src/app/constants/bar-voronoi-chart.constan
   styleUrls: ['./housing-costs-tile.component.scss'],
   providers: [VoronoiChartBuilderService, CircularBarChartBuilderService]
 })
-export class HousingCostsTileComponent implements AfterViewInit {
+export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
   housingCosts!: HousingCosts;
@@ -36,7 +50,9 @@ export class HousingCostsTileComponent implements AfterViewInit {
   @ViewChild('chart')
   chartContainerRef: ElementRef;
 
-  private readonly defaultRadiusPercentage = 0.25;
+  private readonly onDestory = new Subject<void>();
+
+  private readonly defaultRadiusPercentage = 0.3;
   private readonly zoomedRadiusPercentage = 0.55;
   private readonly chartPaddingPercentage = 0.015;
 
@@ -57,9 +73,27 @@ export class HousingCostsTileComponent implements AfterViewInit {
   private selectedBar: Bar;
 
   constructor(
+    private interactionService: ChartInteractionService,
     private circularBarChartBuilder: CircularBarChartBuilderService,
     private voronoiChartBuilder: VoronoiChartBuilderService,
     private chartManipulator: ChartManipulatorService) { }
+
+  ngOnInit(): void {
+    this.interactionService.hoveredBubble$
+      .pipe(takeUntil(this.onDestory))
+      .subscribe(countryCode => {
+        if (countryCode === this.housingCosts.country) {
+          this.highlightChart();
+        } else {
+          this.unhighlightChart();
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestory.next();
+    this.onDestory.complete();
+  }
 
   ngAfterViewInit(): void {
     this.createChart();
@@ -88,23 +122,23 @@ export class HousingCostsTileComponent implements AfterViewInit {
   }
 
   private createBarsInteraction(): void {
-    this.bars
-      .on('mouseenter', (event: MouseEvent, bar: Bar) => {
-        this.chartManipulator.highlight(event.target as any);
+    this.bars.on('mouseenter', (event: MouseEvent, bar: Bar) => {
+      this.chartManipulator.highlight(event.target as any, true);
 
-        const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
-        this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId, defaultLabelId], false);
+      const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
+      this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId, defaultLabelId], false);
 
-        if (this.isZoomed) {
-          return;
-        }
+      if (this.isZoomed) {
+        return;
+      }
 
-        this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], true);
+      this.interactionService.hoveredBar = this.housingCosts.country;
+      this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], true);
 
-        const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
-        this.chartManipulator.setText(this.svgRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
-        this.chartManipulator.setText(this.svgRoot, hoverBottomLabelId, `${bar.year}`);
-      });
+      const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
+      this.chartManipulator.setText(this.svgRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
+      this.chartManipulator.setText(this.svgRoot, hoverBottomLabelId, `${bar.year}`);
+    });
 
     this.bars.on('mouseleave', (event: MouseEvent, bar: Bar) => {
       if (bar !== this.selectedBar) {
@@ -115,6 +149,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
         return;
       }
 
+      this.interactionService.hoveredBar = null;
       const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
       this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
       this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], false);
@@ -142,7 +177,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
         this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId], true);
       }
 
-      this.chartManipulator.highlight(event.target as any);
+      this.chartManipulator.highlight(event.target as any, true);
 
       const data = this.housingCosts.composition[bar.year];
       const { compositionCategoryColors } = voronoiChartStyling;
@@ -185,5 +220,13 @@ export class HousingCostsTileComponent implements AfterViewInit {
   private setIsZoomed(zoomed: boolean) {
     this.isZoomed = zoomed;
     this.zoom.emit(this.isZoomed);
+  }
+
+  private highlightChart(): void {
+    this.chartManipulator.highlight(this.bars, false);
+  }
+
+  private unhighlightChart(): void {
+    this.chartManipulator.unhighlight(this.bars, false);
   }
 }

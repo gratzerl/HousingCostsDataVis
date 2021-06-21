@@ -1,6 +1,7 @@
 export const barChartStyling = {
-  labelFontSizePx: 64,
-  color: '#553A41',
+  labelFontSizePx: 94,
+  color: '#becad4',
+  highlightColor: '#6a9ec1',
   axis: {
     x: {
       fontSizePx: 24,
@@ -15,10 +16,18 @@ export const voronoiChartStyling = {
   segmentStrokeColor: '#000000',
   compositionCategoryColors: {
     'CP04': '#FFFFF',
-    'CP041': '#ECE2C4',
-    'CP042': '#DBD9C2',
-    'CP043': '#C7D2C2',
-    'CP044': '#C1C7B5',
-    'CP045': '#C5BAA5',
+    'CP041': '#56b6e1',
+    'CP042': '#83d5a6',
+    'CP043': '#ffb645',
+    'CP044': '#e27361',
+    'CP045': '#a97adf',
   }
 }
+
+// ["#56b6e1",
+// "#83d5a6",
+// "#ffb645",
+// "#e27361",
+// "#a97adf",
+// "#becad4",
+//   "#6a9ec1"]

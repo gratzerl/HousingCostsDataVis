@@ -52,11 +52,14 @@ export class ChartManipulatorService {
       .text(content);
   }
 
-  highlight(selector: any): void {
-    d3.select(selector)
-      .transition()
-      .duration(50)
-      .attr('opacity', '0.85');
+  highlight(selector: any, withAnimation: boolean): void {
+    if (withAnimation) {
+      this.getAnimated(selector)
+        .attr('opacity', '0.85');
+    } else {
+      d3.selectAll(selector)
+        .attr('opacity', '0.85');
+    }
   }
 
   unhighlight(selector: any, withAnimation: boolean): void {

@@ -8,6 +8,8 @@ export const BUBBLE_CHART = {
   chartRootId: 'bubbleChart',
 };
 
+export type BubbleSelection = d3.Selection<SVGGElement, Bubble, SVGGElement, unknown>;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,7 @@ export class BubbleChartBuilderService {
 
   constructor() { }
 
-  appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number) {
+  appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number): BubbleSelection {
     const root = svgRoot.append('g')
       .attr('id', 'bubbleChart')
       .attr('transform', 'translate(' + margin + ' ' + margin + ')');
@@ -26,7 +28,7 @@ export class BubbleChartBuilderService {
     const maxY = this.getMax(data, d => d.housing);
     const y = this.drawYAxis(root, maxY, height);
 
-    this.drawBubbles(root, data, x, y);
+    return this.drawBubbles(root, data, x, y);
   }
 
   private getMax(data: Bubble[], fn: (d: Bubble) => number): number {
@@ -85,7 +87,7 @@ export class BubbleChartBuilderService {
     return yScale;
   }
 
-  private drawBubbles(chartRoot, data: Bubble[], xScale: d3.ScaleLinear<number, number, never>, yScale: d3.ScaleLinear<number, number, never>): void {
+  private drawBubbles(chartRoot: GSelection, data: Bubble[], xScale: d3.ScaleLinear<number, number, never>, yScale: d3.ScaleLinear<number, number, never>): BubbleSelection {
     const { color, opacity, labelSizePx } = bubbleStyling;
 
     const z = d3.scaleLinear()
@@ -93,10 +95,13 @@ export class BubbleChartBuilderService {
       .range([40, 120]);
 
     const dots = chartRoot
-      .selectAll('dot')
+      .selectAll('.dot')
       .data(data)
       .enter()
       .append('g')
+      .attr('id', (d: Bubble) => `country-${d.country}`)
+      .style('cursor', 'pointer')
+      .classed('no-select', true)
       .classed('dot', true);
 
     dots.append('circle')
@@ -115,5 +120,7 @@ export class BubbleChartBuilderService {
       .attr('x', (d: Bubble) => xScale(d.ownership))
       .attr('y', (d: Bubble) => yScale(d.housing))
       .text((d: Bubble) => d.country);
+
+    return dots;
   }
 }
