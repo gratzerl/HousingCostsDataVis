@@ -3,6 +3,8 @@ import { Subject } from 'rxjs';
 import { Bubble } from 'src/app/models';
 import { takeUntil } from 'rxjs/operators';
 
+import { OwnershipHousingMock } from '../../mock';
+
 import {
   BubbleChartBuilderService,
   ChartManipulatorService,
@@ -10,19 +12,6 @@ import {
   BubbleSelection,
   ChartInteractionService
 } from 'src/app/services';
-
-const data: Bubble[] = [
-  { country: 'AT', ownership: 15, housing: 35, gdp: 3612 },
-  { country: 'DE', ownership: 10, housing: 40, gdp: 4000 },
-  { country: 'HU', ownership: 20, housing: 30, gdp: 1250 },
-  { country: 'RO', ownership: 43, housing: 20, gdp: 1200 },
-  { country: 'FR', ownership: 33, housing: 15, gdp: 1420 },
-  { country: 'IT', ownership: 21, housing: 23, gdp: 2400 },
-  { country: 'CZ', ownership: 12, housing: 20, gdp: 1290 },
-  { country: 'ES', ownership: 20, housing: 28, gdp: 1980 },
-  { country: 'HR', ownership: 12, housing: 23, gdp: 980 },
-  { country: 'SK', ownership: 10, housing: 24, gdp: 800 },
-];
 
 @Component({
   selector: 'app-housing-ownership-bubble',
@@ -55,6 +44,17 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
     this.interactionService.hoveredBar$
       .pipe(takeUntil(this.onDestroy))
       .subscribe(countryCode => this.highlightBubble(countryCode));
+    this.interactionService.hoveredYear$
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(year => {
+        console.log('####');
+        console.log(year);
+        const data = OwnershipHousingMock[year];
+        console.log(data)
+        if (year && data) {
+          this.drawBubbleChart(OwnershipHousingMock[year], true) }
+        }
+        );
   }
 
   ngAfterViewInit(): void {
@@ -77,16 +77,17 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   private createChart(): void {
     this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, 0, 0, this.chartWidth, this.chartHeight);
 
-    this.drawBubbleChart();
+    this.drawBubbleChart(OwnershipHousingMock["2020"]);
   }
 
-  private drawBubbleChart(): void {
+  private drawBubbleChart(data, removeChart = false): void {
     this.bubbles = this.bubbleChartBuilder.appendChart(
       this.svgRoot,
       data,
       this.width,
       this.height,
-      this.margin
+      this.margin,
+      removeChart
     );
 
     this.bubbles

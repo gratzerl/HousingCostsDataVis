@@ -133,6 +133,7 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
       }
 
       this.interactionService.hoveredBar = this.housingCosts.country;
+      this.interactionService.hoveredYear = bar.year;
       this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], true);
 
       const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
@@ -150,6 +151,7 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
       }
 
       this.interactionService.hoveredBar = null;
+      this.interactionService.hoveredYear = null;
       const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
       this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
       this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], false);

@@ -3,6 +3,7 @@ import { GSelection, SvgSelection } from './chart-manipulator.service';
 import * as d3 from 'd3';
 import { Bubble } from '../models';
 import { axisStyling, bubbleStyling } from '../constants/bubble-chart.constants';
+import { create } from 'd3';
 
 export const BUBBLE_CHART = {
   chartRootId: 'bubbleChart',
@@ -17,7 +18,12 @@ export class BubbleChartBuilderService {
 
   constructor() { }
 
-  appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number): BubbleSelection {
+  appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number, createNewChart: boolean = false): BubbleSelection {
+    if (createNewChart) {
+      svgRoot.selectAll(`#bubbleChart`)
+      .remove();
+    }
+
     const root = svgRoot.append('g')
       .attr('id', 'bubbleChart')
       .attr('transform', 'translate(' + margin + ' ' + margin + ')');

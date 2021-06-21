@@ -9,6 +9,8 @@ export class ChartInteractionService {
   private hoveredBarChange = new Subject<string>();
   private hoveredBubbleChange = new Subject<string>();
 
+  private hoveredYearChange = new Subject<string>();
+
   constructor() { }
 
   get hoveredBar$(): Observable<string> {
@@ -25,5 +27,13 @@ export class ChartInteractionService {
 
   set hoveredBubble(countryCode: string) {
     this.hoveredBubbleChange.next(countryCode);
+  }
+
+  get hoveredYear$(): Observable<string> {
+    return this.hoveredYearChange.asObservable();
+  }
+
+  set hoveredYear(year: string) {
+    this.hoveredYearChange.next(year);
   }
 }
