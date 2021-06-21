@@ -13,7 +13,7 @@ import {
   VORONOI_CHART
 } from 'src/app/services';
 
-import { compositionCategoryColors } from 'src/app/constants/styling.constants';
+import { voronoiChartStyling } from 'src/app/constants/bar-voronoi-chart.constants';
 
 
 @Component({
@@ -66,7 +66,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
   }
 
   private createChart(): void {
-    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef,  -this.width / 2, -this.height / 2,this.width, this.height);
+    this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, -this.width / 2, -this.height / 2, this.width, this.height);
     this.createSvgClickInteraction();
 
     this.createBarChart();
@@ -145,6 +145,7 @@ export class HousingCostsTileComponent implements AfterViewInit {
       this.chartManipulator.highlight(event.target as any);
 
       const data = this.housingCosts.composition[bar.year];
+      const { compositionCategoryColors } = voronoiChartStyling;
 
       this.voronoiChart = this.voronoiChartBuilder.appendChart(this.svgRoot, data, this.zoomedRadius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoiChart === undefined);
       this.voronoiChart.on('click', (e: MouseEvent, _) => e.stopPropagation());

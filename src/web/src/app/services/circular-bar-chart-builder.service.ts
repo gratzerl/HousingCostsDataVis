@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Bar } from '../models';
 import { ChartManipulatorService, GSelection } from '.';
-import { barColor, barChartAxisFontSizePx } from '../constants/styling.constants';
+import { barChartStyling } from '../constants/bar-voronoi-chart.constants';
 
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import * as d3 from 'd3';
@@ -61,6 +61,7 @@ export class CircularBarChartBuilderService {
 
   private drawBars(chart: GSelection, data: Bar[], arc: Arc<any, Bar>, createNewChart: boolean): BarSelection {
     const { barPathId } = CIRCULAR_BAR_CHART;
+    const { color } = barChartStyling;
 
     if (createNewChart) {
       chart.append('g')
@@ -78,7 +79,7 @@ export class CircularBarChartBuilderService {
     chart
       .selectAll(`#${barPathId}`)
       .data(data)
-      .style('fill', barColor)
+      .style('fill', color)
       .attr('d', d => arc(d));
 
     return chart.selectAll(`#${barPathId}`);
@@ -123,6 +124,7 @@ export class CircularBarChartBuilderService {
 
   private addXAxisLabels(selection: GSelection, data: Bar[], innerRadius: number, xScale: ScaleBand<string>, createNewChart: boolean): void {
     const { xAxisLabelsId } = CIRCULAR_BAR_CHART;
+    const { x } = barChartStyling.axis;
 
     if (createNewChart) {
       selection.append('g')
@@ -130,8 +132,8 @@ export class CircularBarChartBuilderService {
     }
 
     selection.select(`#${xAxisLabelsId}`)
-      .style('font-size', `${barChartAxisFontSizePx}px`)
-      .style('line-height', `${barChartAxisFontSizePx}px`)
+      .style('font-size', `${x.fontSizePx}px`)
+      .style('line-height', `${x.lineHeightPx}px`)
       .style('text-anchor', 'middle')
       .call(g => g.selectAll('g')
         .data(data)

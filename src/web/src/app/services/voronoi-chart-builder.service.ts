@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { segmentStrokeColor, voronoiChartLabelsFontSizePx } from '../constants/styling.constants';
+import { voronoiChartStyling } from '../constants/bar-voronoi-chart.constants';
 import { CostComposition } from '../models';
 import { GSelection } from '.';
 
@@ -62,6 +62,7 @@ export class VoronoiChartBuilderService {
   drawDiagram(hierarchy: any, root: SvgSelection, radius: number, colorFn: (id: string) => string, createNewChart: boolean): GSelection {
     const leaves = hierarchy.leaves();
     const { chartId, labelsId } = VORONOI_CHART;
+    const { segmentStrokeColor, labelFontSizePx } = voronoiChartStyling;
 
     let chart: GSelection;
     if (createNewChart) {
@@ -106,12 +107,12 @@ export class VoronoiChartBuilderService {
       .enter()
       .append('g')
       .classed('label', true)
-      .attr('text-anchor', 'middle')
+      .style('text-anchor', 'middle')
       .attr('transform', function (d: any) {
         return 'translate(' + [d.polygon.site.x, d.polygon.site.y] + ')';
       })
       .append('text')
-      .style('font', `${voronoiChartLabelsFontSizePx}px sans-serif`)
+      .style('font', `${labelFontSizePx}px sans-serif`)
       .text((d: any) => {
         return `${d.data.name} (${Math.ceil(d.data.percentage * 100)}%)`;
       });

@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { barChartLabelFontSizePx } from '../constants/styling.constants';
+import { barChartStyling } from '../constants/bar-voronoi-chart.constants';
 
 import * as d3 from 'd3';
 import { Transition } from 'd3';
@@ -21,12 +21,12 @@ export class ChartManipulatorService {
       .append('svg')
       .attr('viewBox', `${x} ${y} ${width} ${height} `)
       .style('transform', `translate(0, 0) scale(1)`)
-      .style('font', `${barChartLabelFontSizePx}px sans-serif`);
+      .style('font', `${barChartStyling.labelFontSizePx}px sans-serif`);
   }
 
   appendText<T extends d3.BaseType>(svg: d3.Selection<T, unknown, null, undefined>, id: string, defaultDisplay: string = 'inline'): TextSelection {
     return svg.append('g')
-      .style('font', `${barChartLabelFontSizePx}px sans-serif`)
+      .style('font', `${barChartStyling.labelFontSizePx}px sans-serif`)
       .style('pointer-events', 'none')
       .style('text-anchor', 'middle')
       .append('text')

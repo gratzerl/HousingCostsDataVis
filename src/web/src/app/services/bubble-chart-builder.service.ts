@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SvgSelection } from './chart-manipulator.service';
+import { GSelection, SvgSelection } from './chart-manipulator.service';
 import * as d3 from 'd3';
 import { Bubble } from '../models';
+import { axisStyling, bubbleStyling } from '../constants/bubble-chart.constants';
 
 export const BUBBLE_CHART = {
   chartRootId: 'bubbleChart',
@@ -14,71 +15,105 @@ export class BubbleChartBuilderService {
 
   constructor() { }
 
-  private fontSize = 50;
-
   appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number) {
-    var root = svgRoot.append("g").attr("transform", "translate(" + margin + " " + margin + ")")
+    const root = svgRoot.append('g')
+      .attr('id', 'bubbleChart')
+      .attr('transform', 'translate(' + margin + ' ' + margin + ')');
 
-    var maxX = this.getMax(data, d => d.ownership);
-    var maxY = this.getMax(data, d => d.housing);
+    const maxX = this.getMax(data, d => d.ownership);
+    const x = this.drawXAxis(root, maxX, width, height, margin);
 
-    // Add X axis
-    const x = d3.scaleLinear()
-    .domain([0, maxX + 10])
-    .range([ 0, width ]);
-    root.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).tickFormat(d => d + "%"))
-    .style("font-size", `${this.fontSize}px`);
+    const maxY = this.getMax(data, d => d.housing);
+    const y = this.drawYAxis(root, maxY, height);
 
-    // add x label
-    root.append("text")
-    .attr("class", "x label")
-    .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height + margin) 
-    .text("Ownsership");
-
-
-    // Add Y axis
-    const y = d3.scaleLinear()
-    .domain([0, maxY + 10])
-    .range([ height, 0]);
-    root.append("g")
-    .call(d3.axisLeft(y).tickFormat(d => d + "%"))
-    .style("font-size", `${this.fontSize}px`);;
-
-    // add y label
-    root.append("text")
-    .attr("class", "y label")
-    .attr("text-anchor", "end")
-    .attr("y", -margin /2)
-    .attr("x", margin)
-    .attr("dy", `${this.fontSize}px`)
-    .text("Housing");
-
-    const z = d3.scaleLinear()
-    .domain([0, 10000])
-    .range([0, 100]);
-
-    // Add dots
-    const dots = root.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter();
-    dots.append("circle")
-    .attr("cx", d => x(d.ownership))
-    .attr("cy", d => y(d.housing))
-    .attr("r", d => z(d.gdp))
-    .style("opacity", .5)
-    .style("fill", "#69b3a2");
-    dots.append("text")
-    .text(d => d.country)
-    .attr("x", d => x(d.ownership)+20)
-    .attr("y", d => y(d.housing)-20);
+    this.drawBubbles(root, data, x, y);
   }
 
-  private getMax(data: Bubble[], fn:  (d: Bubble) => number) : number {
-    return data.map(fn).reduce((a,b) => Math.max(a,b));
+  private getMax(data: Bubble[], fn: (d: Bubble) => number): number {
+    return data.map(fn).reduce((a, b) => Math.max(a, b));
+  }
+
+  private drawXAxis(chartRoot: GSelection, maxX: number, width: number, height: number, margin: number): d3.ScaleLinear<number, number, never> {
+    const { tickFontSizePx, tickPaddingPx, labelFontSizePx, x } = axisStyling;
+
+    const xScale = d3.scaleLinear()
+      .domain([0, maxX + 5])
+      .range([0, width]);
+
+    chartRoot.append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(d3.axisBottom(xScale)
+        .tickFormat(d => d + '%')
+        .tickPadding(tickPaddingPx))
+      .style('font-size', `${tickFontSizePx}px`);
+
+    chartRoot.append('text')
+      .attr('class', 'x label')
+      .style('text-anchor', 'end')
+      .attr('x', width)
+      .attr('y', height)
+      .attr('dy', `${x.labelYOffsetEm}em`)
+      .style('font-size', `${labelFontSizePx}px`)
+      .text('Ownership');
+
+    return xScale;
+  }
+
+  private drawYAxis(chartRoot: GSelection, maxY: number, height: number): d3.ScaleLinear<number, number, never> {
+    const { tickFontSizePx, tickPaddingPx, y, labelFontSizePx } = axisStyling;
+
+    const yScale = d3.scaleLinear()
+      .domain([0, maxY + 5])
+      .range([height, 0]);
+
+    chartRoot.append('g')
+      .call(d3.axisLeft(yScale)
+        .tickFormat(d => d + '%')
+        .tickPadding(tickPaddingPx))
+      .attr('id', 'yAxis')
+      .style('font-size', `${tickFontSizePx}px`);
+
+    chartRoot
+      .append('text')
+      .attr('id', 'yAxisLabel')
+      .attr('dy', `${y.labelXOffsetEm}em`)
+      .attr('dx', `${y.labelYOffsetEm}em`)
+      .style('text-anchor', 'start')
+      .style('font-size', `${labelFontSizePx}px`)
+      .text('Housing');
+
+    return yScale;
+  }
+
+  private drawBubbles(chartRoot, data: Bubble[], xScale: d3.ScaleLinear<number, number, never>, yScale: d3.ScaleLinear<number, number, never>): void {
+    const { color, opacity, labelSizePx } = bubbleStyling;
+
+    const z = d3.scaleLinear()
+      .domain([0, 10000])
+      .range([40, 120]);
+
+    const dots = chartRoot
+      .selectAll('dot')
+      .data(data)
+      .enter()
+      .append('g')
+      .classed('dot', true);
+
+    dots.append('circle')
+      .classed('bubble', true)
+      .attr('cx', (d: Bubble) => xScale(d.ownership))
+      .attr('cy', (d: Bubble) => yScale(d.housing))
+      .attr('r', (d: Bubble) => z(d.gdp))
+      .style('opacity', opacity)
+      .style('fill', color);
+
+    dots.append('text')
+      .classed('label', true)
+      .style('text-anchor', 'middle')
+      .style('alignment-baseline', 'central')
+      .style('font-size', `${labelSizePx}px`)
+      .attr('x', (d: Bubble) => xScale(d.ownership))
+      .attr('y', (d: Bubble) => yScale(d.housing))
+      .text((d: Bubble) => d.country);
   }
 }

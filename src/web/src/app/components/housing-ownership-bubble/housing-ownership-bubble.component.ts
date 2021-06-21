@@ -7,7 +7,7 @@ import {
   SvgSelection,
 } from 'src/app/services';
 
-const data : Bubble[] = [
+const data: Bubble[] = [
   { country: "AUT", ownership: 15, housing: 35, gdp: 3612 },
   { country: "GER", ownership: 10, housing: 40, gdp: 4000 },
   { country: "HU", ownership: 20, housing: 30, gdp: 1250 },
@@ -23,7 +23,7 @@ const data : Bubble[] = [
 export class HousingOwnershipBubbleComponent implements AfterViewInit {
   private chartWidth = 1800;
   private chartHeight = 1440;
-  
+
   private margin = 175;
   private width = this.chartWidth - (this.margin * 2);
   private height = this.chartHeight - (this.margin * 2);
@@ -33,22 +33,19 @@ export class HousingOwnershipBubbleComponent implements AfterViewInit {
   @ViewChild('chart')
   chartContainerRef: ElementRef;
 
-  constructor(
-    private bubbleChartBuilder: BubbleChartBuilderService,
-    private chartManipulator: ChartManipulatorService) { }
+  constructor(private bubbleChartBuilder: BubbleChartBuilderService, private chartManipulator: ChartManipulatorService) { }
 
   ngAfterViewInit(): void {
     this.createChart();
-
   }
 
-  createChart() {
+  createChart(): void {
     this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, 0, 0, this.chartWidth, this.chartHeight);
 
     this.drawBubbleChart();
   }
 
-  drawBubbleChart() {
+  private drawBubbleChart(): void {
     this.bubbleChartBuilder.appendChart(
       this.svgRoot,
       data,
