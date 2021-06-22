@@ -1,8 +1,9 @@
 <div class="bar-chart-container">
+  {{ selectedCountry === null ? 'null' : selectedCountry }}
   <ng-container *ngFor="let data of housingCosts; let idx = index">
-    <app-housing-costs-tile *ngIf="selectedTileIdx === idx || selectedTileIdx === undefined"
-      [ngClass]="{'expanded': selectedTileIdx === idx}" [housingCosts]="data" [maxY]="maxCostsPercentage"
-      (zoom)="tileClicked(idx, $event)">
+    <app-housing-costs-tile
+      [ngStyle]="{'display': (selectedCountry === null || selectedCountry === data.country) ? 'block' : 'none'}"
+      [ngClass]="{'expanded': selectedCountry === data.country}" [housingCosts]="data" [maxY]="maxCostsPercentage">
     </app-housing-costs-tile>
   </ng-container>
 </div>

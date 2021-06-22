@@ -1,39 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
+export type Interaction = 'click' | 'hover';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChartInteractionService {
 
-  private hoveredBarChange = new Subject<string>();
-  private hoveredBubbleChange = new Subject<string>();
-
-  private hoveredYearChange = new Subject<string>();
+  private barsInfoChange = new Subject<[countryCode: string, year: string, interaction: Interaction]>();
+  private bubbleInfoChange = new Subject<[countryCode: string, year: string, state: Interaction]>();
 
   constructor() { }
 
-  get hoveredBar$(): Observable<string> {
-    return this.hoveredBarChange.asObservable();
+  get barsInfo$(): Observable<[countryCode: string, year: string, interaction: Interaction]> {
+    return this.barsInfoChange.asObservable();
   }
 
-  set hoveredBar(countryCode: string) {
-    this.hoveredBarChange.next(countryCode);
+  set barsInfo(barInfo: [countryCode: string, year: string, interaction: Interaction]) {
+    this.barsInfoChange.next(barInfo);
   }
 
-  get hoveredBubble$(): Observable<string> {
-    return this.hoveredBubbleChange.asObservable();
+  get bubbleInfo$(): Observable<[countryCode: string, year: string, state: Interaction]> {
+    return this.bubbleInfoChange.asObservable();
   }
 
-  set hoveredBubble(countryCode: string) {
-    this.hoveredBubbleChange.next(countryCode);
-  }
-
-  get hoveredYear$(): Observable<string> {
-    return this.hoveredYearChange.asObservable();
-  }
-
-  set hoveredYear(year: string) {
-    this.hoveredYearChange.next(year);
+  set bubbleInfo(bubbleInfo: [countryCode: string, year: string, state: Interaction]) {
+    this.bubbleInfoChange.next(bubbleInfo);
   }
 }

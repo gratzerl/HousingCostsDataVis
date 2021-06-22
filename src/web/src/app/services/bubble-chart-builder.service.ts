@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GSelection, SvgSelection } from './chart-manipulator.service';
-import * as d3 from 'd3';
 import { Bubble } from '../models';
 import { axisStyling, bubbleStyling } from '../constants/bubble-chart.constants';
-import { create } from 'd3';
+import * as d3 from 'd3';
 
 export const BUBBLE_CHART = {
   chartRootId: 'bubbleChart',
@@ -21,7 +20,7 @@ export class BubbleChartBuilderService {
   appendChart(svgRoot: SvgSelection, data: Bubble[], width: number, height: number, margin: number, createNewChart: boolean = false): BubbleSelection {
     if (createNewChart) {
       svgRoot.selectAll(`#bubbleChart`)
-      .remove();
+        .remove();
     }
 
     const root = svgRoot.append('g')
@@ -29,7 +28,7 @@ export class BubbleChartBuilderService {
       .attr('transform', 'translate(' + margin + ' ' + margin + ')');
 
     const maxX = this.getMax(data, d => d.ownership);
-    const x = this.drawXAxis(root, maxX, width, height, margin);
+    const x = this.drawXAxis(root, maxX, width, height);
 
     const maxY = this.getMax(data, d => d.housing);
     const y = this.drawYAxis(root, maxY, height);
@@ -41,7 +40,7 @@ export class BubbleChartBuilderService {
     return data.map(fn).reduce((a, b) => Math.max(a, b));
   }
 
-  private drawXAxis(chartRoot: GSelection, maxX: number, width: number, height: number, margin: number): d3.ScaleLinear<number, number, never> {
+  private drawXAxis(chartRoot: GSelection, maxX: number, width: number, height: number): d3.ScaleLinear<number, number, never> {
     const { tickFontSizePx, tickPaddingPx, labelFontSizePx, x } = axisStyling;
 
     const xScale = d3.scaleLinear()

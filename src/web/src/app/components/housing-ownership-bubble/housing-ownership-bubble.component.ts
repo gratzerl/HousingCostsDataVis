@@ -1,7 +1,7 @@
 import { OnInit, AfterViewInit, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Bubble } from 'src/app/models';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 
 import { OwnershipHousingMock } from '../../mock';
 
@@ -32,6 +32,8 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   private svgRoot: SvgSelection;
   private bubbles?: BubbleSelection;
 
+  private selectedYear = '2020';
+
   @ViewChild('chart')
   chartContainerRef: ElementRef;
 
@@ -41,20 +43,18 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
     private interactionService: ChartInteractionService) { }
 
   ngOnInit(): void {
-    this.interactionService.hoveredBar$
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe(countryCode => this.highlightBubble(countryCode));
-    this.interactionService.hoveredYear$
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe(year => {
-        console.log('####');
-        console.log(year);
+    this.interactionService.barsInfo$
+      .pipe(
+        filter(([countryCode, ,]) => countryCode !== null),
+        takeUntil(this.onDestroy))
+      .subscribe(([countryCode, year, _]) => {
+        this.selectedYear = year;
+
         const data = OwnershipHousingMock[year];
-        console.log(data)
-        if (year && data) {
-          this.drawBubbleChart(OwnershipHousingMock[year], true) }
-        }
-        );
+        this.drawBubbleChart(data, true);
+
+        this.highlightBubble(countryCode);
+      });
   }
 
   ngAfterViewInit(): void {
@@ -67,8 +67,8 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   }
 
   private highlightBubble(countryCode: string): void {
-    console.log(countryCode);
     this.chartManipulator.unhighlight(this.bubbles, false);
+
     if (countryCode !== null) {
       this.chartManipulator.highlight(`#country-${countryCode}`, false);
     }
@@ -77,10 +77,15 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   private createChart(): void {
     this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, 0, 0, this.chartWidth, this.chartHeight);
 
-    this.drawBubbleChart(OwnershipHousingMock["2020"]);
+    this.svgRoot.on('click', () => {
+      event.stopPropagation();
+      this.interactionService.bubbleInfo = [null, null, 'click'];
+    })
+
+    this.drawBubbleChart(OwnershipHousingMock[this.selectedYear]);
   }
 
-  private drawBubbleChart(data, removeChart = false): void {
+  private drawBubbleChart(data: Bubble[], removeChart: boolean = false): void {
     this.bubbles = this.bubbleChartBuilder.appendChart(
       this.svgRoot,
       data,
@@ -90,14 +95,19 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
       removeChart
     );
 
-    this.bubbles
-      .on('mouseenter', (event: MouseEvent, bubble: Bubble) => {
-        this.interactionService.hoveredBubble = bubble.country;
-        this.chartManipulator.highlight(event.target as any, true);
-      })
-      .on('mouseleave', () => {
-        this.interactionService.hoveredBubble = null;
-        this.chartManipulator.unhighlight(this.bubbles, false);
-      });
+    this.bubbles.on('mouseenter', (event: MouseEvent, bubble: Bubble) => {
+      this.interactionService.bubbleInfo = [bubble.country, this.selectedYear, 'hover'];
+      this.chartManipulator.highlight(event.target as any, true);
+    });
+
+    this.bubbles.on('mouseleave', () => {
+      this.interactionService.bubbleInfo = [null, null, 'hover'];
+      this.chartManipulator.unhighlight(this.bubbles, false);
+    });
+
+    this.bubbles.on('click', (event: MouseEvent, bubble: Bubble) => {
+      event.stopPropagation();
+      this.interactionService.bubbleInfo = [bubble.country, this.selectedYear, 'click'];
+    });
   }
 }

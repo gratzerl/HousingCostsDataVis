@@ -5,13 +5,11 @@ import {
   Component,
   ElementRef,
   Input,
-  Output,
   ViewChild,
-  EventEmitter
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { count, takeUntil } from 'rxjs/operators';
 
 import {
   CircularBarChartBuilderService,
@@ -29,7 +27,6 @@ import { Bar, HousingCosts } from 'src/app/models';
 import { voronoiChartStyling } from 'src/app/constants/bar-voronoi-chart.constants';
 
 
-
 @Component({
   selector: 'app-housing-costs-tile',
   templateUrl: './housing-costs-tile.component.html',
@@ -43,9 +40,6 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
 
   @Input()
   maxY!: number;
-
-  @Output()
-  zoom = new EventEmitter<boolean>();
 
   @ViewChild('chart')
   chartContainerRef: ElementRef;
@@ -70,7 +64,7 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
   private bars: BarSelection;
   private voronoiChart?: VoronoiSelection = undefined;
 
-  private selectedBar: Bar;
+  private selectedBar?: Bar = undefined;
 
   constructor(
     private interactionService: ChartInteractionService,
@@ -79,13 +73,21 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
     private chartManipulator: ChartManipulatorService) { }
 
   ngOnInit(): void {
-    this.interactionService.hoveredBubble$
+    this.interactionService.bubbleInfo$
       .pipe(takeUntil(this.onDestory))
-      .subscribe(countryCode => {
-        if (countryCode === this.housingCosts.country) {
-          this.highlightChart();
-        } else {
-          this.unhighlightChart();
+      .subscribe(([countryCode, year, interaction]) => {
+        if (interaction === 'hover') {
+          if (countryCode === this.housingCosts.country && !this.isZoomed) {
+            this.highlightChart();
+          } else {
+            this.unhighlightChart();
+          }
+        } else if (interaction === 'click') {
+          if (countryCode === this.housingCosts.country && !this.isZoomed) {
+            this.zoomChart(year);
+          } else if (this.isZoomed && countryCode !== this.housingCosts.country) {
+            this.unzoomChart();
+          }
         }
       });
   }
@@ -132,13 +134,13 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
         return;
       }
 
-      this.interactionService.hoveredBar = this.housingCosts.country;
-      this.interactionService.hoveredYear = bar.year;
       this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], true);
 
       const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
       this.chartManipulator.setText(this.svgRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
       this.chartManipulator.setText(this.svgRoot, hoverBottomLabelId, `${bar.year}`);
+
+      this.interactionService.barsInfo = [this.housingCosts.country, bar.year, 'hover'];
     });
 
     this.bars.on('mouseleave', (event: MouseEvent, bar: Bar) => {
@@ -150,78 +152,36 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
         return;
       }
 
-      this.interactionService.hoveredBar = null;
-      this.interactionService.hoveredYear = null;
       const { defaultLabelId, hoverLabelsId } = CIRCULAR_BAR_CHART;
       this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
       this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], false);
+
+      this.interactionService.barsInfo = [null, null, 'hover'];
     });
 
     this.bars.on('click', (event: MouseEvent, bar: Bar) => {
       event.stopPropagation();
-
       this.selectedBar = bar;
-      this.chartManipulator.unhighlight(this.bars, false);
-
-      if (!this.isZoomed) {
-        this.setIsZoomed(true);
-
-        this.bars = this.circularBarChartBuilder.appendChart(
-          this.svgRoot,
-          this.housingCosts.totalShareOnIncome,
-          this.maxY,
-          this.zoomedRadius,
-          this.outerRadius,
-          false);
-
-        const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
-        this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId, hoverLabelsId], false);
-        this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId], true);
-      }
 
       this.chartManipulator.highlight(event.target as any, true);
+      this.zoomChart(bar.year);
 
-      const data = this.housingCosts.composition[bar.year];
-      const { compositionCategoryColors } = voronoiChartStyling;
-
-      this.voronoiChart = this.voronoiChartBuilder.appendChart(this.svgRoot, data, this.zoomedRadius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoiChart === undefined);
-      this.voronoiChart.on('click', (e: MouseEvent, _) => e.stopPropagation());
-
-      this.chartManipulator.setVisible(this.svgRoot, [VORONOI_CHART.chartId], true);
+      this.interactionService.barsInfo = [this.housingCosts.country, bar.year, 'click'];
     });
   }
 
   private createSvgClickInteraction(): void {
-    this.svgRoot
-      .on('click', (event: MouseEvent, _) => {
-        event.stopPropagation();
+    this.svgRoot.on('click', (event: MouseEvent, _) => {
+      event.stopPropagation();
 
-        if (!this.isZoomed) {
-          return;
-        }
+      this.unzoomChart();
 
-        this.setIsZoomed(false);
-
-        this.bars = this.circularBarChartBuilder.appendChart(
-          this.svgRoot,
-          this.housingCosts.totalShareOnIncome,
-          this.maxY,
-          this.defaultRadius,
-          this.outerRadius,
-          false);
-
-        const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
-        this.chartManipulator.unhighlight(this.bars, false);
-
-        this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId, hoverLabelsId, VORONOI_CHART.chartId], false);
-        this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
-
-      });
+      this.interactionService.barsInfo = [null, null, 'click'];
+    });
   }
 
   private setIsZoomed(zoomed: boolean) {
     this.isZoomed = zoomed;
-    this.zoom.emit(this.isZoomed);
   }
 
   private highlightChart(): void {
@@ -230,5 +190,55 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
 
   private unhighlightChart(): void {
     this.chartManipulator.unhighlight(this.bars, false);
+  }
+
+  private unzoomChart(): void {
+    if (!this.isZoomed) {
+      return;
+    }
+
+    this.setIsZoomed(false);
+
+    this.bars = this.circularBarChartBuilder.appendChart(
+      this.svgRoot,
+      this.housingCosts.totalShareOnIncome,
+      this.maxY,
+      this.defaultRadius,
+      this.outerRadius,
+      false);
+
+    const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
+    this.chartManipulator.unhighlight(this.bars, false);
+
+    this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId, hoverLabelsId, VORONOI_CHART.chartId], false);
+    this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId], true);
+  }
+
+  private zoomChart(year: string): void {
+    this.chartManipulator.unhighlight(this.bars, false);
+
+    if (!this.isZoomed) {
+      this.setIsZoomed(true);
+
+      this.bars = this.circularBarChartBuilder.appendChart(
+        this.svgRoot,
+        this.housingCosts.totalShareOnIncome,
+        this.maxY,
+        this.zoomedRadius,
+        this.outerRadius,
+        false);
+
+      const { defaultLabelId, hoverLabelsId, xAxisLabelsId } = CIRCULAR_BAR_CHART;
+      this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId, hoverLabelsId], false);
+      this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId], true);
+    }
+
+    const data = this.housingCosts.composition[year];
+    const { compositionCategoryColors } = voronoiChartStyling;
+
+    this.voronoiChart = this.voronoiChartBuilder.appendChart(this.svgRoot, data, this.zoomedRadius, (data) => data.percentage, (id) => compositionCategoryColors[id], this.voronoiChart === undefined);
+    this.voronoiChart.on('click', (e: MouseEvent, _) => e.stopPropagation());
+
+    this.chartManipulator.setVisible(this.svgRoot, [VORONOI_CHART.chartId], true);
   }
 }
