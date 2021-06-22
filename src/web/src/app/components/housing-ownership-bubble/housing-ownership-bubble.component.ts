@@ -2,6 +2,7 @@ import { OnInit, AfterViewInit, Component, ViewChild, ElementRef, OnDestroy } fr
 import { Subject } from 'rxjs';
 import { Bubble } from 'src/app/models';
 import { filter, takeUntil } from 'rxjs/operators';
+import * as d3 from 'd3';
 
 import { OwnershipHousingMock } from '../../mock';
 
@@ -12,6 +13,7 @@ import {
   BubbleSelection,
   ChartInteractionService
 } from 'src/app/services';
+import { bubbleStyling } from 'src/app/constants/bubble-chart.constants';
 
 @Component({
   selector: 'app-housing-ownership-bubble',
@@ -32,7 +34,7 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   private svgRoot: SvgSelection;
   private bubbles?: BubbleSelection;
 
-  private selectedYear = '2020';
+  selectedYear = '2020';
 
   @ViewChild('chart')
   chartContainerRef: ElementRef;
@@ -45,15 +47,19 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   ngOnInit(): void {
     this.interactionService.barsInfo$
       .pipe(
-        filter(([countryCode, ,]) => countryCode !== null),
         takeUntil(this.onDestroy))
       .subscribe(([countryCode, year, _]) => {
         this.selectedYear = year;
 
-        const data = OwnershipHousingMock[year];
-        this.drawBubbleChart(data, true);
+        if (countryCode !== null) {
 
-        this.highlightBubble(countryCode);
+          const data = OwnershipHousingMock[year];
+          this.drawBubbleChart(data, true);
+
+          this.highlightBubble(countryCode);
+        } else {
+          this.chartManipulator.unhighlight(this.bubbles.select('.bubble'), bubbleStyling.color, false, bubbleStyling.opacity);
+        }
       });
   }
 
@@ -67,17 +73,17 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   }
 
   private highlightBubble(countryCode: string): void {
-    this.chartManipulator.unhighlight(this.bubbles, false);
+    this.chartManipulator.unhighlight(this.bubbles.select('.bubble'), bubbleStyling.color, false, bubbleStyling.opacity);
 
     if (countryCode !== null) {
-      this.chartManipulator.highlight(`#country-${countryCode}`, false);
+      this.chartManipulator.highlight(`#country-${countryCode} .bubble`, bubbleStyling.highlightcolor, false);
     }
   }
 
   private createChart(): void {
     this.svgRoot = this.chartManipulator.appendSvg(this.chartContainerRef, 0, 0, this.chartWidth, this.chartHeight);
 
-    this.svgRoot.on('click', () => {
+    this.svgRoot.on('click', (event: MouseEvent) => {
       event.stopPropagation();
       this.interactionService.bubbleInfo = [null, null, 'click'];
     })
@@ -97,12 +103,17 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
 
     this.bubbles.on('mouseenter', (event: MouseEvent, bubble: Bubble) => {
       this.interactionService.bubbleInfo = [bubble.country, this.selectedYear, 'hover'];
-      this.chartManipulator.highlight(event.target as any, true);
+      this.chartManipulator.setText(this.bubbles, `country-${bubble.country} .label`, `${bubble.gdp}€`);
+
+      const bubbleElem = d3.select(event.target as any).select('.bubble');
+      this.chartManipulator.highlight(bubbleElem, bubbleStyling.highlightcolor, false);
     });
 
-    this.bubbles.on('mouseleave', () => {
+    this.bubbles.on('mouseleave', (_, bubble: Bubble) => {
       this.interactionService.bubbleInfo = [null, null, 'hover'];
-      this.chartManipulator.unhighlight(this.bubbles, false);
+      this.chartManipulator.setText(this.bubbles, `country-${bubble.country} .label`, `${bubble.country}€`);
+
+      this.chartManipulator.unhighlight(this.bubbles.select('.bubble'), bubbleStyling.color, false, bubbleStyling.opacity);
     });
 
     this.bubbles.on('click', (event: MouseEvent, bubble: Bubble) => {

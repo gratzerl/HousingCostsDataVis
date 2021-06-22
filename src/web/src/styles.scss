@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
+$config: mat-typography-config(
+  $font-family: "'Noto Sans', sans-serif",
+);
+
+@include mat-core($config);
 
 html,
 body {
@@ -6,7 +14,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Noto Sans sans-serif";
 }
 
 .no-select {

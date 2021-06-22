@@ -26,7 +26,6 @@ export class HousingCostsTilesComponent implements OnInit, OnDestroy {
         filter(([, , interaction]) => interaction === 'click'),
         takeUntil(this.onDestroy))
       .subscribe(([countryCode, ,]) => {
-        console.log('bubble click', countryCode);
         this.selectedCountry = countryCode;
       });
 
@@ -34,8 +33,7 @@ export class HousingCostsTilesComponent implements OnInit, OnDestroy {
       .pipe(
         filter(([, , interaction]) => interaction === 'click'),
         takeUntil(this.onDestroy))
-      .subscribe(([countryCode, year, interaction]) => {
-        console.log('bar click', countryCode);
+      .subscribe(([countryCode, ,]) => {
         this.selectedCountry = countryCode;
       });
 
@@ -51,14 +49,4 @@ export class HousingCostsTilesComponent implements OnInit, OnDestroy {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
-
-  tileClicked(tileIndex: number, isZoomed: boolean): void {
-    // isZoomed ?
-    //   this.selectedTileIdx = tileIndex :
-    //   this.selectedTileIdx = undefined;
-
-    // // TODO: remove hacky way to force rendering of tiles
-    // this.housingCosts = [...this.housingCosts];
-  }
-
 }

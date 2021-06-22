@@ -4,8 +4,8 @@ import { ChartManipulatorService, GSelection } from '.';
 import { barChartStyling } from '../constants/bar-voronoi-chart.constants';
 
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
-import * as d3 from 'd3';
 import { SvgSelection } from './chart-manipulator.service';
+import * as d3 from 'd3';
 
 export type BarSelection = d3.Selection<d3.BaseType, Bar, SVGGElement, unknown>;
 
@@ -75,6 +75,7 @@ export class CircularBarChartBuilderService {
     chart
       .selectAll(`#${barPathId}`)
       .data(data)
+      .classed('fillable', true)
       .style('fill', color)
       .attr('d', d => arc(d));
 

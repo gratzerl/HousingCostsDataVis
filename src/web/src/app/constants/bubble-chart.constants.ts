@@ -12,11 +12,8 @@ export const axisStyling = {
 };
 
 export const bubbleStyling = {
-  color: '#becad4',
-  highlightcolor: '#6a9ec1',
+  color: '#d7dde3',
+  highlightcolor: '#88afd0',
   opacity: 0.5,
   labelSizePx: 38
 };
-
-// "#becad4",
-//   "#6a9ec1"

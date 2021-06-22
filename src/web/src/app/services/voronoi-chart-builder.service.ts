@@ -112,7 +112,7 @@ export class VoronoiChartBuilderService {
         return 'translate(' + [d.polygon.site.x, d.polygon.site.y] + ')';
       })
       .append('text')
-      .style('font', `${labelFontSizePx}px sans-serif`)
+      .style('font-size', `${labelFontSizePx}px`)
       .text((d: any) => {
         return `${d.data.name} (${Math.ceil(d.data.percentage * 100)}%)`;
       });
