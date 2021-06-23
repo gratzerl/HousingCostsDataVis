@@ -6,6 +6,7 @@ import { barChartStyling } from '../constants/bar-voronoi-chart.constants';
 import { Arc, ScaleBand, ScaleRadial } from 'd3';
 import { SvgSelection } from './chart-manipulator.service';
 import * as d3 from 'd3';
+import { style } from '@angular/animations';
 
 export type BarSelection = d3.Selection<d3.BaseType, Bar, SVGGElement, unknown>;
 
@@ -70,16 +71,17 @@ export class CircularBarChartBuilderService {
       .data(data)
       .enter()
       .append('path')
-      .attr('id', barPathId);
+      .classed('bar-path', true)
+      .attr('id', (d: Bar) => `${barPathId}-${d.year}`);
 
     chart
-      .selectAll(`#${barPathId}`)
+      .selectAll(`.bar-path`)
       .data(data)
-      .classed('fillable', true)
       .style('fill', color)
+      .style('cursor', 'pointer')
       .attr('d', d => arc(d));
 
-    return chart.selectAll(`#${barPathId}`);
+    return chart.selectAll(`.bar-path`);
   }
 
   private getArc(innerRadius: number, yScale: ScaleRadial<number, number, never>, xScale: ScaleBand<string>): Arc<any, Bar> {
@@ -129,6 +131,7 @@ export class CircularBarChartBuilderService {
     }
 
     selection.select(`#${xAxisLabelsId}`)
+      .classed('no-select', true)
       .style('font-size', `${x.fontSizePx}px`)
       .style('line-height', `${x.lineHeightPx}px`)
       .style('text-anchor', 'middle')

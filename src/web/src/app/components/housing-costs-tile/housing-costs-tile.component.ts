@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { count, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 import {
   CircularBarChartBuilderService,
@@ -25,7 +25,6 @@ import {
 
 import { Bar, HousingCosts } from 'src/app/models';
 import { barChartStyling, voronoiChartStyling } from 'src/app/constants/bar-voronoi-chart.constants';
-
 
 @Component({
   selector: 'app-housing-costs-tile',
@@ -78,9 +77,9 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
       .subscribe(([countryCode, year, interaction]) => {
         if (interaction === 'hover') {
           if (countryCode === this.housingCosts.country && !this.isZoomed) {
-            this.highlightChart();
+            this.chartManipulator.highlight(this.bars, barChartStyling.highlightColor, false);
           } else {
-            this.unhighlightChart();
+            this.chartManipulator.unhighlight(this.bars, barChartStyling.color, false);
           }
         } else if (interaction === 'click') {
           if (countryCode === this.housingCosts.country && !this.isZoomed) {
@@ -161,9 +160,8 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
 
     this.bars.on('click', (event: MouseEvent, bar: Bar) => {
       event.stopPropagation();
-      this.selectedBar = bar;
 
-      this.chartManipulator.highlight(event.target as any, barChartStyling.highlightColor, true);
+      this.selectedBar = bar;
       this.zoomChart(bar.year);
 
       this.interactionService.barsInfo = [this.housingCosts.country, bar.year, 'click'];
@@ -182,14 +180,6 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
 
   private setIsZoomed(zoomed: boolean) {
     this.isZoomed = zoomed;
-  }
-
-  private highlightChart(): void {
-    this.chartManipulator.highlight(this.bars, barChartStyling.highlightColor, false);
-  }
-
-  private unhighlightChart(): void {
-    this.chartManipulator.unhighlight(this.bars, barChartStyling.color, false);
   }
 
   private unzoomChart(): void {
@@ -232,6 +222,10 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
       this.chartManipulator.setVisible(this.svgRoot, [defaultLabelId, hoverLabelsId], false);
       this.chartManipulator.setVisible(this.svgRoot, [xAxisLabelsId], true);
     }
+
+    const { barPathId } = CIRCULAR_BAR_CHART;
+    const bar = this.svgRoot.select(`#${barPathId}-${year}`);
+    this.chartManipulator.highlight(bar, barChartStyling.highlightColor, false);
 
     const data = this.housingCosts.composition[year];
     const { compositionCategoryColors } = voronoiChartStyling;

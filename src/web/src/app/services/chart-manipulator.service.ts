@@ -30,6 +30,7 @@ export class ChartManipulatorService {
       .style('pointer-events', 'none')
       .style('text-anchor', 'middle')
       .append('text')
+      .classed('no-select', true)
       .style('display', defaultDisplay)
       .attr('id', id);
   }

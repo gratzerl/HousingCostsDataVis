@@ -100,7 +100,7 @@ export class VoronoiChartBuilderService {
 
 
 
-    chart.append('g')
+    const labels = chart.append('g')
       .attr('id', labelsId)
       .selectAll('.label')
       .data(leaves)
@@ -112,10 +112,21 @@ export class VoronoiChartBuilderService {
         return 'translate(' + [d.polygon.site.x, d.polygon.site.y] + ')';
       })
       .append('text')
-      .style('font-size', `${labelFontSizePx}px`)
-      .text((d: any) => {
-        return `${d.data.name} (${Math.ceil(d.data.percentage * 100)}%)`;
-      });
+      .classed('no-select', true)
+      .style('font-size', `${labelFontSizePx}px`);
+
+    labels
+      .data(leaves)
+      .append('tspan')
+      .text((d: any) => d.data.name)
+      .attr('x', 0);
+
+    labels
+      .data(leaves)
+      .append('tspan')
+      .text((d: any) => `${Math.ceil(d.data.percentage * 100)}%`)
+      .attr('x', 0)
+      .attr('dy', `${1}em`);
 
     return chart;
   }

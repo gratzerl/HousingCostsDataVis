@@ -111,7 +111,7 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
 
     this.bubbles.on('mouseleave', (_, bubble: Bubble) => {
       this.interactionService.bubbleInfo = [null, null, 'hover'];
-      this.chartManipulator.setText(this.bubbles, `country-${bubble.country} .label`, `${bubble.country}€`);
+      this.chartManipulator.setText(this.bubbles, `country-${bubble.country} .label`, `${bubble.country}`);
 
       this.chartManipulator.unhighlight(this.bubbles.select('.bubble'), bubbleStyling.color, false, bubbleStyling.opacity);
     });

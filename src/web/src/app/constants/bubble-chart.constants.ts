@@ -1,7 +1,7 @@
 export const axisStyling = {
   tickFontSizePx: 32,
   tickPaddingPx: 18,
-  labelFontSizePx: 48,
+  labelFontSizePx: 32,
   y: {
     labelXOffsetEm: -1.5,
     labelYOffsetEm: 0

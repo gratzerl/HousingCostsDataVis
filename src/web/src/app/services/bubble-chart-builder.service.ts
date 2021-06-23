@@ -87,7 +87,7 @@ export class BubbleChartBuilderService {
       .attr('dx', `${y.labelYOffsetEm}em`)
       .style('text-anchor', 'start')
       .style('font-size', `${labelFontSizePx}px`)
-      .text('Housing');
+      .text('Housing costs');
 
     return yScale;
   }
