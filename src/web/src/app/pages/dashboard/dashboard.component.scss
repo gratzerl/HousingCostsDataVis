@@ -1,4 +1,16 @@
+.top-bar {
+  display: flex;
+
+  h1 {
+    align-self: center;
+  }
+
+  button {
+    align-self: flex-end;
+  }
+}
+
 .dashboard {
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 60% 1fr;
 }

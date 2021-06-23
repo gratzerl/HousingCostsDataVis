@@ -136,7 +136,7 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
       this.chartManipulator.setVisible(this.svgRoot, [hoverLabelsId], true);
 
       const { hoverTopLabelId, hoverBottomLabelId } = CIRCULAR_BAR_CHART;
-      this.chartManipulator.setText(this.svgRoot, hoverTopLabelId, `${Math.ceil(bar.percent * 100)}%`);
+      this.chartManipulator.setText(this.svgRoot, hoverTopLabelId, `${bar.percent}%`);
       this.chartManipulator.setText(this.svgRoot, hoverBottomLabelId, `${bar.year}`);
 
       this.interactionService.barsInfo = [this.housingCosts.country, bar.year, 'hover'];

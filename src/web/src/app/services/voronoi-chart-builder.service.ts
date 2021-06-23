@@ -98,8 +98,6 @@ export class VoronoiChartBuilderService {
         return interpolatePath(currentPath, newPath);
       });
 
-
-
     const labels = chart.append('g')
       .attr('id', labelsId)
       .selectAll('.label')
@@ -124,7 +122,7 @@ export class VoronoiChartBuilderService {
     labels
       .data(leaves)
       .append('tspan')
-      .text((d: any) => `${Math.ceil(d.data.percentage * 100)}%`)
+      .text((d: any) => `${d.data.percentage}%`)
       .attr('x', 0)
       .attr('dy', `${1}em`);
 

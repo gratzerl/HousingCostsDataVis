@@ -1,10 +1,9 @@
 import { OnInit, AfterViewInit, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Bubble } from 'src/app/models';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import OwnershipHousingData from 'src/assets/ownership-costs.json';
 import * as d3 from 'd3';
-
-import { OwnershipHousingMock } from '../../mock';
 
 import {
   BubbleChartBuilderService,
@@ -23,6 +22,7 @@ import { bubbleStyling } from 'src/app/constants/bubble-chart.constants';
 
 export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
+  private readonly ownershipHousingData = OwnershipHousingData;
 
   private readonly chartWidth = 1800;
   private readonly chartHeight = 1440;
@@ -34,7 +34,7 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
   private svgRoot: SvgSelection;
   private bubbles?: BubbleSelection;
 
-  selectedYear = '2020';
+  selectedYear = '2019';
 
   @ViewChild('chart')
   chartContainerRef: ElementRef;
@@ -49,11 +49,13 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
       .pipe(
         takeUntil(this.onDestroy))
       .subscribe(([countryCode, year, _]) => {
-        this.selectedYear = year;
+        if (year !== null) {
+          this.selectedYear = year;
+        }
 
         if (countryCode !== null) {
 
-          const data = OwnershipHousingMock[year];
+          const data = this.ownershipHousingData[year];
           this.drawBubbleChart(data, true);
 
           this.highlightBubble(countryCode);
@@ -88,7 +90,8 @@ export class HousingOwnershipBubbleComponent implements OnInit, AfterViewInit, O
       this.interactionService.bubbleInfo = [null, null, 'click'];
     })
 
-    this.drawBubbleChart(OwnershipHousingMock[this.selectedYear]);
+    this.drawBubbleChart(this.ownershipHousingData[this.selectedYear]);
+    this.interactionService.bubbleInfo = [null, this.selectedYear, 'click'];
   }
 
   private drawBubbleChart(data: Bubble[], removeChart: boolean = false): void {

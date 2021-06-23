@@ -97,7 +97,7 @@ export class BubbleChartBuilderService {
 
     const z = d3.scaleLinear()
       .domain([0, 10000])
-      .range([40, 120]);
+      .range([5, 25]);
 
     const dots = chartRoot
       .selectAll('.dot')

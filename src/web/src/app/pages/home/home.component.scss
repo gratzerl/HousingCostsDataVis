@@ -1,0 +1,25 @@
+@import "src/variables.scss";
+
+.housing-costs-tile-container {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+
+  @media (max-width: $max-md-width) {
+    grid-template-columns: 220px 1fr;
+  }
+
+  @media (max-width: $max-xs-width) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .explanation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+section {
+  padding: 16px 0;
+}

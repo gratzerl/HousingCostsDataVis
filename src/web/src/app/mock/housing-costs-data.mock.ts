@@ -1,5 +1,153 @@
 import { HousingCosts } from '../models';
 
+export const demoHousingCostData: HousingCosts = {
+  country: 'AT',
+  totalShareOnIncome: [
+    { percent: 0.2, year: '2011' },
+    { percent: 0.23, year: '2012' },
+    { percent: 0.24, year: '2013' },
+    { percent: 0.26, year: '2014' },
+    { percent: 0.25, year: '2015' },
+    { percent: 0.27, year: '2016' },
+    { percent: 0.28, year: '2017' },
+    { percent: 0.3, year: '2018' },
+    { percent: 0.35, year: '2019' },
+    { percent: 0.42, year: '2020' }
+  ],
+  composition: {
+    '2011': {
+      id: 'AT-2011-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2011-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.045 },
+        { id: 'AT-2011-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.121 },
+        { id: 'AT-2011-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.01 },
+        { id: 'AT-2011-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.019 },
+        { id: 'AT-2011-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.048 }
+      ]
+    },
+    '2012': {
+      id: 'AT-2012-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2012-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.048 },
+        { id: 'AT-2012-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.13 },
+        { id: 'AT-2012-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.02 },
+        { id: 'AT-2012-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.023 },
+        { id: 'AT-2012-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.051 }
+      ]
+    },
+    '2013': {
+      id: 'AT-2013-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2013-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.046 },
+        { id: 'AT-2013-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.14 },
+        { id: 'AT-2013-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.021 },
+        { id: 'AT-2013-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.025 },
+        { id: 'AT-2013-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.052 }
+      ]
+    },
+    '2014': {
+      id: 'AT-2014-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2014-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.0462 },
+        { id: 'AT-2014-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.15 },
+        { id: 'AT-2014-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.023 },
+        { id: 'AT-2014-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.026 },
+        { id: 'AT-2014-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.048 }
+      ]
+    },
+    '2015': {
+      id: 'AT-2015-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2015-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.045 },
+        { id: 'AT-2015-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.10 },
+        { id: 'AT-2015-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.020 },
+        { id: 'AT-2015-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.032 },
+        { id: 'AT-2015-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.044 }
+      ]
+    },
+    '2016': {
+      id: 'AT-2016-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2016-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.042 },
+        { id: 'AT-2016-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.13 },
+        { id: 'AT-2016-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.022 },
+        { id: 'AT-2016-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.033 },
+        { id: 'AT-2016-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.041 }
+      ]
+    },
+    '2017': {
+      id: 'AT-2017-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2017-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.0448 },
+        { id: 'AT-2017-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.124 },
+        { id: 'AT-2017-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.022 },
+        { id: 'AT-2017-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.028 },
+        { id: 'AT-2017-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.04 }
+      ]
+    },
+    '2018': {
+      id: 'AT-2018-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2018-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.05 },
+        { id: 'AT-2018-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.14 },
+        { id: 'AT-2018-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.018 },
+        { id: 'AT-2018-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.026 },
+        { id: 'AT-2018-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.042 }
+      ]
+    },
+    '2019': {
+      id: 'AT-2019-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2019-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.052 },
+        { id: 'AT-2019-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.19 },
+        { id: 'AT-2019-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.016 },
+        { id: 'AT-2019-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.024 },
+        { id: 'AT-2019-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.040 }
+      ]
+    },
+    '2020': {
+      id: 'AT-2020-CP04',
+      coicop: 'CP04',
+      name: 'Total housing costs',
+      percentage: 0.2,
+      children: [
+        { id: 'AT-2020-CP041', coicop: 'CP041', name: 'Actual rentals', percentage: 0.054 },
+        { id: 'AT-2020-CP042', coicop: 'CP042', name: 'Imputed rentals', percentage: 0.2 },
+        { id: 'AT-2020-CP043', coicop: 'CP043', name: 'Maintenance', percentage: 0.013 },
+        { id: 'AT-2020-CP044', coicop: 'CP044', name: 'Water supply', percentage: 0.028 },
+        { id: 'AT-2020-CP045', coicop: 'CP045', name: 'Electricity', percentage: 0.045 }
+      ]
+    }
+  }
+};
+
 export const hosingCostsMock: HousingCosts[] = [
   {
     country: 'AT',

@@ -8,6 +8,8 @@ $config: mat-typography-config(
 
 @include mat-core($config);
 
+@import "variables.scss";
+
 html,
 body {
   height: 100%;
@@ -24,4 +26,20 @@ body {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer, Edge */
   user-select: none; /* Chrome, Opera */
+}
+
+.page-container {
+  padding: $vertical-padding $xl-horizontal-padding;
+
+  @media (max-width: $max-lg-width) {
+    padding: $vertical-padding $lg-horizontal-padding;
+  }
+
+  @media (max-width: $max-md-width) {
+    padding: $vertical-padding $md-horizontal-padding;
+  }
+
+  @media (max-width: $max-xs-width) {
+    padding: $xs-vertical-padding $xs-horizontal-padding;
+  }
 }

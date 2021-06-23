@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { hosingCostsMock } from 'src/app/mock';
 import { ChartInteractionService } from 'src/app/services';
+import HousingCostData from 'src/assets/housing-costs.json';
 
 @Component({
   selector: 'app-housing-costs-tiles',
@@ -12,7 +12,7 @@ import { ChartInteractionService } from 'src/app/services';
 export class HousingCostsTilesComponent implements OnInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
 
-  housingCosts = hosingCostsMock;
+  housingCosts = HousingCostData;
   maxCostsPercentage: number;
 
   selectedTileIdx?: number = undefined;
