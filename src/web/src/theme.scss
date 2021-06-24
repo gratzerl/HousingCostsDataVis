@@ -1,0 +1,90 @@
+@use "~@angular/material" as mat;
+
+$primary-palette: (
+  50: #f4f8fb,
+  100: #e4eef5,
+  200: #d2e2ef,
+  300: #bfd6e9,
+  400: #b2cee4,
+  500: #a4c5df,
+  600: #9cbfdb,
+  700: #92b8d7,
+  800: #89b0d2,
+  900: #78a3ca,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #e5f3ff,
+  A700: #cce7ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$accent-palette: (
+  50: #f2ede7,
+  100: #dfd1c3,
+  200: #cab39b,
+  300: #b49572,
+  400: #a47e54,
+  500: #946736,
+  600: #8c5f30,
+  700: #815429,
+  800: #774a22,
+  900: #653916,
+  A100: #ffc59e,
+  A200: #ffa76b,
+  A400: #ff8938,
+  A700: #ff7a1f,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+@import "~@angular/material/theming";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+
+$config: mat-typography-config(
+  $font-family: "'Noto Sans', sans-serif",
+);
+
+@include mat-core($config);
+
+$my-primary: mat.define-palette($primary-palette, 300);
+$my-accent: mat.define-palette($accent-palette, 400, 300, 600);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+  )
+);
+
+@include mat.all-component-themes($my-theme);

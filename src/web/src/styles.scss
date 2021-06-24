@@ -1,12 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/theming";
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
-
-$config: mat-typography-config(
-  $font-family: "'Noto Sans', sans-serif",
-);
-
-@include mat-core($config);
+@import "theme.scss";
 
 @import "variables.scss";
 
@@ -28,18 +20,7 @@ body {
   user-select: none; /* Chrome, Opera */
 }
 
-.page-container {
-  padding: $vertical-padding $xl-horizontal-padding;
-
-  @media (max-width: $max-lg-width) {
-    padding: $vertical-padding $lg-horizontal-padding;
-  }
-
-  @media (max-width: $max-md-width) {
-    padding: $vertical-padding $md-horizontal-padding;
-  }
-
-  @media (max-width: $max-xs-width) {
-    padding: $xs-vertical-padding $xs-horizontal-padding;
-  }
+.mat-button-toggle-group {
+  height: 32px;
+  align-items: center;
 }

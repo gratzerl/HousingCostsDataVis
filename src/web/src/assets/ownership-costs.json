@@ -1,1 +1,1744 @@
-{"2010":[{"country":"AT","ownership":57.4,"housing":18.6,"gdp":23576},{"country":"BE","ownership":71.6,"housing":20.5,"gdp":21353},{"country":"BG","ownership":86.9,"housing":18.2,"gdp":3498},{"country":"CH","ownership":44.4,"housing":26.4,"gdp":35243},{"country":"CY","ownership":73.1,"housing":11.5,"gdp":18929},{"country":"CZ","ownership":78.7,"housing":22.9,"gdp":7981},{"country":"DE","ownership":53.2,"housing":27.5,"gdp":21470},{"country":"DK","ownership":66.6,"housing":33.2,"gdp":26915},{"country":"EE","ownership":85.5,"housing":17.6,"gdp":6779},{"country":"EL","ownership":77.2,"housing":29,"gdp":13974},{"country":"ES","ownership":79.8,"housing":17.7,"gdp":16922},{"country":"FI","ownership":74.3,"housing":17.6,"gdp":23528},{"country":"FR","ownership":62,"housing":17.8,"gdp":23421},{"country":"HR","ownership":88.2,"housing":25.3,"gdp":6622},{"country":"HU","ownership":89.7,"housing":25.2,"gdp":4631},{"country":"IE","ownership":73.3,"housing":16.2,"gdp":23965},{"country":"IS","ownership":81.3,"housing":23.2,"gdp":20670},{"country":"IT","ownership":72.6,"housing":16.7,"gdp":18221},{"country":"LT","ownership":93.6,"housing":20.3,"gdp":4975},{"country":"LU","ownership":68.1,"housing":13.8,"gdp":36410},{"country":"LV","ownership":84.3,"housing":20.1,"gdp":5466},{"country":"MT","ownership":79.5,"housing":10.7,"gdp":11794},{"country":"NL","ownership":67.2,"housing":28.6,"gdp":22700},{"country":"NO","ownership":82.9,"housing":20.7,"gdp":34849},{"country":"PL","ownership":81.3,"housing":21.7,"gdp":5116},{"country":"PT","ownership":74.9,"housing":14.3,"gdp":10540},{"country":"RO","ownership":97.6,"housing":25.4,"gdp":2371},{"country":"SE","ownership":67.3,"housing":22.3,"gdp":20094},{"country":"SI","ownership":78.1,"housing":15.4,"gdp":12653},{"country":"SK","ownership":90,"housing":20,"gdp":6785},{"country":"UK","ownership":70,"housing":28.9,"gdp":20518}],"2011":[{"country":"AT","ownership":52.4,"housing":18.6,"gdp":23922},{"country":"BE","ownership":71.8,"housing":21.3,"gdp":21628},{"country":"BG","ownership":87.2,"housing":20.8,"gdp":3429},{"country":"CH","ownership":43.8,"housing":25.8,"gdp":39048},{"country":"CY","ownership":73.5,"housing":11.9,"gdp":19621},{"country":"CZ","ownership":80.1,"housing":22.5,"gdp":8440},{"country":"DE","ownership":53.4,"housing":28.3,"gdp":21549},{"country":"DK","ownership":68.7,"housing":31.1,"gdp":29377},{"country":"EE","ownership":83.5,"housing":19,"gdp":6571},{"country":"EL","ownership":75.9,"housing":32.3,"gdp":12626},{"country":"ES","ownership":79.7,"housing":18.4,"gdp":16280},{"country":"FI","ownership":74.1,"housing":17.5,"gdp":24150},{"country":"FR","ownership":63.1,"housing":18.1,"gdp":23882},{"country":"HR","ownership":90.1,"housing":18.2,"gdp":6217},{"country":"HU","ownership":89.3,"housing":26,"gdp":5055},{"country":"IE","ownership":70.2,"housing":17.3,"gdp":22886},{"country":"IS","ownership":77.9,"housing":24.7,"gdp":20699},{"country":"IT","ownership":73.2,"housing":17.2,"gdp":18149},{"country":"LT","ownership":92.2,"housing":21.8,"gdp":4503},{"country":"LU","ownership":68.2,"housing":13.8,"gdp":36662},{"country":"LV","ownership":82.8,"housing":22.4,"gdp":5131},{"country":"MT","ownership":80.2,"housing":11.2,"gdp":12097},{"country":"NL","ownership":67.1,"housing":29.1,"gdp":22555},{"country":"NO","ownership":84,"housing":22,"gdp":39058},{"country":"PL","ownership":82.1,"housing":22.3,"gdp":5813},{"country":"PT","ownership":75,"housing":16.7,"gdp":10405},{"country":"RO","ownership":96.4,"housing":14.9,"gdp":2401},{"country":"SE","ownership":65.7,"housing":23,"gdp":23026},{"country":"SI","ownership":77.5,"housing":15.7,"gdp":12885},{"country":"SK","ownership":90.2,"housing":20.4,"gdp":6979},{"country":"UK","ownership":67.9,"housing":28.5,"gdp":20788}],"2012":[{"country":"AT","ownership":57.5,"housing":18.9,"gdp":24423},{"country":"BE","ownership":72.4,"housing":22,"gdp":21897},{"country":"BG","ownership":87.4,"housing":24.7,"gdp":3276},{"country":"CH","ownership":43.8,"housing":24.8,"gdp":44502},{"country":"CY","ownership":73.2,"housing":12.8,"gdp":20218},{"country":"CZ","ownership":80.4,"housing":23,"gdp":8765},{"country":"DE","ownership":53.3,"housing":27.9,"gdp":22022},{"country":"DK","ownership":66,"housing":29.5,"gdp":29701},{"country":"EE","ownership":82.2,"housing":19.1,"gdp":7117},{"country":"EL","ownership":75.9,"housing":37,"gdp":10676},{"country":"ES","ownership":78.9,"housing":19.1,"gdp":16119},{"country":"FI","ownership":73.9,"housing":17.9,"gdp":25148},{"country":"FR","ownership":63.7,"housing":17.9,"gdp":24499},{"country":"HR","ownership":89.6,"housing":18.5,"gdp":5988},{"country":"HU","ownership":89.8,"housing":26.7,"gdp":5247},{"country":"IE","ownership":69.6,"housing":18.6,"gdp":22781},{"country":"IS","ownership":77.3,"housing":23.8,"gdp":21493},{"country":"IT","ownership":74.2,"housing":16.8,"gdp":18267},{"country":"LT","ownership":91.9,"housing":20.1,"gdp":5124},{"country":"LU","ownership":70.8,"housing":14,"gdp":36925},{"country":"LV","ownership":81.5,"housing":21.6,"gdp":5463},{"country":"MT","ownership":81.8,"housing":11,"gdp":12663},{"country":"NL","ownership":67.5,"housing":29.2,"gdp":22954},{"country":"NO","ownership":84.8,"housing":21.1,"gdp":42713},{"country":"PL","ownership":82.4,"housing":22.6,"gdp":5902},{"country":"PT","ownership":74.5,"housing":18.2,"gdp":10227},{"country":"RO","ownership":96.3,"housing":27.2,"gdp":2356},{"country":"SE","ownership":66.1,"housing":23.3,"gdp":25402},{"country":"SI","ownership":76.2,"housing":16,"gdp":12972},{"country":"SK","ownership":90.4,"housing":19.9,"gdp":7556},{"country":"UK","ownership":66.7,"housing":19.8,"gdp":22395}],"2013":[{"country":"AT","ownership":57.3,"housing":19.2,"gdp":24366},{"country":"BE","ownership":72.3,"housing":20.8,"gdp":23281},{"country":"BG","ownership":85.7,"housing":24.5,"gdp":3509},{"country":"CH","ownership":44,"housing":23.9,"gdp":46479},{"country":"CY","ownership":74,"housing":13.1,"gdp":19426},{"country":"CZ","ownership":80.1,"housing":24.6,"gdp":8695},{"country":"DE","ownership":52.6,"housing":28.2,"gdp":22471},{"country":"DK","ownership":64.5,"housing":30.1,"gdp":30081},{"country":"EE","ownership":81.1,"housing":18.3,"gdp":7846},{"country":"EL","ownership":75.8,"housing":39.9,"gdp":9303},{"country":"ES","ownership":77.7,"housing":19.5,"gdp":15635},{"country":"FI","ownership":73.6,"housing":18.2,"gdp":25901},{"country":"FR","ownership":64.3,"housing":18.2,"gdp":24713},{"country":"HR","ownership":88.5,"housing":19.8,"gdp":5817},{"country":"HU","ownership":88.7,"housing":25.8,"gdp":5027},{"country":"IE","ownership":69.9,"housing":15.3,"gdp":23392},{"country":"IS","ownership":77.5,"housing":22.8,"gdp":23322},{"country":"IT","ownership":73.3,"housing":17.4,"gdp":17932},{"country":"LT","ownership":92.2,"housing":19.5,"gdp":5648},{"country":"LU","ownership":73,"housing":13.8,"gdp":38442},{"country":"LV","ownership":81.2,"housing":21.7,"gdp":5732},{"country":"MT","ownership":80.5,"housing":10.4,"gdp":13438},{"country":"NL","ownership":67.1,"housing":29.5,"gdp":23128},{"country":"NO","ownership":83.5,"housing":21.1,"gdp":45510},{"country":"PL","ownership":83.8,"housing":22.7,"gdp":5976},{"country":"PT","ownership":74.2,"housing":18.3,"gdp":9899},{"country":"RO","ownership":95.6,"housing":26.2,"gdp":2324},{"country":"SE","ownership":66.3,"housing":23.4,"gdp":27159},{"country":"SI","ownership":76.6,"housing":16.8,"gdp":12706},{"country":"SK","ownership":90.5,"housing":20.5,"gdp":7266},{"country":"UK","ownership":64.6,"housing":20.7,"gdp":21654}],"2014":[{"country":"AT","ownership":57.2,"housing":18.3,"gdp":26080},{"country":"BE","ownership":72,"housing":20.8,"gdp":23432},{"country":"BG","ownership":84.3,"housing":23.6,"gdp":3907},{"country":"CH","ownership":44.5,"housing":24.5,"gdp":44397},{"country":"CY","ownership":72.9,"housing":13.5,"gdp":18418},{"country":"CZ","ownership":78.9,"housing":24.2,"gdp":8600},{"country":"DE","ownership":52.5,"housing":27.3,"gdp":22540},{"country":"DK","ownership":63.3,"housing":28.1,"gdp":31106},{"country":"EE","ownership":81.5,"housing":18.3,"gdp":8820},{"country":"EL","ownership":74,"housing":42.5,"gdp":8879},{"country":"ES","ownership":78.8,"housing":19.1,"gdp":15405},{"country":"FI","ownership":73.2,"housing":18,"gdp":26130},{"country":"FR","ownership":65,"housing":18.3,"gdp":24613},{"country":"HR","ownership":89.7,"housing":20,"gdp":5799},{"country":"HU","ownership":88.2,"housing":25.2,"gdp":5123},{"country":"IE","ownership":68.4,"housing":18.1,"gdp":23573},{"country":"IS","ownership":78.2,"housing":21.3,"gdp":24521},{"country":"IT","ownership":73.1,"housing":17.1,"gdp":17914},{"country":"LT","ownership":89.9,"housing":18.6,"gdp":5975},{"country":"LU","ownership":72.5,"housing":14,"gdp":38555},{"country":"LV","ownership":80.9,"housing":20.1,"gdp":6324},{"country":"MT","ownership":79.8,"housing":8.7,"gdp":14315},{"country":"NL","ownership":67,"housing":29.4,"gdp":23189},{"country":"NO","ownership":84.4,"housing":19.1,"gdp":46974},{"country":"PL","ownership":83.5,"housing":22.5,"gdp":6163},{"country":"PT","ownership":74.9,"housing":19.3,"gdp":9856},{"country":"RO","ownership":96.2,"housing":25.8,"gdp":2443},{"country":"SE","ownership":65.6,"housing":22.9,"gdp":27982},{"country":"SI","ownership":76.7,"housing":17.1,"gdp":12843},{"country":"SK","ownership":90.3,"housing":20.3,"gdp":7484},{"country":"UK","ownership":64.4,"housing":25.2,"gdp":24136}],"2015":[{"country":"AT","ownership":55.7,"housing":18.4,"gdp":25958},{"country":"BE","ownership":71.4,"housing":20.2,"gdp":23673},{"country":"BG","ownership":82.3,"housing":25,"gdp":4093},{"country":"CH","ownership":43.4,"housing":24.2,"gdp":45432},{"country":"CY","ownership":73,"housing":14,"gdp":16944},{"country":"CZ","ownership":78,"housing":23.7,"gdp":8345},{"country":"DE","ownership":51.9,"housing":27.3,"gdp":23499},{"country":"DK","ownership":62.7,"housing":27.7,"gdp":31518},{"country":"EE","ownership":81.5,"housing":16.8,"gdp":9490},{"country":"EL","ownership":75.1,"housing":42.2,"gdp":8683},{"country":"ES","ownership":78.2,"housing":19,"gdp":15408},{"country":"FI","ownership":72.7,"housing":18.1,"gdp":26240},{"country":"FR","ownership":64.1,"housing":18.8,"gdp":24982},{"country":"HR","ownership":90.3,"housing":18.9,"gdp":6070},{"country":"HU","ownership":86.3,"housing":21.5,"gdp":5141},{"country":"IE","ownership":69.6,"housing":16.8,"gdp":24817},{"country":"IS","ownership":77.8,"housing":21.4,"gdp":27527},{"country":"IT","ownership":72.9,"housing":17.2,"gdp":17890},{"country":"LT","ownership":89.4,"housing":19,"gdp":6558},{"country":"LU","ownership":73.2,"housing":14.2,"gdp":39707},{"country":"LV","ownership":80.2,"housing":19,"gdp":6970},{"country":"MT","ownership":80.4,"housing":7.5,"gdp":15172},{"country":"NL","ownership":67.8,"housing":29.5,"gdp":23928},{"country":"NO","ownership":82.8,"housing":20.4,"gdp":44517},{"country":"PL","ownership":83.7,"housing":21.7,"gdp":6376},{"country":"PT","ownership":74.8,"housing":18.9,"gdp":9996},{"country":"RO","ownership":96.4,"housing":25.1,"gdp":2674},{"country":"SE","ownership":66.2,"housing":22.6,"gdp":27246},{"country":"SI","ownership":76.2,"housing":16.1,"gdp":13211},{"country":"SK","ownership":89.3,"housing":21.1,"gdp":7293},{"country":"UK","ownership":63.5,"housing":24.9,"gdp":25022}],"2016":[{"country":"AT","ownership":55,"housing":18.4,"gdp":26054},{"country":"BE","ownership":70.9,"housing":19.8,"gdp":24264},{"country":"BG","ownership":82.3,"housing":28.9,"gdp":3857},{"country":"CH","ownership":42.5,"housing":24.6,"gdp":50859},{"country":"CY","ownership":72.5,"housing":12.8,"gdp":16943},{"country":"CZ","ownership":78.2,"housing":23,"gdp":8808},{"country":"DE","ownership":51.7,"housing":27.4,"gdp":24020},{"country":"DK","ownership":61.7,"housing":26.7,"gdp":32144},{"country":"EE","ownership":81.4,"housing":15,"gdp":10102},{"country":"EL","ownership":73.9,"housing":41.9,"gdp":8673},{"country":"ES","ownership":77.8,"housing":18.5,"gdp":15842},{"country":"FI","ownership":71.6,"housing":18.1,"gdp":26379},{"country":"FR","ownership":64.9,"housing":18,"gdp":25278},{"country":"HR","ownership":90,"housing":18.2,"gdp":6337},{"country":"HU","ownership":86.3,"housing":21.3,"gdp":5396},{"country":"IE","ownership":69.5,"housing":16.4,"gdp":25586},{"country":"IS","ownership":78.7,"housing":20,"gdp":31665},{"country":"IT","ownership":72.3,"housing":17.6,"gdp":18286},{"country":"LT","ownership":90.3,"housing":17.2,"gdp":7033},{"country":"LU","ownership":73.9,"housing":14.9,"gdp":37642},{"country":"LV","ownership":80.9,"housing":17.5,"gdp":7526},{"country":"MT","ownership":81.4,"housing":7.8,"gdp":15505},{"country":"NL","ownership":69,"housing":24.7,"gdp":25366},{"country":"NO","ownership":82.9,"housing":19.5,"gdp":42917},{"country":"PL","ownership":83.4,"housing":20.3,"gdp":6659},{"country":"PT","ownership":75.2,"housing":17.7,"gdp":10562},{"country":"RO","ownership":96,"housing":23.6,"gdp":2746},{"country":"SE","ownership":65.2,"housing":22.2,"gdp":27355},{"country":"SI","ownership":75.1,"housing":16,"gdp":13193},{"country":"SK","ownership":89.5,"housing":20.1,"gdp":7391},{"country":"UK","ownership":63.4,"housing":24.5,"gdp":24602}],"2017":[{"country":"AT","ownership":55,"housing":17.9,"gdp":27629},{"country":"BE","ownership":72.4,"housing":19.8,"gdp":24399},{"country":"BG","ownership":82.9,"housing":27.3,"gdp":4598},{"country":"CH","ownership":41.3,"housing":24.9,"gdp":50461},{"country":"CY","ownership":70.7,"housing":12.2,"gdp":17218},{"country":"CZ","ownership":78.5,"housing":22,"gdp":9282},{"country":"DE","ownership":51.4,"housing":26.3,"gdp":24780},{"country":"DK","ownership":62.2,"housing":27.9,"gdp":32798},{"country":"EE","ownership":81.8,"housing":14.5,"gdp":10701},{"country":"EL","ownership":73.3,"housing":41.1,"gdp":8800},{"country":"ES","ownership":77.1,"housing":18.2,"gdp":16390},{"country":"FI","ownership":71.4,"housing":18.2,"gdp":26689},{"country":"FR","ownership":64.4,"housing":17.7,"gdp":25286},{"country":"HR","ownership":90.5,"housing":17.4,"gdp":6851},{"country":"HU","ownership":85.2,"housing":22.1,"gdp":5589},{"country":"IE","ownership":69.5,"housing":16.1,"gdp":27006},{"country":"IS","ownership":74.1,"housing":21.9,"gdp":37451},{"country":"IT","ownership":72.4,"housing":16.3,"gdp":18714},{"country":"LT","ownership":89.7,"housing":16.3,"gdp":7555},{"country":"LU","ownership":74.7,"housing":14.9,"gdp":41085},{"country":"LV","ownership":81.5,"housing":17.3,"gdp":7831},{"country":"MT","ownership":81.3,"housing":6.9,"gdp":16387},{"country":"NL","ownership":69.4,"housing":23.4,"gdp":26350},{"country":"NO","ownership":81.5,"housing":19.8,"gdp":42170},{"country":"PL","ownership":84.2,"housing":19,"gdp":6810},{"country":"PT","ownership":74.7,"housing":17,"gdp":10862},{"country":"RO","ownership":96.8,"housing":22.3,"gdp":3059},{"country":"SE","ownership":65.2,"housing":21.7,"gdp":27902},{"country":"SI","ownership":75.6,"housing":15.6,"gdp":13585},{"country":"SK","ownership":90.1,"housing":20.6,"gdp":7491},{"country":"UK","ownership":65,"housing":24.8,"gdp":25244}],"2018":[{"country":"AT","ownership":55.4,"housing":18.1,"gdp":27804},{"country":"BE","ownership":72.3,"housing":18.8,"gdp":25196},{"country":"BG","ownership":83.6,"housing":26.8,"gdp":4644},{"country":"CH","ownership":42.5,"housing":24.8,"gdp":49607},{"country":"CY","ownership":70.1,"housing":11.6,"gdp":17582},{"country":"CZ","ownership":78.7,"housing":21,"gdp":10098},{"country":"DE","ownership":51.5,"housing":26.1,"gdp":25882},{"country":"DK","ownership":60.5,"housing":27.3,"gdp":33760},{"country":"EE","ownership":82.4,"housing":14.2,"gdp":11746},{"country":"EL","ownership":73.5,"housing":40.9,"gdp":9034},{"country":"ES","ownership":76.3,"housing":17.3,"gdp":16937},{"country":"FI","ownership":71.6,"housing":17.8,"gdp":27389},{"country":"FR","ownership":65.1,"housing":17.5,"gdp":25379},{"country":"HR","ownership":90.1,"housing":16.8,"gdp":7371},{"country":"HU","ownership":86,"housing":21.2,"gdp":6123},{"country":"IE","ownership":70.3,"housing":15,"gdp":28630},{"country":"IS","ownership":73.6,"housing":21.8,"gdp":43772},{"country":"IT","ownership":72.4,"housing":16.2,"gdp":19208},{"country":"LT","ownership":89.9,"housing":14.8,"gdp":8415},{"country":"LU","ownership":71.2,"housing":17.1,"gdp":40075},{"country":"LV","ownership":81.6,"housing":17.3,"gdp":8738},{"country":"MT","ownership":81.6,"housing":7.8,"gdp":16749},{"country":"NL","ownership":68.9,"housing":23.4,"gdp":26848},{"country":"NO","ownership":81.3,"housing":20.3,"gdp":42251},{"country":"PL","ownership":84,"housing":18.6,"gdp":7337},{"country":"PT","ownership":74.5,"housing":16.2,"gdp":11063},{"country":"RO","ownership":96.4,"housing":20.1,"gdp":3825},{"country":"SE","ownership":64.1,"housing":21.6,"gdp":27573},{"country":"SI","ownership":75.1,"housing":15.5,"gdp":14127},{"country":"SK","ownership":91.3,"housing":17.2,"gdp":7870},{"country":"UK","ownership":65.2,"housing":25.1,"gdp":25643}],"2019":[{"country":"AT","ownership":55.2,"housing":18.2,"gdp":28568},{"country":"BE","ownership":71.3,"housing":18.7,"gdp":26275},{"country":"BG","ownership":84.1,"housing":24.8,"gdp":5551},{"country":"CH","ownership":41.6,"housing":25.6,"gdp":47622},{"country":"CY","ownership":67.9,"housing":11.3,"gdp":19302},{"country":"CZ","ownership":78.6,"housing":20.2,"gdp":11068},{"country":"DE","ownership":51.1,"housing":25.9,"gdp":26105},{"country":"DK","ownership":60.8,"housing":27.1,"gdp":34336},{"country":"EE","ownership":81.7,"housing":14.2,"gdp":12780},{"country":"EL","ownership":75.4,"housing":38.9,"gdp":9382},{"country":"ES","ownership":76.2,"housing":17.1,"gdp":17287},{"country":"FI","ownership":71.1,"housing":17.8,"gdp":28061},{"country":"FR","ownership":64.1,"housing":17.6,"gdp":26210},{"country":"HR","ownership":89.7,"housing":16.6,"gdp":8089},{"country":"HU","ownership":91.7,"housing":13.5,"gdp":6568},{"country":"IE","ownership":68.7,"housing":15.7,"gdp":29685},{"country":"IT","ownership":72.4,"housing":16.6,"gdp":19528},{"country":"LT","ownership":90.3,"housing":14.4,"gdp":9264},{"country":"LU","ownership":70.9,"housing":17.5,"gdp":42818},{"country":"MT","ownership":79.8,"housing":8.2,"gdp":17246},{"country":"NL","ownership":68.9,"housing":23.4,"gdp":27352},{"country":"NO","ownership":80.3,"housing":20.9,"gdp":42561},{"country":"PL","ownership":84.2,"housing":18.1,"gdp":8022},{"country":"PT","ownership":73.9,"housing":15.5,"gdp":11786},{"country":"RO","ownership":95.8,"housing":18.6,"gdp":4419},{"country":"SE","ownership":63.6,"housing":22.2,"gdp":26358},{"country":"SI","ownership":74.8,"housing":14.8,"gdp":15236},{"country":"SK","ownership":90.9,"housing":17.9,"gdp":8523}]}
+{
+  "2010": [
+    {
+      "country": "AT",
+      "ownership": 57.4,
+      "housing": 18.6,
+      "gdp": 23576
+    },
+    {
+      "country": "BE",
+      "ownership": 71.6,
+      "housing": 20.5,
+      "gdp": 21353
+    },
+    {
+      "country": "BG",
+      "ownership": 86.9,
+      "housing": 18.2,
+      "gdp": 3498
+    },
+    {
+      "country": "CY",
+      "ownership": 73.1,
+      "housing": 11.5,
+      "gdp": 18929
+    },
+    {
+      "country": "CZ",
+      "ownership": 78.7,
+      "housing": 22.9,
+      "gdp": 7981
+    },
+    {
+      "country": "DE",
+      "ownership": 53.2,
+      "housing": 27.5,
+      "gdp": 21470
+    },
+    {
+      "country": "DK",
+      "ownership": 66.6,
+      "housing": 33.2,
+      "gdp": 26915
+    },
+    {
+      "country": "EE",
+      "ownership": 85.5,
+      "housing": 17.6,
+      "gdp": 6779
+    },
+    {
+      "country": "EL",
+      "ownership": 77.2,
+      "housing": 29,
+      "gdp": 13974
+    },
+    {
+      "country": "ES",
+      "ownership": 79.8,
+      "housing": 17.7,
+      "gdp": 16922
+    },
+    {
+      "country": "FI",
+      "ownership": 74.3,
+      "housing": 17.6,
+      "gdp": 23528
+    },
+    {
+      "country": "FR",
+      "ownership": 62,
+      "housing": 17.8,
+      "gdp": 23421
+    },
+    {
+      "country": "HR",
+      "ownership": 88.2,
+      "housing": 25.3,
+      "gdp": 6622
+    },
+    {
+      "country": "HU",
+      "ownership": 89.7,
+      "housing": 25.2,
+      "gdp": 4631
+    },
+    {
+      "country": "IE",
+      "ownership": 73.3,
+      "housing": 16.2,
+      "gdp": 23965
+    },
+    {
+      "country": "IS",
+      "ownership": 81.3,
+      "housing": 23.2,
+      "gdp": 20670
+    },
+    {
+      "country": "IT",
+      "ownership": 72.6,
+      "housing": 16.7,
+      "gdp": 18221
+    },
+    {
+      "country": "LT",
+      "ownership": 93.6,
+      "housing": 20.3,
+      "gdp": 4975
+    },
+    {
+      "country": "LU",
+      "ownership": 68.1,
+      "housing": 13.8,
+      "gdp": 36410
+    },
+    {
+      "country": "LV",
+      "ownership": 84.3,
+      "housing": 20.1,
+      "gdp": 5466
+    },
+    {
+      "country": "MT",
+      "ownership": 79.5,
+      "housing": 10.7,
+      "gdp": 11794
+    },
+    {
+      "country": "NL",
+      "ownership": 67.2,
+      "housing": 28.6,
+      "gdp": 22700
+    },
+    {
+      "country": "PL",
+      "ownership": 81.3,
+      "housing": 21.7,
+      "gdp": 5116
+    },
+    {
+      "country": "PT",
+      "ownership": 74.9,
+      "housing": 14.3,
+      "gdp": 10540
+    },
+    {
+      "country": "RO",
+      "ownership": 97.6,
+      "housing": 25.4,
+      "gdp": 2371
+    },
+    {
+      "country": "SE",
+      "ownership": 67.3,
+      "housing": 22.3,
+      "gdp": 20094
+    },
+    {
+      "country": "SI",
+      "ownership": 78.1,
+      "housing": 15.4,
+      "gdp": 12653
+    },
+    {
+      "country": "SK",
+      "ownership": 90,
+      "housing": 20,
+      "gdp": 6785
+    },
+    {
+      "country": "UK",
+      "ownership": 70,
+      "housing": 28.9,
+      "gdp": 20518
+    }
+  ],
+  "2011": [
+    {
+      "country": "AT",
+      "ownership": 52.4,
+      "housing": 18.6,
+      "gdp": 23922
+    },
+    {
+      "country": "BE",
+      "ownership": 71.8,
+      "housing": 21.3,
+      "gdp": 21628
+    },
+    {
+      "country": "BG",
+      "ownership": 87.2,
+      "housing": 20.8,
+      "gdp": 3429
+    },
+    {
+      "country": "CY",
+      "ownership": 73.5,
+      "housing": 11.9,
+      "gdp": 19621
+    },
+    {
+      "country": "CZ",
+      "ownership": 80.1,
+      "housing": 22.5,
+      "gdp": 8440
+    },
+    {
+      "country": "DE",
+      "ownership": 53.4,
+      "housing": 28.3,
+      "gdp": 21549
+    },
+    {
+      "country": "DK",
+      "ownership": 68.7,
+      "housing": 31.1,
+      "gdp": 29377
+    },
+    {
+      "country": "EE",
+      "ownership": 83.5,
+      "housing": 19,
+      "gdp": 6571
+    },
+    {
+      "country": "EL",
+      "ownership": 75.9,
+      "housing": 32.3,
+      "gdp": 12626
+    },
+    {
+      "country": "ES",
+      "ownership": 79.7,
+      "housing": 18.4,
+      "gdp": 16280
+    },
+    {
+      "country": "FI",
+      "ownership": 74.1,
+      "housing": 17.5,
+      "gdp": 24150
+    },
+    {
+      "country": "FR",
+      "ownership": 63.1,
+      "housing": 18.1,
+      "gdp": 23882
+    },
+    {
+      "country": "HR",
+      "ownership": 90.1,
+      "housing": 18.2,
+      "gdp": 6217
+    },
+    {
+      "country": "HU",
+      "ownership": 89.3,
+      "housing": 26,
+      "gdp": 5055
+    },
+    {
+      "country": "IE",
+      "ownership": 70.2,
+      "housing": 17.3,
+      "gdp": 22886
+    },
+    {
+      "country": "IS",
+      "ownership": 77.9,
+      "housing": 24.7,
+      "gdp": 20699
+    },
+    {
+      "country": "IT",
+      "ownership": 73.2,
+      "housing": 17.2,
+      "gdp": 18149
+    },
+    {
+      "country": "LT",
+      "ownership": 92.2,
+      "housing": 21.8,
+      "gdp": 4503
+    },
+    {
+      "country": "LU",
+      "ownership": 68.2,
+      "housing": 13.8,
+      "gdp": 36662
+    },
+    {
+      "country": "LV",
+      "ownership": 82.8,
+      "housing": 22.4,
+      "gdp": 5131
+    },
+    {
+      "country": "MT",
+      "ownership": 80.2,
+      "housing": 11.2,
+      "gdp": 12097
+    },
+    {
+      "country": "NL",
+      "ownership": 67.1,
+      "housing": 29.1,
+      "gdp": 22555
+    },
+    {
+      "country": "PL",
+      "ownership": 82.1,
+      "housing": 22.3,
+      "gdp": 5813
+    },
+    {
+      "country": "PT",
+      "ownership": 75,
+      "housing": 16.7,
+      "gdp": 10405
+    },
+    {
+      "country": "RO",
+      "ownership": 96.4,
+      "housing": 14.9,
+      "gdp": 2401
+    },
+    {
+      "country": "SE",
+      "ownership": 65.7,
+      "housing": 23,
+      "gdp": 23026
+    },
+    {
+      "country": "SI",
+      "ownership": 77.5,
+      "housing": 15.7,
+      "gdp": 12885
+    },
+    {
+      "country": "SK",
+      "ownership": 90.2,
+      "housing": 20.4,
+      "gdp": 6979
+    },
+    {
+      "country": "UK",
+      "ownership": 67.9,
+      "housing": 28.5,
+      "gdp": 20788
+    }
+  ],
+  "2012": [
+    {
+      "country": "AT",
+      "ownership": 57.5,
+      "housing": 18.9,
+      "gdp": 24423
+    },
+    {
+      "country": "BE",
+      "ownership": 72.4,
+      "housing": 22,
+      "gdp": 21897
+    },
+    {
+      "country": "BG",
+      "ownership": 87.4,
+      "housing": 24.7,
+      "gdp": 3276
+    },
+    {
+      "country": "CY",
+      "ownership": 73.2,
+      "housing": 12.8,
+      "gdp": 20218
+    },
+    {
+      "country": "CZ",
+      "ownership": 80.4,
+      "housing": 23,
+      "gdp": 8765
+    },
+    {
+      "country": "DE",
+      "ownership": 53.3,
+      "housing": 27.9,
+      "gdp": 22022
+    },
+    {
+      "country": "DK",
+      "ownership": 66,
+      "housing": 29.5,
+      "gdp": 29701
+    },
+    {
+      "country": "EE",
+      "ownership": 82.2,
+      "housing": 19.1,
+      "gdp": 7117
+    },
+    {
+      "country": "EL",
+      "ownership": 75.9,
+      "housing": 37,
+      "gdp": 10676
+    },
+    {
+      "country": "ES",
+      "ownership": 78.9,
+      "housing": 19.1,
+      "gdp": 16119
+    },
+    {
+      "country": "FI",
+      "ownership": 73.9,
+      "housing": 17.9,
+      "gdp": 25148
+    },
+    {
+      "country": "FR",
+      "ownership": 63.7,
+      "housing": 17.9,
+      "gdp": 24499
+    },
+    {
+      "country": "HR",
+      "ownership": 89.6,
+      "housing": 18.5,
+      "gdp": 5988
+    },
+    {
+      "country": "HU",
+      "ownership": 89.8,
+      "housing": 26.7,
+      "gdp": 5247
+    },
+    {
+      "country": "IE",
+      "ownership": 69.6,
+      "housing": 18.6,
+      "gdp": 22781
+    },
+    {
+      "country": "IS",
+      "ownership": 77.3,
+      "housing": 23.8,
+      "gdp": 21493
+    },
+    {
+      "country": "IT",
+      "ownership": 74.2,
+      "housing": 16.8,
+      "gdp": 18267
+    },
+    {
+      "country": "LT",
+      "ownership": 91.9,
+      "housing": 20.1,
+      "gdp": 5124
+    },
+    {
+      "country": "LU",
+      "ownership": 70.8,
+      "housing": 14,
+      "gdp": 36925
+    },
+    {
+      "country": "LV",
+      "ownership": 81.5,
+      "housing": 21.6,
+      "gdp": 5463
+    },
+    {
+      "country": "MT",
+      "ownership": 81.8,
+      "housing": 11,
+      "gdp": 12663
+    },
+    {
+      "country": "NL",
+      "ownership": 67.5,
+      "housing": 29.2,
+      "gdp": 22954
+    },
+    {
+      "country": "PL",
+      "ownership": 82.4,
+      "housing": 22.6,
+      "gdp": 5902
+    },
+    {
+      "country": "PT",
+      "ownership": 74.5,
+      "housing": 18.2,
+      "gdp": 10227
+    },
+    {
+      "country": "RO",
+      "ownership": 96.3,
+      "housing": 27.2,
+      "gdp": 2356
+    },
+    {
+      "country": "SE",
+      "ownership": 66.1,
+      "housing": 23.3,
+      "gdp": 25402
+    },
+    {
+      "country": "SI",
+      "ownership": 76.2,
+      "housing": 16,
+      "gdp": 12972
+    },
+    {
+      "country": "SK",
+      "ownership": 90.4,
+      "housing": 19.9,
+      "gdp": 7556
+    },
+    {
+      "country": "UK",
+      "ownership": 66.7,
+      "housing": 19.8,
+      "gdp": 22395
+    }
+  ],
+  "2013": [
+    {
+      "country": "AT",
+      "ownership": 57.3,
+      "housing": 19.2,
+      "gdp": 24366
+    },
+    {
+      "country": "BE",
+      "ownership": 72.3,
+      "housing": 20.8,
+      "gdp": 23281
+    },
+    {
+      "country": "BG",
+      "ownership": 85.7,
+      "housing": 24.5,
+      "gdp": 3509
+    },
+    {
+      "country": "CY",
+      "ownership": 74,
+      "housing": 13.1,
+      "gdp": 19426
+    },
+    {
+      "country": "CZ",
+      "ownership": 80.1,
+      "housing": 24.6,
+      "gdp": 8695
+    },
+    {
+      "country": "DE",
+      "ownership": 52.6,
+      "housing": 28.2,
+      "gdp": 22471
+    },
+    {
+      "country": "DK",
+      "ownership": 64.5,
+      "housing": 30.1,
+      "gdp": 30081
+    },
+    {
+      "country": "EE",
+      "ownership": 81.1,
+      "housing": 18.3,
+      "gdp": 7846
+    },
+    {
+      "country": "EL",
+      "ownership": 75.8,
+      "housing": 39.9,
+      "gdp": 9303
+    },
+    {
+      "country": "ES",
+      "ownership": 77.7,
+      "housing": 19.5,
+      "gdp": 15635
+    },
+    {
+      "country": "FI",
+      "ownership": 73.6,
+      "housing": 18.2,
+      "gdp": 25901
+    },
+    {
+      "country": "FR",
+      "ownership": 64.3,
+      "housing": 18.2,
+      "gdp": 24713
+    },
+    {
+      "country": "HR",
+      "ownership": 88.5,
+      "housing": 19.8,
+      "gdp": 5817
+    },
+    {
+      "country": "HU",
+      "ownership": 88.7,
+      "housing": 25.8,
+      "gdp": 5027
+    },
+    {
+      "country": "IE",
+      "ownership": 69.9,
+      "housing": 15.3,
+      "gdp": 23392
+    },
+    {
+      "country": "IS",
+      "ownership": 77.5,
+      "housing": 22.8,
+      "gdp": 23322
+    },
+    {
+      "country": "IT",
+      "ownership": 73.3,
+      "housing": 17.4,
+      "gdp": 17932
+    },
+    {
+      "country": "LT",
+      "ownership": 92.2,
+      "housing": 19.5,
+      "gdp": 5648
+    },
+    {
+      "country": "LU",
+      "ownership": 73,
+      "housing": 13.8,
+      "gdp": 38442
+    },
+    {
+      "country": "LV",
+      "ownership": 81.2,
+      "housing": 21.7,
+      "gdp": 5732
+    },
+    {
+      "country": "MT",
+      "ownership": 80.5,
+      "housing": 10.4,
+      "gdp": 13438
+    },
+    {
+      "country": "NL",
+      "ownership": 67.1,
+      "housing": 29.5,
+      "gdp": 23128
+    },
+    {
+      "country": "PL",
+      "ownership": 83.8,
+      "housing": 22.7,
+      "gdp": 5976
+    },
+    {
+      "country": "PT",
+      "ownership": 74.2,
+      "housing": 18.3,
+      "gdp": 9899
+    },
+    {
+      "country": "RO",
+      "ownership": 95.6,
+      "housing": 26.2,
+      "gdp": 2324
+    },
+    {
+      "country": "SE",
+      "ownership": 66.3,
+      "housing": 23.4,
+      "gdp": 27159
+    },
+    {
+      "country": "SI",
+      "ownership": 76.6,
+      "housing": 16.8,
+      "gdp": 12706
+    },
+    {
+      "country": "SK",
+      "ownership": 90.5,
+      "housing": 20.5,
+      "gdp": 7266
+    },
+    {
+      "country": "UK",
+      "ownership": 64.6,
+      "housing": 20.7,
+      "gdp": 21654
+    }
+  ],
+  "2014": [
+    {
+      "country": "AT",
+      "ownership": 57.2,
+      "housing": 18.3,
+      "gdp": 26080
+    },
+    {
+      "country": "BE",
+      "ownership": 72,
+      "housing": 20.8,
+      "gdp": 23432
+    },
+    {
+      "country": "BG",
+      "ownership": 84.3,
+      "housing": 23.6,
+      "gdp": 3907
+    },
+    {
+      "country": "CY",
+      "ownership": 72.9,
+      "housing": 13.5,
+      "gdp": 18418
+    },
+    {
+      "country": "CZ",
+      "ownership": 78.9,
+      "housing": 24.2,
+      "gdp": 8600
+    },
+    {
+      "country": "DE",
+      "ownership": 52.5,
+      "housing": 27.3,
+      "gdp": 22540
+    },
+    {
+      "country": "DK",
+      "ownership": 63.3,
+      "housing": 28.1,
+      "gdp": 31106
+    },
+    {
+      "country": "EE",
+      "ownership": 81.5,
+      "housing": 18.3,
+      "gdp": 8820
+    },
+    {
+      "country": "EL",
+      "ownership": 74,
+      "housing": 42.5,
+      "gdp": 8879
+    },
+    {
+      "country": "ES",
+      "ownership": 78.8,
+      "housing": 19.1,
+      "gdp": 15405
+    },
+    {
+      "country": "FI",
+      "ownership": 73.2,
+      "housing": 18,
+      "gdp": 26130
+    },
+    {
+      "country": "FR",
+      "ownership": 65,
+      "housing": 18.3,
+      "gdp": 24613
+    },
+    {
+      "country": "HR",
+      "ownership": 89.7,
+      "housing": 20,
+      "gdp": 5799
+    },
+    {
+      "country": "HU",
+      "ownership": 88.2,
+      "housing": 25.2,
+      "gdp": 5123
+    },
+    {
+      "country": "IE",
+      "ownership": 68.4,
+      "housing": 18.1,
+      "gdp": 23573
+    },
+    {
+      "country": "IS",
+      "ownership": 78.2,
+      "housing": 21.3,
+      "gdp": 24521
+    },
+    {
+      "country": "IT",
+      "ownership": 73.1,
+      "housing": 17.1,
+      "gdp": 17914
+    },
+    {
+      "country": "LT",
+      "ownership": 89.9,
+      "housing": 18.6,
+      "gdp": 5975
+    },
+    {
+      "country": "LU",
+      "ownership": 72.5,
+      "housing": 14,
+      "gdp": 38555
+    },
+    {
+      "country": "LV",
+      "ownership": 80.9,
+      "housing": 20.1,
+      "gdp": 6324
+    },
+    {
+      "country": "MT",
+      "ownership": 79.8,
+      "housing": 8.7,
+      "gdp": 14315
+    },
+    {
+      "country": "NL",
+      "ownership": 67,
+      "housing": 29.4,
+      "gdp": 23189
+    },
+    {
+      "country": "PL",
+      "ownership": 83.5,
+      "housing": 22.5,
+      "gdp": 6163
+    },
+    {
+      "country": "PT",
+      "ownership": 74.9,
+      "housing": 19.3,
+      "gdp": 9856
+    },
+    {
+      "country": "RO",
+      "ownership": 96.2,
+      "housing": 25.8,
+      "gdp": 2443
+    },
+    {
+      "country": "SE",
+      "ownership": 65.6,
+      "housing": 22.9,
+      "gdp": 27982
+    },
+    {
+      "country": "SI",
+      "ownership": 76.7,
+      "housing": 17.1,
+      "gdp": 12843
+    },
+    {
+      "country": "SK",
+      "ownership": 90.3,
+      "housing": 20.3,
+      "gdp": 7484
+    },
+    {
+      "country": "UK",
+      "ownership": 64.4,
+      "housing": 25.2,
+      "gdp": 24136
+    }
+  ],
+  "2015": [
+    {
+      "country": "AT",
+      "ownership": 55.7,
+      "housing": 18.4,
+      "gdp": 25958
+    },
+    {
+      "country": "BE",
+      "ownership": 71.4,
+      "housing": 20.2,
+      "gdp": 23673
+    },
+    {
+      "country": "BG",
+      "ownership": 82.3,
+      "housing": 25,
+      "gdp": 4093
+    },
+    {
+      "country": "CY",
+      "ownership": 73,
+      "housing": 14,
+      "gdp": 16944
+    },
+    {
+      "country": "CZ",
+      "ownership": 78,
+      "housing": 23.7,
+      "gdp": 8345
+    },
+    {
+      "country": "DE",
+      "ownership": 51.9,
+      "housing": 27.3,
+      "gdp": 23499
+    },
+    {
+      "country": "DK",
+      "ownership": 62.7,
+      "housing": 27.7,
+      "gdp": 31518
+    },
+    {
+      "country": "EE",
+      "ownership": 81.5,
+      "housing": 16.8,
+      "gdp": 9490
+    },
+    {
+      "country": "EL",
+      "ownership": 75.1,
+      "housing": 42.2,
+      "gdp": 8683
+    },
+    {
+      "country": "ES",
+      "ownership": 78.2,
+      "housing": 19,
+      "gdp": 15408
+    },
+    {
+      "country": "FI",
+      "ownership": 72.7,
+      "housing": 18.1,
+      "gdp": 26240
+    },
+    {
+      "country": "FR",
+      "ownership": 64.1,
+      "housing": 18.8,
+      "gdp": 24982
+    },
+    {
+      "country": "HR",
+      "ownership": 90.3,
+      "housing": 18.9,
+      "gdp": 6070
+    },
+    {
+      "country": "HU",
+      "ownership": 86.3,
+      "housing": 21.5,
+      "gdp": 5141
+    },
+    {
+      "country": "IE",
+      "ownership": 69.6,
+      "housing": 16.8,
+      "gdp": 24817
+    },
+    {
+      "country": "IS",
+      "ownership": 77.8,
+      "housing": 21.4,
+      "gdp": 27527
+    },
+    {
+      "country": "IT",
+      "ownership": 72.9,
+      "housing": 17.2,
+      "gdp": 17890
+    },
+    {
+      "country": "LT",
+      "ownership": 89.4,
+      "housing": 19,
+      "gdp": 6558
+    },
+    {
+      "country": "LU",
+      "ownership": 73.2,
+      "housing": 14.2,
+      "gdp": 39707
+    },
+    {
+      "country": "LV",
+      "ownership": 80.2,
+      "housing": 19,
+      "gdp": 6970
+    },
+    {
+      "country": "MT",
+      "ownership": 80.4,
+      "housing": 7.5,
+      "gdp": 15172
+    },
+    {
+      "country": "NL",
+      "ownership": 67.8,
+      "housing": 29.5,
+      "gdp": 23928
+    },
+    {
+      "country": "PL",
+      "ownership": 83.7,
+      "housing": 21.7,
+      "gdp": 6376
+    },
+    {
+      "country": "PT",
+      "ownership": 74.8,
+      "housing": 18.9,
+      "gdp": 9996
+    },
+    {
+      "country": "RO",
+      "ownership": 96.4,
+      "housing": 25.1,
+      "gdp": 2674
+    },
+    {
+      "country": "SE",
+      "ownership": 66.2,
+      "housing": 22.6,
+      "gdp": 27246
+    },
+    {
+      "country": "SI",
+      "ownership": 76.2,
+      "housing": 16.1,
+      "gdp": 13211
+    },
+    {
+      "country": "SK",
+      "ownership": 89.3,
+      "housing": 21.1,
+      "gdp": 7293
+    },
+    {
+      "country": "UK",
+      "ownership": 63.5,
+      "housing": 24.9,
+      "gdp": 25022
+    }
+  ],
+  "2016": [
+    {
+      "country": "AT",
+      "ownership": 55,
+      "housing": 18.4,
+      "gdp": 26054
+    },
+    {
+      "country": "BE",
+      "ownership": 70.9,
+      "housing": 19.8,
+      "gdp": 24264
+    },
+    {
+      "country": "BG",
+      "ownership": 82.3,
+      "housing": 28.9,
+      "gdp": 3857
+    },
+    {
+      "country": "CY",
+      "ownership": 72.5,
+      "housing": 12.8,
+      "gdp": 16943
+    },
+    {
+      "country": "CZ",
+      "ownership": 78.2,
+      "housing": 23,
+      "gdp": 8808
+    },
+    {
+      "country": "DE",
+      "ownership": 51.7,
+      "housing": 27.4,
+      "gdp": 24020
+    },
+    {
+      "country": "DK",
+      "ownership": 61.7,
+      "housing": 26.7,
+      "gdp": 32144
+    },
+    {
+      "country": "EE",
+      "ownership": 81.4,
+      "housing": 15,
+      "gdp": 10102
+    },
+    {
+      "country": "EL",
+      "ownership": 73.9,
+      "housing": 41.9,
+      "gdp": 8673
+    },
+    {
+      "country": "ES",
+      "ownership": 77.8,
+      "housing": 18.5,
+      "gdp": 15842
+    },
+    {
+      "country": "FI",
+      "ownership": 71.6,
+      "housing": 18.1,
+      "gdp": 26379
+    },
+    {
+      "country": "FR",
+      "ownership": 64.9,
+      "housing": 18,
+      "gdp": 25278
+    },
+    {
+      "country": "HR",
+      "ownership": 90,
+      "housing": 18.2,
+      "gdp": 6337
+    },
+    {
+      "country": "HU",
+      "ownership": 86.3,
+      "housing": 21.3,
+      "gdp": 5396
+    },
+    {
+      "country": "IE",
+      "ownership": 69.5,
+      "housing": 16.4,
+      "gdp": 25586
+    },
+    {
+      "country": "IS",
+      "ownership": 78.7,
+      "housing": 20,
+      "gdp": 31665
+    },
+    {
+      "country": "IT",
+      "ownership": 72.3,
+      "housing": 17.6,
+      "gdp": 18286
+    },
+    {
+      "country": "LT",
+      "ownership": 90.3,
+      "housing": 17.2,
+      "gdp": 7033
+    },
+    {
+      "country": "LU",
+      "ownership": 73.9,
+      "housing": 14.9,
+      "gdp": 37642
+    },
+    {
+      "country": "LV",
+      "ownership": 80.9,
+      "housing": 17.5,
+      "gdp": 7526
+    },
+    {
+      "country": "MT",
+      "ownership": 81.4,
+      "housing": 7.8,
+      "gdp": 15505
+    },
+    {
+      "country": "NL",
+      "ownership": 69,
+      "housing": 24.7,
+      "gdp": 25366
+    },
+    {
+      "country": "PL",
+      "ownership": 83.4,
+      "housing": 20.3,
+      "gdp": 6659
+    },
+    {
+      "country": "PT",
+      "ownership": 75.2,
+      "housing": 17.7,
+      "gdp": 10562
+    },
+    {
+      "country": "RO",
+      "ownership": 96,
+      "housing": 23.6,
+      "gdp": 2746
+    },
+    {
+      "country": "SE",
+      "ownership": 65.2,
+      "housing": 22.2,
+      "gdp": 27355
+    },
+    {
+      "country": "SI",
+      "ownership": 75.1,
+      "housing": 16,
+      "gdp": 13193
+    },
+    {
+      "country": "SK",
+      "ownership": 89.5,
+      "housing": 20.1,
+      "gdp": 7391
+    },
+    {
+      "country": "UK",
+      "ownership": 63.4,
+      "housing": 24.5,
+      "gdp": 24602
+    }
+  ],
+  "2017": [
+    {
+      "country": "AT",
+      "ownership": 55,
+      "housing": 17.9,
+      "gdp": 27629
+    },
+    {
+      "country": "BE",
+      "ownership": 72.4,
+      "housing": 19.8,
+      "gdp": 24399
+    },
+    {
+      "country": "BG",
+      "ownership": 82.9,
+      "housing": 27.3,
+      "gdp": 4598
+    },
+    {
+      "country": "CY",
+      "ownership": 70.7,
+      "housing": 12.2,
+      "gdp": 17218
+    },
+    {
+      "country": "CZ",
+      "ownership": 78.5,
+      "housing": 22,
+      "gdp": 9282
+    },
+    {
+      "country": "DE",
+      "ownership": 51.4,
+      "housing": 26.3,
+      "gdp": 24780
+    },
+    {
+      "country": "DK",
+      "ownership": 62.2,
+      "housing": 27.9,
+      "gdp": 32798
+    },
+    {
+      "country": "EE",
+      "ownership": 81.8,
+      "housing": 14.5,
+      "gdp": 10701
+    },
+    {
+      "country": "EL",
+      "ownership": 73.3,
+      "housing": 41.1,
+      "gdp": 8800
+    },
+    {
+      "country": "ES",
+      "ownership": 77.1,
+      "housing": 18.2,
+      "gdp": 16390
+    },
+    {
+      "country": "FI",
+      "ownership": 71.4,
+      "housing": 18.2,
+      "gdp": 26689
+    },
+    {
+      "country": "FR",
+      "ownership": 64.4,
+      "housing": 17.7,
+      "gdp": 25286
+    },
+    {
+      "country": "HR",
+      "ownership": 90.5,
+      "housing": 17.4,
+      "gdp": 6851
+    },
+    {
+      "country": "HU",
+      "ownership": 85.2,
+      "housing": 22.1,
+      "gdp": 5589
+    },
+    {
+      "country": "IE",
+      "ownership": 69.5,
+      "housing": 16.1,
+      "gdp": 27006
+    },
+    {
+      "country": "IS",
+      "ownership": 74.1,
+      "housing": 21.9,
+      "gdp": 37451
+    },
+    {
+      "country": "IT",
+      "ownership": 72.4,
+      "housing": 16.3,
+      "gdp": 18714
+    },
+    {
+      "country": "LT",
+      "ownership": 89.7,
+      "housing": 16.3,
+      "gdp": 7555
+    },
+    {
+      "country": "LU",
+      "ownership": 74.7,
+      "housing": 14.9,
+      "gdp": 41085
+    },
+    {
+      "country": "LV",
+      "ownership": 81.5,
+      "housing": 17.3,
+      "gdp": 7831
+    },
+    {
+      "country": "MT",
+      "ownership": 81.3,
+      "housing": 6.9,
+      "gdp": 16387
+    },
+    {
+      "country": "NL",
+      "ownership": 69.4,
+      "housing": 23.4,
+      "gdp": 26350
+    },
+    {
+      "country": "PL",
+      "ownership": 84.2,
+      "housing": 19,
+      "gdp": 6810
+    },
+    {
+      "country": "PT",
+      "ownership": 74.7,
+      "housing": 17,
+      "gdp": 10862
+    },
+    {
+      "country": "RO",
+      "ownership": 96.8,
+      "housing": 22.3,
+      "gdp": 3059
+    },
+    {
+      "country": "SE",
+      "ownership": 65.2,
+      "housing": 21.7,
+      "gdp": 27902
+    },
+    {
+      "country": "SI",
+      "ownership": 75.6,
+      "housing": 15.6,
+      "gdp": 13585
+    },
+    {
+      "country": "SK",
+      "ownership": 90.1,
+      "housing": 20.6,
+      "gdp": 7491
+    },
+    {
+      "country": "UK",
+      "ownership": 65,
+      "housing": 24.8,
+      "gdp": 25244
+    }
+  ],
+  "2018": [
+    {
+      "country": "AT",
+      "ownership": 55.4,
+      "housing": 18.1,
+      "gdp": 27804
+    },
+    {
+      "country": "BE",
+      "ownership": 72.3,
+      "housing": 18.8,
+      "gdp": 25196
+    },
+    {
+      "country": "BG",
+      "ownership": 83.6,
+      "housing": 26.8,
+      "gdp": 4644
+    },
+    {
+      "country": "CY",
+      "ownership": 70.1,
+      "housing": 11.6,
+      "gdp": 17582
+    },
+    {
+      "country": "CZ",
+      "ownership": 78.7,
+      "housing": 21,
+      "gdp": 10098
+    },
+    {
+      "country": "DE",
+      "ownership": 51.5,
+      "housing": 26.1,
+      "gdp": 25882
+    },
+    {
+      "country": "DK",
+      "ownership": 60.5,
+      "housing": 27.3,
+      "gdp": 33760
+    },
+    {
+      "country": "EE",
+      "ownership": 82.4,
+      "housing": 14.2,
+      "gdp": 11746
+    },
+    {
+      "country": "EL",
+      "ownership": 73.5,
+      "housing": 40.9,
+      "gdp": 9034
+    },
+    {
+      "country": "ES",
+      "ownership": 76.3,
+      "housing": 17.3,
+      "gdp": 16937
+    },
+    {
+      "country": "FI",
+      "ownership": 71.6,
+      "housing": 17.8,
+      "gdp": 27389
+    },
+    {
+      "country": "FR",
+      "ownership": 65.1,
+      "housing": 17.5,
+      "gdp": 25379
+    },
+    {
+      "country": "HR",
+      "ownership": 90.1,
+      "housing": 16.8,
+      "gdp": 7371
+    },
+    {
+      "country": "HU",
+      "ownership": 86,
+      "housing": 21.2,
+      "gdp": 6123
+    },
+    {
+      "country": "IE",
+      "ownership": 70.3,
+      "housing": 15,
+      "gdp": 28630
+    },
+    {
+      "country": "IS",
+      "ownership": 73.6,
+      "housing": 21.8,
+      "gdp": 43772
+    },
+    {
+      "country": "IT",
+      "ownership": 72.4,
+      "housing": 16.2,
+      "gdp": 19208
+    },
+    {
+      "country": "LT",
+      "ownership": 89.9,
+      "housing": 14.8,
+      "gdp": 8415
+    },
+    {
+      "country": "LU",
+      "ownership": 71.2,
+      "housing": 17.1,
+      "gdp": 40075
+    },
+    {
+      "country": "LV",
+      "ownership": 81.6,
+      "housing": 17.3,
+      "gdp": 8738
+    },
+    {
+      "country": "MT",
+      "ownership": 81.6,
+      "housing": 7.8,
+      "gdp": 16749
+    },
+    {
+      "country": "NL",
+      "ownership": 68.9,
+      "housing": 23.4,
+      "gdp": 26848
+    },
+    {
+      "country": "PL",
+      "ownership": 84,
+      "housing": 18.6,
+      "gdp": 7337
+    },
+    {
+      "country": "PT",
+      "ownership": 74.5,
+      "housing": 16.2,
+      "gdp": 11063
+    },
+    {
+      "country": "RO",
+      "ownership": 96.4,
+      "housing": 20.1,
+      "gdp": 3825
+    },
+    {
+      "country": "SE",
+      "ownership": 64.1,
+      "housing": 21.6,
+      "gdp": 27573
+    },
+    {
+      "country": "SI",
+      "ownership": 75.1,
+      "housing": 15.5,
+      "gdp": 14127
+    },
+    {
+      "country": "SK",
+      "ownership": 91.3,
+      "housing": 17.2,
+      "gdp": 7870
+    },
+    {
+      "country": "UK",
+      "ownership": 65.2,
+      "housing": 25.1,
+      "gdp": 25643
+    }
+  ],
+  "2019": [
+    {
+      "country": "AT",
+      "ownership": 55.2,
+      "housing": 18.2,
+      "gdp": 28568
+    },
+    {
+      "country": "BE",
+      "ownership": 71.3,
+      "housing": 18.7,
+      "gdp": 26275
+    },
+    {
+      "country": "BG",
+      "ownership": 84.1,
+      "housing": 24.8,
+      "gdp": 5551
+    },
+    {
+      "country": "CY",
+      "ownership": 67.9,
+      "housing": 11.3,
+      "gdp": 19302
+    },
+    {
+      "country": "CZ",
+      "ownership": 78.6,
+      "housing": 20.2,
+      "gdp": 11068
+    },
+    {
+      "country": "DE",
+      "ownership": 51.1,
+      "housing": 25.9,
+      "gdp": 26105
+    },
+    {
+      "country": "DK",
+      "ownership": 60.8,
+      "housing": 27.1,
+      "gdp": 34336
+    },
+    {
+      "country": "EE",
+      "ownership": 81.7,
+      "housing": 14.2,
+      "gdp": 12780
+    },
+    {
+      "country": "EL",
+      "ownership": 75.4,
+      "housing": 38.9,
+      "gdp": 9382
+    },
+    {
+      "country": "ES",
+      "ownership": 76.2,
+      "housing": 17.1,
+      "gdp": 17287
+    },
+    {
+      "country": "FI",
+      "ownership": 71.1,
+      "housing": 17.8,
+      "gdp": 28061
+    },
+    {
+      "country": "FR",
+      "ownership": 64.1,
+      "housing": 17.6,
+      "gdp": 26210
+    },
+    {
+      "country": "HR",
+      "ownership": 89.7,
+      "housing": 16.6,
+      "gdp": 8089
+    },
+    {
+      "country": "HU",
+      "ownership": 91.7,
+      "housing": 13.5,
+      "gdp": 6568
+    },
+    {
+      "country": "IE",
+      "ownership": 68.7,
+      "housing": 15.7,
+      "gdp": 29685
+    },
+    {
+      "country": "IT",
+      "ownership": 72.4,
+      "housing": 16.6,
+      "gdp": 19528
+    },
+    {
+      "country": "LT",
+      "ownership": 90.3,
+      "housing": 14.4,
+      "gdp": 9264
+    },
+    {
+      "country": "LU",
+      "ownership": 70.9,
+      "housing": 17.5,
+      "gdp": 42818
+    },
+    {
+      "country": "MT",
+      "ownership": 79.8,
+      "housing": 8.2,
+      "gdp": 17246
+    },
+    {
+      "country": "NL",
+      "ownership": 68.9,
+      "housing": 23.4,
+      "gdp": 27352
+    },
+    {
+      "country": "PL",
+      "ownership": 84.2,
+      "housing": 18.1,
+      "gdp": 8022
+    },
+    {
+      "country": "PT",
+      "ownership": 73.9,
+      "housing": 15.5,
+      "gdp": 11786
+    },
+    {
+      "country": "RO",
+      "ownership": 95.8,
+      "housing": 18.6,
+      "gdp": 4419
+    },
+    {
+      "country": "SE",
+      "ownership": 63.6,
+      "housing": 22.2,
+      "gdp": 26358
+    },
+    {
+      "country": "SI",
+      "ownership": 74.8,
+      "housing": 14.8,
+      "gdp": 15236
+    },
+    {
+      "country": "SK",
+      "ownership": 90.9,
+      "housing": 17.9,
+      "gdp": 8523
+    }
+  ]
+}

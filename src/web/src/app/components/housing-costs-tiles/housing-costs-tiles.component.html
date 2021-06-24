@@ -1,8 +1,17 @@
-<div class="bar-chart-container" [ngClass]="{'expanded': selectedCountry !== null}">
-  <ng-container *ngFor="let data of housingCosts; let idx = index">
-    <app-housing-costs-tile
-      [ngStyle]="{'display': (selectedCountry === null || selectedCountry === data.country) ? 'block' : 'none'}"
-      [ngClass]="{'expanded': selectedCountry === data.country}" [housingCosts]="data" [maxY]="maxCostsPercentage">
-    </app-housing-costs-tile>
-  </ng-container>
+<div>
+  <div>
+    <mat-button-toggle-group [(ngModel)]="selectedIncomeGroup">
+      <mat-button-toggle *ngFor="let grp of incomeGroups" [value]="grp">
+        {{ grp.text }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="bar-chart-container" [ngClass]="{'expanded': selectedCountry !== null}">
+    <ng-container *ngFor="let data of housingCosts[selectedIncomeGroup.key]; let idx = index">
+      <app-housing-costs-tile
+        [ngStyle]="{'display': (selectedCountry === null || selectedCountry === data.country) ? 'block' : 'none'}"
+        [ngClass]="{'expanded': selectedCountry === data.country}" [housingCosts]="data" [maxY]="maxCostsPercentage">
+      </app-housing-costs-tile>
+    </ng-container>
+  </div>
 </div>

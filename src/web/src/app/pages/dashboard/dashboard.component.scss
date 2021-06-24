@@ -1,16 +1,30 @@
+@import "src/variables.scss";
+
 .top-bar {
-  display: flex;
+  justify-content: center;
 
-  h1 {
-    align-self: center;
-  }
-
-  button {
-    align-self: flex-end;
+  .help-button {
+    margin-left: 8px;
   }
 }
 
 .dashboard {
+  padding: $xs-vertical-padding $sm-horizontal-padding;
   display: grid;
   grid-template-columns: 60% 1fr;
+  align-items: baseline;
+
+  @media (max-width: $max-md-width) {
+    grid-template-columns: 50% 50%;
+  }
+
+  @media (max-width: $max-sm-width) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  app-housing-ownership-bubble {
+    top: 15%;
+    position: sticky;
+  }
 }

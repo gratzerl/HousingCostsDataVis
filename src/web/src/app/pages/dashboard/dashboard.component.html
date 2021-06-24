@@ -1,7 +1,10 @@
 <div>
-  <div class="top-bar">
+  <mat-toolbar color="primary" class="top-bar">
     <h1>Housing costs</h1>
-  </div>
+    <button mat-icon-button color="accent" class="help-button" (click)="displayInfo()">
+      <mat-icon>help_outline</mat-icon>
+    </button>
+  </mat-toolbar>
   <div class="dashboard">
     <app-housing-costs-tiles></app-housing-costs-tiles>
     <app-housing-ownership-bubble></app-housing-ownership-bubble>

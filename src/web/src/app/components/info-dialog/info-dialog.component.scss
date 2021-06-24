@@ -1,5 +1,35 @@
 @import "src/variables.scss";
 
+section {
+  h4 {
+    &.heading {
+      margin-bottom: 0;
+    }
+  }
+
+  h3 {
+    &.heading {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.mat-divider {
+  margin: 16px 0;
+}
+
+.explanation-section {
+  .term-explanation {
+    &:not(:last-of-type) {
+      margin-bottom: 16px;
+    }
+
+    .heading {
+      font-weight: 600;
+    }
+  }
+}
+
 .housing-costs-tile-container {
   display: grid;
   grid-template-columns: 20% 1fr;
@@ -18,8 +48,4 @@
     flex-direction: column;
     justify-content: center;
   }
-}
-
-section {
-  padding: 16px 0;
 }

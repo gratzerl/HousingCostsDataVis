@@ -23,11 +23,3 @@ export const voronoiChartStyling = {
     'CP045': '#a97adf',
   }
 }
-
-// ["#56b6e1",
-// "#83d5a6",
-// "#ffb645",
-// "#e27361",
-// "#a97adf",
-// "#d7dde3",
-//   "#88afd0"]
