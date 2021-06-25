@@ -24,6 +24,7 @@
     "d3-interpolate-path": "^2.2.3",
     "d3-random": "^3.0.1",
     "d3-voronoi-treemap": "^1.1.1",
+    "i18n-iso-countries": "^6.8.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
@@ -39,7 +40,7 @@
     "@angular/compiler-cli": "~12.0.2",
     "@types/d3": "^6.7.0",
     "@types/jasmine": "~3.6.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.15",
     "@typescript-eslint/eslint-plugin": "4.23.0",
     "@typescript-eslint/parser": "4.23.0",
     "eslint": "^7.26.0",

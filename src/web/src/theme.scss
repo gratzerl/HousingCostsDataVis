@@ -1,20 +1,20 @@
 @use "~@angular/material" as mat;
 
 $primary-palette: (
-  50: #f4f8fb,
-  100: #e4eef5,
-  200: #d2e2ef,
-  300: #bfd6e9,
-  400: #b2cee4,
-  500: #a4c5df,
-  600: #9cbfdb,
-  700: #92b8d7,
-  800: #89b0d2,
-  900: #78a3ca,
+  50: #edf9fb,
+  100: #d2eff6,
+  200: #b5e4f0,
+  300: #97d9e9,
+  400: #80d1e5,
+  500: #6ac9e0,
+  600: #62c3dc,
+  700: #57bcd8,
+  800: #4db5d3,
+  900: #3ca9cb,
   A100: #ffffff,
-  A200: #ffffff,
-  A400: #e5f3ff,
-  A700: #cce7ff,
+  A200: #e5f9ff,
+  A400: #b3ecff,
+  A700: #99e6ff,
   contrast: (
     50: #000000,
     100: #000000,
@@ -32,28 +32,27 @@ $primary-palette: (
     A700: #000000,
   ),
 );
-
 $accent-palette: (
-  50: #f2ede7,
-  100: #dfd1c3,
-  200: #cab39b,
-  300: #b49572,
-  400: #a47e54,
-  500: #946736,
-  600: #8c5f30,
-  700: #815429,
-  800: #774a22,
-  900: #653916,
-  A100: #ffc59e,
-  A200: #ffa76b,
-  A400: #ff8938,
-  A700: #ff7a1f,
+  50: #f7eae3,
+  100: #eacaba,
+  200: #dca68c,
+  300: #ce825e,
+  400: #c4683c,
+  500: #b94d19,
+  600: #b24616,
+  700: #aa3d12,
+  800: #a2340e,
+  900: #932508,
+  A100: #ffcac0,
+  A200: #ff9f8d,
+  A400: #ff745a,
+  A700: #ff5f41,
   contrast: (
     50: #000000,
     100: #000000,
     200: #000000,
     300: #000000,
-    400: #000000,
+    400: #ffffff,
     500: #ffffff,
     600: #ffffff,
     700: #ffffff,
@@ -75,7 +74,7 @@ $config: mat-typography-config(
 
 @include mat-core($config);
 
-$my-primary: mat.define-palette($primary-palette, 300);
+$my-primary: mat.define-palette($primary-palette, 500);
 $my-accent: mat.define-palette($accent-palette, 400, 300, 600);
 
 $my-theme: mat.define-light-theme(

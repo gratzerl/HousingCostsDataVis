@@ -1,10 +1,11 @@
 <div>
-  <div>
-    <mat-button-toggle-group [(ngModel)]="selectedIncomeGroup">
+  <div class="top-row">
+    <mat-button-toggle-group class="toggle-group" [(ngModel)]="selectedIncomeGroup">
       <mat-button-toggle *ngFor="let grp of incomeGroups" [value]="grp">
         {{ grp.text }}
       </mat-button-toggle>
     </mat-button-toggle-group>
+    <h3 class="country-name">{{ countryName }}</h3>
   </div>
   <div class="bar-chart-container" [ngClass]="{'expanded': selectedCountry !== null}">
     <ng-container *ngFor="let data of housingCosts[selectedIncomeGroup.key]; let idx = index">

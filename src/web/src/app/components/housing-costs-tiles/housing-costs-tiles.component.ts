@@ -1,9 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ChartInteractionService } from 'src/app/services';
-import HousingCostData from 'src/assets/housing-costs.json';
+import { Interaction } from 'src/app/services/chart-interaction.service';
 import HousingCostDataGrouped from 'src/assets/housing-costs-grouped.json';
+
+import * as isoCountries from 'i18n-iso-countries';
+
+import enLocale from 'i18n-iso-countries/langs/en.json';
+isoCountries.registerLocale(enLocale);
 
 export const IncomeGroups = [
   {
@@ -37,24 +42,18 @@ export class HousingCostsTilesComponent implements OnInit, OnDestroy {
   selectedTileIdx?: number = undefined;
   selectedCountry: string = null;
 
+  countryName: string = null;
+
   constructor(private chartInteraction: ChartInteractionService) { }
 
   ngOnInit(): void {
     this.chartInteraction.bubbleInfo$
-      .pipe(
-        filter(([, , interaction]) => interaction === 'click'),
-        takeUntil(this.onDestroy))
-      .subscribe(([countryCode, ,]) => {
-        this.selectedCountry = countryCode;
-      });
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(([countryCode, , interaction]) => this.updateCurrentCountry(countryCode, interaction));
 
     this.chartInteraction.barsInfo$
-      .pipe(
-        filter(([, , interaction]) => interaction === 'click'),
-        takeUntil(this.onDestroy))
-      .subscribe(([countryCode, ,]) => {
-        this.selectedCountry = countryCode;
-      });
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(([countryCode, , interaction]) => this.updateCurrentCountry(countryCode, interaction));
 
     const costs = this.housingCosts[this.selectedIncomeGroup.key]
       .map(c => c.totalShareOnIncome)
@@ -67,5 +66,13 @@ export class HousingCostsTilesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy.next();
     this.onDestroy.complete();
+  }
+
+  private updateCurrentCountry(countryCode: string, interaction: Interaction): void {
+    this.countryName = isoCountries.getName(countryCode, 'en', { select: 'official' }) ?? null;
+
+    if (interaction === 'click') {
+      this.selectedCountry = countryCode;
+    }
   }
 }

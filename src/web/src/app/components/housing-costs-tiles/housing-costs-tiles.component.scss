@@ -1,5 +1,19 @@
 @import "src/variables.scss";
 
+.top-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .toggle-group {
+    margin-right: 16px;
+  }
+
+  .country-name {
+    margin-bottom: 0;
+  }
+}
+
 .bar-chart-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
@@ -13,6 +27,7 @@
 
   &.expanded {
     display: flex;
+    justify-content: center;
   }
 
   app-housing-costs-tile {
