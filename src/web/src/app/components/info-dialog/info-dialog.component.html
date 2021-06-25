@@ -1,0 +1,123 @@
+<h1 mat-dialog-title>Development of housing costs</h1>
+<div mat-dialog-content>
+  <p>
+    This data visualization project tries to highlight how the share of housing costs has developed over the last 10
+    years, from 2010 to 2019. <br /> <br />
+    All data was taken from eurostat.
+  </p>
+  <mat-divider></mat-divider>
+  <section class="chart-section">
+    <h2 class="heading">How to read the charts</h2>
+    <p>
+      The visualtization can be split into two parts: the ciruclar bar charts and a bubble chart.<br />
+      The data in the explanation charts is not real but random values for demonstration purposes only.
+    </p>
+    <div class="explanation">
+      <h3 class="heading">Income group filter</h3>
+      <p>
+        You can switch between the different income groups "Above 60% median equalized income", and "Below 60% median
+        equalized income", or view the average for both groups. 60% is the at-risk-of poverty rate.
+      </p>
+    </div>
+    <div class="explanation">
+      <h3 class="heading">Circular bar chart</h3>
+      <div class="housing-costs-tile-container">
+        <app-housing-costs-tile [housingCosts]="demoHousingCosts" [maxY]="maxY"></app-housing-costs-tile>
+        <div class="explanation">
+          <p>
+            For each European country a ciruclar bar chart displays the share of the housing costs of the country's
+            average disposable income for the years from 2010-2019.<br /><br />
+
+            When hovering over a bar the percentage and the year are displayed.<br />
+            Clicking on a bar zooms in to the chart and the housing costs composition is displayed, showing how the
+            housing costs for this year are made up. <br /><br />
+            Clicking outside of the zoomed chart will unzoom it.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="explanation">
+      <h3 class="heading">Bubble chart</h3>
+      <p>
+        The x-axis of the bubble chart is the share of people who own the dwelling they live in, while the y-axis is the
+        share of housing costs in relation to the country's mean income.<br />
+        The size of the bubble represents the average gdp for the respective country.<br /><br />
+        Hovering over a bubble will display the average gdp in Euros. Clicking on a bubble expands the according
+        circular bar chart.
+      </p>
+    </div>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="explanation-section">
+    <h2 class="heading">Most important terms</h2>
+    <div class="term-explanation">
+      <h4 class="heading">Income</h4>
+      <p>The total disposable income of a household is calculated by adding together the personal income received by all
+        of
+        household members plus income received at household level. Missing income information is imputed.
+        The disposable household income includes all income from work (employee wages and self-employment earnings).
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Household</h4>
+      <p>
+        A 'private household' means "a person living alone or a group of people who live together in the same private
+        dwelling
+        and share expenditures, including the joint provision of the essentials of living". EU-SILC implementing
+        regulation
+        number 1983/2003 on updated definitions, defines households in terms of sharing household expenses and (for
+        non-permanent members) in terms of duration of stay and (for temporarily absent members) in terms of duration of
+        absence.
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Houshold type</h4>
+      <p>
+        A common classification was developed by Eurostat for use in data collection surveys including ECHP, LFS, HBS
+        and
+        EU-SILC as well as the subsequent presentation of indicators relating to income, housing, education, healthcare,
+        etc.
+        Rather than focussing on "couples" and/or "families", the classification is constructed by reference to the
+        numbers of
+        adult members, their age and gender, and the numbers of dependent children living with them.
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Actual rentals</h4>
+      <p>
+        The actual net rental costs, without maintenance, electriticity etc.
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Imputed rentals</h4>
+      <p>
+        I. e. money that one saves on full (market) rent by living in one's own accommodation or in accommodation
+        rented at a price that is lower than the market rent.
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Median equalized income</h4>
+      <p>
+        The equivalised disposable income is the total income of a household, after tax and other deductions, that is
+        available for spending or saving, divided by the number of household members converted into equalised adults;
+        household
+        members are equalised or made equivalent by weighting each according to their age, using the so-called modified
+        OECD equivalence scale.
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">At-risk-of-poverty rate</h4>
+      <p>
+        The at-risk-of-poverty rate is the share of people with an equivalised disposable income (after social transfer)
+        below the at-risk-of-poverty threshold, which is set at 60 % of the national median equivalised disposable
+        income after social transfers.<br />
+
+        This indicator does not measure wealth or poverty, but low income in comparison to other residents in that
+        country, which does not necessarily imply a low standard of living.
+      </p>
+    </div>
+  </section>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close cdkFocusInitial color="primary">Okay</button>
+</div>

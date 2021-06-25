@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { InfoDialogComponent } from 'src/app/components';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +9,9 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
+  displayInfo(): void {
+    this.dialog.open(InfoDialogComponent);
+  }
 }

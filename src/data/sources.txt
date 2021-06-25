@@ -1,0 +1,11 @@
+housing cost shares:
+https://ec.europa.eu/eurostat/databrowser/view/ILC_MDED01__custom_1090410/default/table?lang=en
+
+expenditure shares:
+https://ec.europa.eu/eurostat/databrowser/view/NAMA_10_CO3_P3__custom_1090449/default/table?lang=en
+
+tenure status:
+https://ec.europa.eu/eurostat/databrowser/view/ILC_LVHO02__custom_1091321/default/table?lang=en
+
+mean/median income:
+https://ec.europa.eu/eurostat/databrowser/view/ILC_DI09__custom_1091344/default/table?lang=en

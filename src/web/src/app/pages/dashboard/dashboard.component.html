@@ -1,4 +1,12 @@
 <div>
-  <h1>Housing costs dashboard</h1>
-  <app-housing-costs-tiles></app-housing-costs-tiles>
+  <mat-toolbar class="top-bar">
+    <h1>Housing costs in Europe</h1>
+    <button mat-icon-button color="primary" class="help-button" (click)="displayInfo()">
+      <mat-icon>help_outline</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="dashboard">
+    <app-housing-costs-tiles></app-housing-costs-tiles>
+    <app-housing-ownership-bubble></app-housing-ownership-bubble>
+  </div>
 </div>

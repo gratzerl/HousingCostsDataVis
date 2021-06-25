@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  position: sticky;
+}
+
+.chart-container {
+  text-align: center;
+
+  .chart-year {
+    font-size: 18px;
+  }
+}

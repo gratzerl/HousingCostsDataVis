@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { barChartLabelFontSizePx } from '../constants/styling.constants';
+import { barChartStyling } from '../constants/bar-voronoi-chart.constants';
 
 import * as d3 from 'd3';
 import { Transition } from 'd3';
@@ -15,21 +15,22 @@ export class ChartManipulatorService {
 
   constructor() { }
 
-  appendSvg(element: ElementRef, width: number, height: number): SvgSelection {
+  appendSvg(element: ElementRef, x: number, y: number, width: number, height: number): SvgSelection {
     return d3
       .select(element.nativeElement)
       .append('svg')
-      .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height} `)
+      .attr('viewBox', `${x} ${y} ${width} ${height} `)
       .style('transform', `translate(0, 0) scale(1)`)
-      .style('font', `${barChartLabelFontSizePx}px sans-serif`);
+      .style('font-size', `${barChartStyling.labelFontSizePx}px`);
   }
 
   appendText<T extends d3.BaseType>(svg: d3.Selection<T, unknown, null, undefined>, id: string, defaultDisplay: string = 'inline'): TextSelection {
     return svg.append('g')
-      .style('font', `${barChartLabelFontSizePx}px sans-serif`)
+      .style('font-size', `${barChartStyling.labelFontSizePx}px`)
       .style('pointer-events', 'none')
       .style('text-anchor', 'middle')
       .append('text')
+      .classed('no-select', true)
       .style('display', defaultDisplay)
       .attr('id', id);
   }
@@ -46,32 +47,39 @@ export class ChartManipulatorService {
     });
   }
 
-  setText<T extends d3.BaseType>(selection: d3.Selection<T, unknown, null, undefined>, textId: string, content: string) {
+  setText<T extends d3.BaseType>(selection: d3.Selection<T, unknown, d3.BaseType, unknown>, textId: string, content: string) {
     selection
       .select(`#${textId}`)
       .text(content);
   }
 
-  highlight(selector: any): void {
-    d3.select(selector)
-      .transition()
-      .duration(50)
-      .attr('opacity', '0.85');
-  }
-
-  unhighlight(selector: any, withAnimation: boolean): void {
+  highlight(selector: any, color: string, withAnimation: boolean, opacity: number = 1): void {
     if (withAnimation) {
       this.getAnimated(selector)
-        .attr('opacity', '1');
+        .style('opacity', `${opacity}`)
+        .style('fill', color);
     } else {
       d3.selectAll(selector)
-        .attr('opacity', '1');
+        .style('opacity', `${opacity}`)
+        .style('fill', color);
+    }
+  }
+
+  unhighlight(selector: any, color: string, withAnimation: boolean, opacity: number = 1): void {
+    if (withAnimation) {
+      this.getAnimated(selector)
+        .style('opacity', `${opacity}`)
+        .style('fill', color);
+    } else {
+      d3.selectAll(selector)
+        .style('opacity', `${opacity}`)
+        .style('fill', color);
     }
   }
 
   setVisible(selection: d3.Selection<d3.BaseType, unknown, null, unknown>, ids: string[], isVisible: boolean): void {
     ids.forEach(id => {
-      const x = selection.select(`#${id}`)
+      selection.select(`#${id}`)
         .style('display', isVisible ? 'inline' : 'none');
     });
   }

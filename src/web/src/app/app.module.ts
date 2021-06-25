@@ -7,16 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 
-import { HomeComponent, DashboardComponent } from './pages';
-import { HousingCostsTilesComponent, HousingCostsTileComponent } from './components';
+import { DashboardComponent } from './pages';
+import { HousingCostsTilesComponent, HousingCostsTileComponent, HousingOwnershipBubbleComponent, InfoDialogComponent } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     DashboardComponent,
     HousingCostsTilesComponent,
-    HousingCostsTileComponent
+    HousingCostsTileComponent,
+    HousingOwnershipBubbleComponent,
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,24 +1,54 @@
-.bar-chart-container {
+@import "src/variables.scss";
+
+.top-row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+
+  .toggle-group {
+    margin-right: 16px;
+  }
+
+  .country-name {
+    margin-bottom: 0;
+  }
+}
+
+.bar-chart-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  column-gap: 16px;
   max-width: 1280px;
 
-  app-housing-costs-tile {
-    width: 220px;
-    max-width: 220px;
-    height: 220px;
-    max-height: 220px;
+  @media (max-width: $max-md-width) {
+    grid-template-columns: repeat(auto-fill, 180px);
+    column-gap: 8px;
+  }
 
-    &:not(:last-of-type) {
-      margin-right: 16px;
+  &.expanded {
+    display: flex;
+    justify-content: center;
+  }
+
+  app-housing-costs-tile {
+    width: 200px;
+    max-width: 200px;
+    height: 200px;
+    max-height: 200px;
+
+    @media (max-width: $max-md-width) {
+      width: 180px;
+      max-width: 180px;
+      height: 180px;
+      max-height: 180px;
     }
 
     &.expanded {
       width: 100%;
-      max-width: 880px;
+      max-width: 800px;
 
       height: 100%;
-      max-height: 880px;
+      max-height: 800px;
     }
   }
 }

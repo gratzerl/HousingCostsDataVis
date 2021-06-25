@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "WebClient": {
+    "HousingCosts": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/WebClient",
+            "outputPath": "dist/HousingCosts",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "WebClient:build:production"
+              "browserTarget": "HousingCosts:build:production"
             },
             "development": {
-              "browserTarget": "WebClient:build:development"
+              "browserTarget": "HousingCosts:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WebClient:build"
+            "browserTarget": "HousingCosts:build"
           }
         },
         "test": {
@@ -114,11 +114,15 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }
   },
-  "defaultProject": "WebClient",
+  "defaultProject": "HousingCosts",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
