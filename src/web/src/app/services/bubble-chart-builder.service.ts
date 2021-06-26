@@ -27,24 +27,20 @@ export class BubbleChartBuilderService {
       .attr('id', 'bubbleChart')
       .attr('transform', 'translate(' + margin + ' ' + margin + ')');
 
-    const maxX = this.getMax(data, d => d.ownership);
+    const maxX = 100;
     const x = this.drawXAxis(root, maxX, width, height);
 
-    const maxY = this.getMax(data, d => d.housing);
+    const maxY = 50;
     const y = this.drawYAxis(root, maxY, height);
 
     return this.drawBubbles(root, data, x, y);
-  }
-
-  private getMax(data: Bubble[], fn: (d: Bubble) => number): number {
-    return data.map(fn).reduce((a, b) => Math.max(a, b));
   }
 
   private drawXAxis(chartRoot: GSelection, maxX: number, width: number, height: number): d3.ScaleLinear<number, number, never> {
     const { tickFontSizePx, tickPaddingPx, labelFontSizePx, x } = axisStyling;
 
     const xScale = d3.scaleLinear()
-      .domain([0, maxX + 5])
+      .domain([0, maxX])
       .range([0, width]);
 
     chartRoot.append('g')
@@ -70,7 +66,7 @@ export class BubbleChartBuilderService {
     const { tickFontSizePx, tickPaddingPx, y, labelFontSizePx } = axisStyling;
 
     const yScale = d3.scaleLinear()
-      .domain([0, maxY + 5])
+      .domain([0, maxY])
       .range([height, 0]);
 
     chartRoot.append('g')
