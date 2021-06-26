@@ -1,1 +1,6 @@
-<div #chart></div>
+<div class="tile-container">
+    <button *ngIf="isZoomed" mat-icon-button color="primary" class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
+    <div #chart></div>
+</div>

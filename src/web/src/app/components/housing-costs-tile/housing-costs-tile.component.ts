@@ -57,7 +57,7 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
   private readonly defaultRadius = this.maxRadius * this.defaultRadiusPercentage;
   private readonly zoomedRadius = this.maxRadius * this.zoomedRadiusPercentage;
 
-  private isZoomed = false;
+  isZoomed = false;
 
   private svgRoot: SvgSelection;
   private bars: BarSelection;
@@ -85,6 +85,8 @@ export class HousingCostsTileComponent implements OnInit, AfterViewInit, OnDestr
           if (countryCode === this.housingCosts.country && !this.isZoomed) {
             this.zoomChart(year);
           } else if (this.isZoomed && countryCode !== this.housingCosts.country) {
+            console.log(this.isZoomed);
+
             this.unzoomChart();
           }
         }
