@@ -69,7 +69,13 @@ export class HousingCostsTilesComponent implements OnInit, OnDestroy {
   }
 
   private updateCurrentCountry(countryCode: string, interaction: Interaction): void {
-    this.countryName = isoCountries.getName(countryCode, 'en', { select: 'official' }) ?? null;
+
+    const nonIsoCountryNames = {
+      "EL": "Greece",
+      "UK": "United Kingdom", 
+    };
+
+    this.countryName = isoCountries.getName(countryCode, 'en', { select: 'official' }) ?? nonIsoCountryNames[countryCode];
 
     if (interaction === 'click') {
       this.selectedCountry = countryCode;
