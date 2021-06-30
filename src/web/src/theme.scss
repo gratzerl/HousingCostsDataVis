@@ -87,3 +87,5 @@ $my-theme: mat.define-light-theme(
 );
 
 @include mat.all-component-themes($my-theme);
+
+$link-color: mat.get-color-from-palette($primary-palette, 900);
