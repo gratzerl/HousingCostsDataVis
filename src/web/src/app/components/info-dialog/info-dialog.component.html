@@ -2,15 +2,14 @@
 <div mat-dialog-content>
   <p>
     This data visualization project tries to highlight how the share of housing costs has developed over the last 10
-    years, from 2010 to 2019. <br /> <br />
-    All data was taken from eurostat.
+    years, from 2010 to 2019. It also shows how the share of housing cost and the share of ownership are related.
   </p>
   <mat-divider></mat-divider>
   <section class="chart-section">
     <h2 class="heading">How to read the charts</h2>
     <p>
       The visualtization can be split into two parts: the ciruclar bar charts and a bubble chart.<br />
-      The data in the explanation charts is not real but random values for demonstration purposes only.
+      The data in the explanatory circular bar chart is not real but random values for demonstration purposes only.
     </p>
     <div class="explanation">
       <h3 class="heading">Income group filter</h3>
@@ -31,7 +30,7 @@
             When hovering over a bar the percentage and the year are displayed.<br />
             Clicking on a bar zooms in to the chart and the housing costs composition is displayed, showing how the
             housing costs for this year are made up. <br /><br />
-            Clicking outside of the zoomed chart will unzoom it.
+            Clicking outside of the zoomed chart or on the close button in the upper right corner will unzoom it.
           </p>
         </div>
       </div>
@@ -53,8 +52,7 @@
     <div class="term-explanation">
       <h4 class="heading">Income</h4>
       <p>The total disposable income of a household is calculated by adding together the personal income received by all
-        of
-        household members plus income received at household level. Missing income information is imputed.
+        of household members plus income received at household level. Missing income information is imputed.
         The disposable household income includes all income from work (employee wages and self-employment earnings).
       </p>
     </div>
@@ -62,30 +60,41 @@
       <h4 class="heading">Household</h4>
       <p>
         A 'private household' means "a person living alone or a group of people who live together in the same private
-        dwelling
-        and share expenditures, including the joint provision of the essentials of living". EU-SILC implementing
-        regulation
-        number 1983/2003 on updated definitions, defines households in terms of sharing household expenses and (for
-        non-permanent members) in terms of duration of stay and (for temporarily absent members) in terms of duration of
-        absence.
+        dwelling and share expenditures, including the joint provision of the essentials of living". EU-SILC
+        implementing regulation number 1983/2003 on updated definitions, defines households in terms of sharing
+        household expenses and (for non-permanent members) in terms of duration of stay and (for temporarily absent
+        members) in terms of duration of absence.
       </p>
     </div>
     <div class="term-explanation">
       <h4 class="heading">Houshold type</h4>
       <p>
         A common classification was developed by Eurostat for use in data collection surveys including ECHP, LFS, HBS
-        and
-        EU-SILC as well as the subsequent presentation of indicators relating to income, housing, education, healthcare,
-        etc.
-        Rather than focussing on "couples" and/or "families", the classification is constructed by reference to the
-        numbers of
-        adult members, their age and gender, and the numbers of dependent children living with them.
+        and EU-SILC as well as the subsequent presentation of indicators relating to income, housing, education,
+        healthcare, etc. Rather than focussing on "couples" and/or "families", the classification is constructed by
+        reference to the numbers of adult members, their age and gender, and the numbers of dependent children living
+        with them.
+      </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Housing costs</h4>
+      <p>
+        The total amount of money spent on housing expenditures (e. rent, maintenance, electricity etc.) in absolute
+        figures as well as propotional to income.
       </p>
     </div>
     <div class="term-explanation">
       <h4 class="heading">Actual rentals</h4>
       <p>
-        The actual net rental costs, without maintenance, electriticity etc.
+        Rentals are all rentals actually paid by tenants, i.e. the rentals the tenant pays to the landlord regardless of
+        any social benefits the tenant receives from public authorities (including payments which at the tenant's
+        discretion go directly to the landlord). Rentals normally include payment for the use of the land on which the
+        property stands, the dwelling occupied, the fixtures and fittings for heating, plumbing, lighting, etc., and, in
+        the case of a dwelling let furnished, the furniture.
+        <br /> <br />
+        Rentals also include payment for the use of a garage to provide parking in connection with the dwelling. The
+        garage does not have to be physically contiguous to the dwelling; nor does it have to be leased from the same
+        landlord.
       </p>
     </div>
     <div class="term-explanation">
@@ -98,11 +107,27 @@
     <div class="term-explanation">
       <h4 class="heading">Median equalized income</h4>
       <p>
+        Is a measure of household income that takes account of the differences in a household's size and composition,
+        and thus is equivalised or made equivalent for all household sizes and compositions. It is used for the
+        calculation of poverty and social exclusion indicators.<br />
+        The equivalised income is calculated by dividing the household’s total income from all sources by its equivalent
+        size, which is calculated using the modified OECD equivalence scale. This scale attributes a weight to all
+        members of the household:
+      </p>
+      <ul>
+        <li>1.0 to the first adult</li>
+        <li>0.5 to the second and each subsequent person aged 14 and over</li>
+        <li>0.3 to each child aged under 14</li>
+      </ul>
+      <p>The equivalent size is the sum of the weights of all the members of a given household.</p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Equalized income</h4>
+      <p>
         The equivalised disposable income is the total income of a household, after tax and other deductions, that is
         available for spending or saving, divided by the number of household members converted into equalised adults;
-        household
-        members are equalised or made equivalent by weighting each according to their age, using the so-called modified
-        OECD equivalence scale.
+        household members are equalised or made equivalent by weighting each according to their age, using the so-called
+        modified OECD equivalence scale.
       </p>
     </div>
     <div class="term-explanation">
@@ -115,6 +140,74 @@
         This indicator does not measure wealth or poverty, but low income in comparison to other residents in that
         country, which does not necessarily imply a low standard of living.
       </p>
+    </div>
+    <div class="term-explanation">
+      <h4 class="heading">Disposable income</h4>
+      <p>
+        Household disposable income is the total amount of money households have available for spending and saving after
+        subtracting income taxes and pension contributions.
+      </p>
+    </div>
+  </section>
+  <mat-divider></mat-divider>
+  <section class="sources-section">
+    <h2 class="heading">Data Sources</h2>
+    <p>
+      Multiple sources for the data and explanations shown on this page were consolidated and aggregated. In the
+      following section all used sources are referenced.
+    </p>
+    <div>
+      <h3>Charts</h3>
+      <p>
+        The data for the data visualization was taken from the following datasets:
+      </p>
+      <ul role="list" class="sources-list">
+        <li role="listitem">
+          <a href="https://ec.europa.eu/eurostat/databrowser/view/ILC_MDED01__custom_1090410/default/table?lang=en">
+            Housing Cost Shares
+          </a>
+        </li>
+        <li role="listitem">
+          <a href="https://ec.europa.eu/eurostat/databrowser/view/NAMA_10_CO3_P3__custom_1090449/default/table?lang=en">
+            Expenditure
+            Shares
+          </a>
+        </li>
+        <li role="listitem">
+          <a href="https://ec.europa.eu/eurostat/databrowser/view/ILC_LVHO02__custom_1091321/default/table?lang=en">
+            Tenure Status
+          </a>
+        </li>
+        <li role="listitem">
+          <a href="https://ec.europa.eu/eurostat/databrowser/view/ILC_DI09__custom_1091344/default/table?lang=en">
+            Median and Mean Income
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>Explanations</h3>
+      <p>
+        The textual explanations of the most important terms were taken from these pages:
+      </p>
+      <ul role="list" class="sources-list">
+        <li role="listitem">
+          <a href="https://fred.stlouisfed.org/series/CP0410EZ18M086NEST">
+            Harmonized Index of Consumer Prices: Actual Rentals for Housing for Euro Area (18 countries)
+          </a>
+        </li>
+        <li role="listitem">
+          <a
+            href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=EU_statistics_on_income_and_living_conditions_%28EU-SILC%29_methodology_-_economic_strain_linked_to_dwelling#Description">
+            EU statistics on income and living conditions (EU-SILC) methodology
+          </a>
+        </li>
+        <li role="listitem">
+          <a href="https://ec.europa.eu/eurostat/cache/metadata/en/ilc_esms.htm">
+            Income and living conditions (ilc)
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 </div>

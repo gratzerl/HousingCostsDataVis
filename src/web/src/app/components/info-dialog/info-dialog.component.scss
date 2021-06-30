@@ -1,4 +1,7 @@
+@use '~@angular/material' as mat;
+
 @import "src/variables.scss";
+@import "src/theme.scss";
 
 section {
   h4 {
@@ -26,6 +29,22 @@ section {
 
     .heading {
       font-weight: 600;
+    }
+  }
+}
+
+.sources-section {
+  .sources-list {
+    list-style: none;
+    padding: 0;
+
+    li {
+      height: 24px;
+      padding: 4px;
+
+      a {
+        color: mat.get-color-from-palette($primary-palette, 900);
+      }
     }
   }
 }
