@@ -15,16 +15,19 @@
   align-items: baseline;
 
   @media (max-width: $max-md-width) {
-    grid-template-columns: 50% 50%;
-  }
-
-  @media (max-width: $max-sm-width) {
     display: flex;
     flex-direction: column-reverse;
+    grid-template-columns: none;
+    align-items: unset;
   }
 
   app-housing-ownership-bubble {
     top: 15%;
     position: sticky;
+
+    @media (max-width: $max-sm-width) {
+      position: relative;
+      width: 100%;
+    }
   }
 }

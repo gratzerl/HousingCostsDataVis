@@ -1,6 +1,10 @@
 @import "src/variables.scss";
 
 .top-row {
+  position: sticky;
+  top: 24px;
+  z-index: 1000;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
